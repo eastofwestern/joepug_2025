@@ -44,9 +44,11 @@ IV. Set up Cloudflare
 
 III. Push local Git repo to DreamHost server
 
-1.  Create a bare repository on your DreamHost server
+1.  Create a bare repository on your DreamHost server.
+   
     i. Log in to the server with this command
     ` ssh [username]@[server.dreamhost.com]`
+    
     ii. Create a new directory for your new remote repository
     ```
         cd ~
@@ -71,7 +73,7 @@ III. Push local Git repo to DreamHost server
     ```
     iv. Confirm the HEAD file is set to use main by running the command `cat HEAD`. You should see main is being used:
     `ref: refs/heads/main`
-2.  Push local repo to the remote repo
+3.  Push local repo to the remote repo
     i. Exit the server and get back to your local repo
     ii. Add the empty DreamHost repo as a "remote" within your local git repo using this command:
     `git remote add dreamhost ssh://[user]@[server].dreamhost.com/~/[project].eowdev.com.git`
