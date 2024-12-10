@@ -1,0 +1,8 @@
+{
+  "name": "social-icons",
+  "version": "1.0.0",
+  "description": "Auto Generates the correct SVG Social Icons based on social URLs",
+  "main": "index.js",
+  "author": "East of Western",
+  "license": "MIT"
+}

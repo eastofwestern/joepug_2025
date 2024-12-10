@@ -1,0 +1,50 @@
+/* ************** TEXT PAGE ******************* */
+
+.inner.textpage {
+  width: 88%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.textpage ul {
+  list-style-type: disc;
+  font-size: 1rem;
+  margin-left: 40px;
+}
+
+.textpage li {
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  padding-bottom: 1em;
+}
+
+.textpage ul.icons {
+  list-style-type: none;
+  font-size: 0;
+  margin-left: 0;
+}
+
+.textpage .icons li {
+  display: inline-block;
+  vertical-align: middle;
+  width: 25px;
+  height: auto;
+  margin-right: 8px;
+  color: blue;
+}
+
+.textpage .icons li a {
+  display: block;
+}
+
+.textpage .icons li a svg {
+  width: 100%;
+  height: auto;
+  fill: #ccc;
+  transition: fill 0.2s;
+}
+
+.no-touchevents .textpage .icons li a:hover svg,
+.textpage .icons li a:active svg {
+  fill: #ff0000;
+}

@@ -1,0 +1,91 @@
+/* ************** SLIDESHOW - SLICK CAROUSEL ***************** */
+
+.ui {
+  width: 18px;
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.ui.prev {
+  left: 0px;
+  padding: 23px;
+}
+.ui.next {
+  right: 0;
+  padding: 23px;
+}
+
+.ui.close {
+  width: 20px;
+  height: 20px;
+  padding: 20px 22px;
+  top: 0;
+  left: 0;
+  -ms-transform: none;
+  transform: none;
+}
+
+.ui line {
+  stroke: #000000;
+  stroke-width: 4;
+}
+
+.slickslideshow .cell {
+  text-align: center;
+  position: relative;
+  font-size: 0;
+  height: 91.8%;
+  height: calc(100% - 57px);
+  opacity: 1;
+  transition: opacity 0.6s 0.2s;
+}
+
+.slickslideshow .cell .inner {
+  width: 88%;
+  max-width: calc(100% - 176px);
+  height: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.slickslideshow .cell iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.slickslideshow .cell video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.slickslideshow .cell .photo {
+  max-width: 88%;
+  max-width: calc(100% - 176px);
+  max-height: 100%;
+}
+
+.slickslideshow figcaption {
+  position: absolute;
+  bottom: -48px;
+  height: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  width: 88%;
+}
+
+.slickslideshow figcaption > div {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1rem;
+  padding: 0 1em;
+}

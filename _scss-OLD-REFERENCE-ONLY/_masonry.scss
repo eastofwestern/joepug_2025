@@ -1,0 +1,264 @@
+/*masonry-style*/
+
+.masongrid {
+  width: 100%;
+  list-style-type: none;
+  min-height: 100%;
+}
+
+.masongrid .cell {
+  display: block;
+  float: left;
+  /*opacity: 0;*/
+  overflow: hidden;
+  text-align: left;
+}
+
+.grid-sizer,
+.masongrid .cell {
+  width: 24.5%;
+  height: auto;
+}
+
+.masongrid .cell.large {
+  width: 49.66%;
+}
+
+.gutter-sizer {
+  width: 0.66%;
+}
+
+.masongrid .shown,
+.no-js .masongrid figure,
+.no-cssanimations .masongrid figure {
+  opacity: 1;
+}
+
+.masongrid figure a,
+.masongrid figure img {
+  outline: none;
+  border: none;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+}
+
+/* Effect 1: opacity */
+
+.masongrid.effect-1 figure.animate {
+  animation: fadeIn 0.65s ease forwards;
+  -webkit-animation: fadeIn 0.65s ease forwards;
+  -moz-animation: fadeIn 0.65s ease forwards;
+  -o-animation: fadeIn 0.65s ease forwards;
+}
+
+/* Effect 2: Move Up */
+.masongrid.effect-2 figure.animate {
+  opacity: 1;
+  -webkit-transform: translateY(200px);
+  transform: translateY(200px);
+  -webkit-animation: moveUp 0.65s ease forwards;
+  animation: moveUp 0.65s ease forwards;
+}
+
+@-webkit-keyframes moveUp {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* alternating cell widths grid */
+
+.grid-alternating {
+  width: 93.2%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.grid-alternating figure.cell {
+  width: 30.83%;
+  background: rgba(0, 0, 0, 1);
+  font-size: 0;
+  margin-bottom: 45px;
+
+  /* sets bottom margins equal to grid gutters */
+  /* first number in calc() equation is grid's width (as percentage of viewport width) */
+  /* second number is "gutter" (percentage of grid's width) as a decimal */
+  margin-bottom: calc(93.2vw * 0.0375);
+}
+
+.grid-alternating figure.cell:nth-child(5n + 1),
+.grid-alternating figure.cell:nth-child(5n + 2) {
+  width: 48.125%;
+}
+
+.grid-alternating figure.cell:after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  padding-top: 56%; /* adjust this for different aspect ratios */
+}
+
+.grid-alternating .cell a {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-alternating .cell .cover {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  transition: 0.2s;
+}
+
+.no-touchevents .grid-alternating .cell:hover .cover {
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.grid-alternating .cell figcaption {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 10%;
+  font-size: 1rem;
+  z-index: 5;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s 0s, transform 0s 0.2s;
+}
+
+.no-touchevents .grid-alternating .cell:hover figcaption {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 0.3s 0.1s, transform 0.3s 0.1s;
+}
+
+.grid-alternating .cell .title {
+  display: block;
+  font-size: 1.1em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  line-height: 1;
+}
+
+.grid-alternating .cell .sub-title {
+  display: block;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.85em;
+}
+
+.grid-alternating .cell .title + .sub-title {
+  padding-top: 1em;
+}
+
+/* grid - justified gallery */
+.justified {
+  width: 90%;
+  margin: auto;
+}
+
+.justified .cell {
+  background: rgba(0, 0, 0, 1);
+}
+
+.justified .photo {
+  opacity: 1;
+  z-index: 1;
+  opacity: 1;
+  transition: 0.2s;
+}
+
+.no-touchevents .justified .cell:hover .photo {
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.justified .cell .caption {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 10%;
+  font-size: 1rem;
+  z-index: 5;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s 0s, transform 0s 0.2s;
+}
+
+.no-touchevents .justified .cell:hover .caption {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 0.3s 0.1s, transform 0.3s 0.1s;
+}
+
+.justified .cell .title {
+  display: block;
+  font-size: 1.1em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  line-height: 1;
+}
+
+.justified .cell .sub-title {
+  display: block;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.85em;
+}
+
+.justified .cell .title + .sub-title {
+  padding-top: 1em;
+}

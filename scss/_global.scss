@@ -1,0 +1,326 @@
+/* ************** MIXINS ******************* */
+
+@mixin absolute-vertical {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@mixin inline-vertical-before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+
+// mixins for media queries
+@mixin small-phone {
+  @media all and (max-width: 320px) {
+    @content;
+  }
+}
+
+@mixin phone-portrait {
+  @media all and (max-width: 767px) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin phone-landscape {
+  @media all and (max-width: 896px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin basic-mobile {
+  @media all and (max-width: 1023px) {
+    @content;
+  }
+}
+
+/* ************** GENERAL STYLES + RESETS ******************* */
+
+.preload * {
+  transition: none !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+html {
+  font-size: 100%;
+}
+
+.wf-loading .tk-fade {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.wf-active .tk-fade {
+  opacity: 1;
+}
+
+body {
+  width: 100%;
+  font-family: $font-primary;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  color: $color-foreground;
+  background: $color-background;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body.masonry {
+  overflow-y: scroll;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+p {
+  line-height: 1.4;
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+h1, h2, h3, .headline {
+  font-family: $font-headline;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+label,
+input,
+textarea,
+select {
+  font-size: 16px;
+  display: block;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline-block;
+}
+
+input,
+textarea {
+  background-color: transparent;
+  padding: 0px 10px;
+  height: 34px;
+  color: #000;
+  border: 1px solid #000;
+
+  border-radius: 0px;
+  box-sizing: border-box;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input[type="submit"] {
+  padding: 0px 10px;
+  border: 0px;
+  cursor: pointer;
+
+  border-radius: 0px;
+  box-sizing: border-box;
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+label {
+  padding-bottom: 5px;
+}
+
+/* BEGIN JS LIBRARY REQUIRED STYLES */
+
+.cell {
+  .mediawrap {
+    position: relative;
+    width: 100%;
+    height: 0;
+    img.photo,
+    video {
+      @include absolute-cover;
+    }
+  }
+}
+
+.cover {
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+}
+
+.cover.loaded {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.loadme,
+.loadmeview {
+  opacity: 0;
+}
+
+.bg-loadme {
+  opacity: 0;
+}
+
+.loadme.loaded,
+.loadmeview.loaded,
+.bg-loadme.loaded {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.photo.size-width {
+  width: 102%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.photo.size-height {
+  width: auto;
+  height: 102%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.resize-image {
+  overflow: hidden;
+}
+
+.social {
+  ul {
+    li {
+      opacity: 0;
+      transition: opacity 0.3s;
+      &.loaded {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* ANYTHING WRAPPED IN TEXT-BLOCK IS COMING FROM USER TEXT EDITOR */
+
+.text-block {
+  img,
+  video {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .cols {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    .col {
+      display: block;
+    }
+  }
+}
+
+h1 {
+  font-size: 3.4vw;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+/* ************** ANIMATION UTILITIES ***************** */
+
+.fadeOn {
+  opacity: 0;
+}
+
+.fadeUp,
+.fadeUpDelay {
+  opacity: 0;
+  transform: translateY(5rem);
+}
+
+/* ************** SITE STRUCTURE ******************* */
+
+main {
+  margin: 0px auto;
+  position: relative;
+  z-index: 1;
+
+  article {
+    min-height: calc(100vh - 127px);
+  }
+
+  #content {
+    &:before {
+      content: "";
+      display: block;
+      height: 140px;
+    }
+  }
+}
+
+.homepage {
+  main {
+    #content {
+      &:before {
+        display: none;
+      }
+    }
+  }
+}

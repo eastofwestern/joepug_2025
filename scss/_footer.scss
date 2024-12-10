@@ -1,0 +1,48 @@
+/* ************** FOOTER ******************* */
+
+footer {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  background: #151515;
+  color: #fff;
+
+  .inner {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    font-size: 0px;
+    line-height: 0px;
+    padding: 45px 0px;
+
+    p {
+      font-size: 0.8rem;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    .social {
+      li {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 15px;
+
+        &:last-child {
+          margin-right: 0px;
+        }
+
+        svg {
+          width: 25px;
+          height: auto;
+
+          * {
+            stroke: none;
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+}

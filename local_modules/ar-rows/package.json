@@ -1,0 +1,8 @@
+{
+  "name": "ar-rows",
+  "version": "1.0.0",
+  "description": "Justified row layout based on user defined row breaks",
+  "main": "index.js",
+  "author": "East of Western",
+  "license": "MIT"
+}

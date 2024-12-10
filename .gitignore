@@ -1,0 +1,5 @@
+_SOURCE
+node_modules
+.cache
+.parcel-cache
+.npmrc
