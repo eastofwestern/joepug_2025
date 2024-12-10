@@ -32,7 +32,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 </head>
 
-<body>
+<body class="textpage">
 
 	<?php include('includes/header.php'); ?>
 
@@ -42,20 +42,23 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 			<article class="inner textpage">
 				<div class="two_column">
-					<div class="col">
-						<div class="text-block">
-							<div class="inner">
-								<?= $pageText['content'] ?>
+					<div class="col_wrap">
+						<div class="col">
+							<div class="text-block">
+								<div class="inner">
+									<?= $pageText['content'] ?>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="text-block">
+								<div class="inner">
+									<?= $pageText['content2'] ?>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col">
-						<div class="text-block">
-							<div class="inner">
-								<?= $pageText['content2'] ?>
-							</div>
-						</div>
-					</div>
+
 
 				</div>
 

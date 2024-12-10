@@ -39,6 +39,10 @@
   padding: 0;
 }
 
+*, :before, :after {
+  box-sizing: border-box;
+}
+
 html {
   font-size: 100%;
 }
@@ -86,8 +90,12 @@ h1:last-child, h2:last-child, h3:last-child, p:last-child {
   margin-bottom: 0;
 }
 
-h1, h2, h3, .headline {
+h1, h2, .headline {
   font-family: NordRegular, sans-serif;
+}
+
+h3 {
+  font-family: SudRegular, sans-serif;
 }
 
 em, i {
@@ -224,7 +232,8 @@ h2 {
 }
 
 h3 {
-  font-size: 2rem;
+  letter-spacing: 1.5px;
+  font-size: 1.2rem;
 }
 
 p {
@@ -258,6 +267,10 @@ main #content:before {
 
 .homepage main #content:before {
   display: none;
+}
+
+.textpage, .textpage main #content:before {
+  background-color: #f7da70;
 }
 
 header {
@@ -484,6 +497,60 @@ footer .inner .social li svg {
 footer .inner .social li svg * {
   stroke: none;
   fill: #fff;
+}
+
+.two_column .col_wrap {
+  padding: 4.5% 10%;
+  display: flex;
+}
+
+.two_column .col_wrap .col {
+  flex-direction: column;
+  width: 50%;
+  margin-right: 75px;
+  display: flex;
+}
+
+.two_column .col_wrap .col h3 {
+  border-bottom: 1px solid #000;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+.two_column .col_wrap .col:last-child {
+  margin-right: 0;
+}
+
+.two_column .col_wrap .col table {
+  box-sizing: content-box;
+}
+
+.two_column .col_wrap .col table tbody tr td {
+  vertical-align: top;
+  padding-bottom: 12px;
+}
+
+.two_column .col_wrap .col table tbody tr td:first-child {
+  font-size: .7rem;
+  font-style: italic;
+}
+
+.two_column .col_wrap .col:last-child table tbody tr td {
+  font-size: 1.1rem;
+}
+
+.two_column .col_wrap .col:last-child table tbody tr td:first-child {
+  font-size: 1.15rem;
+  font-style: normal;
+}
+
+.two_column .col_wrap .col:last-child table tbody tr td ul {
+  list-style-type: none;
+}
+
+.two_column .col_wrap .col:last-child table tbody tr td ul li {
+  padding-bottom: 7px;
+  font-family: SentinelMedium;
 }
 
 .centered {
