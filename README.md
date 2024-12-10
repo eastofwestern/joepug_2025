@@ -73,14 +73,16 @@ III. Push local Git repo to DreamHost server
     ```
     iv. Confirm the HEAD file is set to use main by running the command `cat HEAD`. You should see main is being used:
     `ref: refs/heads/main`
-3.  Push local repo to the remote repo
-    i. Exit the server and get back to your local repo
+2. Push local repo to the remote repo
+
+   i. Exit the server and get back to your local repo
     
-    ii. Add the empty DreamHost repo as a "remote" within your local git repo using this command:
+   ii. Add the empty DreamHost repo as a "remote" within your local git repo using this command:
     `git remote add dreamhost ssh://[user]@[server].dreamhost.com/~/[project].eowdev.com.git`
-    iii. Check if the new remote exists by running `git remote show`, which should return "dreamhost"
+
+   iii. Check if the new remote exists by running `git remote show`, which should return "dreamhost"
     
-    iv. Push the local repo to the DreamHost server
+   iv. Push the local repo to the DreamHost server
     `git push -u dreamhost main `
 
 IV. Push live changes to the DreamHost website
@@ -90,10 +92,12 @@ IV. Push live changes to the DreamHost website
 2.  Log in to your web server via SSH
 3.  CD into your remote repository directory, eg ` cd joepug.eowdev.com.git`
 4.  Run nano and create a file named post-receive:
-    `nano hooks/post-receive`
+    ```nano hooks/post-receive```
 5.  Add this code to the file:
-    `#!/bin/sh
-GIT_WORK_TREE=/home/[username]/[example].eowdev.com git checkout -f main`
+    ```
+    #!/bin/sh
+    GIT_WORK_TREE=/home/[username]/[example].eowdev.com git checkout -f main
+    ```
 6.  Save and close
 7.  Give the file execute rights:
-    ` chmod +x hooks/post-receive`
+   ``` chmod +x hooks/post-receive```
