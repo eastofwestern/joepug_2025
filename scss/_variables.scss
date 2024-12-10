@@ -1,9 +1,44 @@
-$font-primary: "klavika-web", sans-serif;
-$font-headline: "program", sans-serif;
+@font-face {
+  font-family: "NordRegular";
+  src: url("../fonts/Nord/Nord-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SudRegular";
+  src: url("../fonts/Sud/Sud-Regular.otf") format("opentype");
+}
+
+// Book, bold, Light, Light Italic, Medium
+@font-face {
+  font-family: "SentinelBook";
+  src: url("../fonts/Sentinel/Sentinel-Book.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SentinelBold";
+  src: url("../fonts/Sentinel/Sentinel-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SentinelLight";
+  src: url("../fonts/Sentinel/Sentinel-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SentinelMedium";
+  src: url("../fonts/Sentinel/Sentinel-Medium.otf") format("opentype");
+}
+
+$font-primary: "SentinelLight", sans-serif;
+$font-headline: "NordRegular", sans-serif;
+$font-sud: "SudRegular", sans-serif;
+$font-primary-bold: "SentinelBold", sans-serif;
+$font-primary-book: "SentinelBook", sans-serif;
+$font-primary-medium: "SentinelMedium", sans-serif;
 
 /* COLORS */
-$color-accent1: #d83e94;
-$color-accent2: #772f59;
-$color-background: black;
-$color-foreground: white;
-
+$color-accent1: #f7da70;
+$color-accent2: #f6edda;
+$color-background: white;
+$color-foreground: black;
+$color-gray: #c5c5c5;

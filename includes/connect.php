@@ -19,6 +19,6 @@ class Database
 		self::$init = TRUE;
 		//self::$conn = new mysqli("internal-db.s118007.gridserver.com", "db118007_eow", "System78*", "db118007_mfg");
 		// self::$conn = new mysqli("mysql.eowdev.com", "eowdev", "BOMhGywsQpMgs8", "joepug_eow");
-		self::$conn = new mysqli("localhost", "root", "root", "joepug2025");
+		self::$conn = new mysqli("localhost", "root", "root", "joepug_2025");
 	}
 }

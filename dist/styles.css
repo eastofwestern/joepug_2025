@@ -1,3 +1,33 @@
+@font-face {
+  font-family: NordRegular;
+  src: url("Nord-Regular.e43d1761.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SudRegular;
+  src: url("Sud-Regular.59b1a591.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SentinelBook;
+  src: url("Sentinel-Book.5e3115ab.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SentinelBold;
+  src: url("Sentinel-Bold.afb5364a.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SentinelLight;
+  src: url("Sentinel-Light.19426034.otf") format("opentype");
+}
+
+@font-face {
+  font-family: SentinelMedium;
+  src: url("Sentinel-Medium.51200e32.otf") format("opentype");
+}
+
 .preload * {
   transition: none !important;
 }
@@ -32,7 +62,7 @@ body {
   -webkit-tap-highlight-color: #0000;
   background: #fff;
   width: 100%;
-  font-family: sans-serif;
+  font-family: SentinelLight, sans-serif;
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
@@ -54,6 +84,10 @@ h1, h2, h3, p {
 
 h1:last-child, h2:last-child, h3:last-child, p:last-child {
   margin-bottom: 0;
+}
+
+h1, h2, h3, .headline {
+  font-family: NordRegular, sans-serif;
 }
 
 em, i {
@@ -304,7 +338,7 @@ header .inner .menuBtn div .line:nth-child(3) {
 header nav {
   z-index: 16;
   text-align: right;
-  color: #000;
+  color: #f7da70;
   position: absolute;
   top: 35px;
   right: 5%;
