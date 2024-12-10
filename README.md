@@ -41,9 +41,9 @@ IV. Set up Cloudflare
 
 III. Push local Git repo to DreamHost server
    1. Create a bare repository on your DreamHost server
-      i. Log in to the server with this command
+         i. Log in to the server with this command
       ` ssh [username]@[server.dreamhost.com]`
-      ii. Create a new directory for your new remote repository
+         ii. Create a new directory for your new remote repository
       ```
           cd ~
           mkdir [projectname].eowdev.com.git
@@ -51,7 +51,7 @@ III. Push local Git repo to DreamHost server
           git init --bare
           git symbolic-ref HEAD refs/heads/main
       ```
-      iii. Run `ls -la` to confirm that the files and directories have been created, it should look like this:
+         iii. Run `ls -la` to confirm that the files and directories have been created, it should look like this:
       ```
          total 40
          drwxrwxr-x  7 dh_6xz7ms pg10989616 4096 Dec 10 19:21 .
@@ -65,14 +65,14 @@ III. Push local Git repo to DreamHost server
          drwxrwxr-x  4 dh_6xz7ms pg10989616 4096 Dec 10 19:21 objects
          drwxrwxr-x  4 dh_6xz7ms pg10989616 4096 Dec 10 19:21 refs
       ```
-      iv. Confirm the HEAD file is set to use main by running the command `cat HEAD`. You should see main is being used:
+         iv. Confirm the HEAD file is set to use main by running the command `cat HEAD`. You should see main is being used:
       `ref: refs/heads/main`
    3. Push local repo to the remote repo
-      i. Exit the server and get back to your local repo
-      ii. Add the empty DreamHost repo as a "remote" within your local git repo using this command:
+         i. Exit the server and get back to your local repo
+         ii. Add the empty DreamHost repo as a "remote" within your local git repo using this command:
       `git remote add dreamhost ssh://[user]@[server].dreamhost.com/~/[project].eowdev.com.git`
-      iii. Check if the new remote exists by running `git remote show`, which should return "dreamhost"  
-      iv. Push the local repo to the DreamHost server
+         iii. Check if the new remote exists by running `git remote show`, which should return "dreamhost"
+         iv. Push the local repo to the DreamHost server
       `git push -u dreamhost main `
 
 IV. Push live changes to the DreamHost website 
