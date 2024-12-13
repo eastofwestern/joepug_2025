@@ -1,81 +1,76 @@
 <?php
 
-	session_start();
-	include("includes/connect.php");
-	include("includes/functions.php");
-	
-	date_default_timezone_set('America/Los_Angeles');
+session_start();
+include("includes/connect.php");
+include("includes/functions.php");
 
-	if (!isset($_SERVER['QUERY_STRING'])) {
-		$_SERVER['QUERY_STRING'] = '';
+date_default_timezone_set('America/Los_Angeles');
+
+if (!isset($_SERVER['QUERY_STRING'])) {
+	$_SERVER['QUERY_STRING'] = '';
+}
+
+if (strpos($_SERVER['QUERY_STRING'], '/index.html') === 0) {
+	if (strpos($_SERVER['PATH_INFO'], '/index.html') !== 0) {
+		$_SERVER['QUERY_STRING'] = '/index.html' . $_SERVER['QUERY_STRING'];
 	}
+}
 
-	if (strpos($_SERVER['QUERY_STRING'],'/index.html')===0) {
-		if (strpos($_SERVER['PATH_INFO'], '/index.html')!==0) {
-			$_SERVER['QUERY_STRING'] = '/index.html'.$_SERVER['QUERY_STRING'];
-		}
-	}
+$slug = $_SERVER['QUERY_STRING']; //get what was sent
 
-	$slug = $_SERVER['QUERY_STRING']; //get what was sent
+if (strpos($slug, '../') === 0) {
+	exit('Big Security Threat!');
+} //dont allow higher level directories!!
 
-	if (strpos($slug,'../')===0) {
-		exit('Big Security Threat!');
-	} //dont allow higher level directories!!
-	
-	// CHECK FOR ERROR MESSAGE IN URL
-	$fullURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";	
-	$parts = parse_url($fullURL);
-	if (isset($parts['query'])) {
-		parse_str($parts['query'], $query);
-		$errorMessage = $query['errorMessage'];
-		$video = $query['video'];
-	}
-	
-	$projectCheck = stristr($slug, "/project/");
-	$projectSlug = str_replace("/project/", "", $slug);
+// CHECK FOR ERROR MESSAGE IN URL
+$fullURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$parts = parse_url($fullURL);
+if (isset($parts['query'])) {
+	parse_str($parts['query'], $query);
+	$errorMessage = $query['errorMessage'];
+	$video = $query['video'];
+}
 
-	$slideshowCheck = stristr($slug, "/slideshow/");
-	$slideshowSlug = str_replace("/slideshow/", "", $slug);
+$projectCheck = stristr($slug, "/project/");
+$projectSlug = str_replace("/project/", "", $slug);
 
-	$slug = str_replace("/", "", $slug);
-	$dataSlug = str_replace("-and-", "-/-", $slug);
+$slideshowCheck = stristr($slug, "/slideshow/");
+$slideshowSlug = str_replace("/slideshow/", "", $slug);
 
-	$sql = "SELECT * FROM cat_list WHERE slug = '$slug'";
+$slug = str_replace("/", "", $slug);
+$dataSlug = str_replace("-and-", "-/-", $slug);
 
-	$result = mysqli_query(Database::$conn,$sql);
-	$row = mysqli_fetch_array($result);
+$sql = "SELECT * FROM cat_list WHERE slug = '$slug'";
 
-	if ($slug === "") {
+$result = mysqli_query(Database::$conn, $sql);
+$row = mysqli_fetch_array($result);
 
-		header("Location: /");
-		exit;
+if ($slug === "") {
 
+	header("Location: /");
+	exit;
+} else {
+
+	if ($projectCheck) {
+
+		include('project.php');
+	} elseif ($slideshowCheck) {
+
+		include('slideshow.php');
+	} elseif ($row['pageType'] === "grid") {
+
+		include('gridpage.php');
+	} elseif ($row['pageType'] === "text") {
+
+		include('textpage.php');
+	} elseif ($row['pageType'] === "grid - series") {
+
+		include('grid-series.php');
+	} elseif ($row['pageType'] === "modules") {
+
+		include('modulespage.php');
 	} else {
-		
-		if ($projectCheck) {
-		
-			include('project.php');	
 
-			} elseif ($slideshowCheck) {
-
-				include('slideshow.php');
-
-				} elseif ($row['pageType'] === "grid") {
-
-					include('gridpage.php');
-
-					} elseif ($row['pageType'] === "text") {
-
-						include('textpage.php');
-
-						} elseif ($row['pageType'] === "modules") {
-
-							include('modulespage.php');
-
-							} else {
-
-								include('404.php');
-				
-						}
-
+		include('404.php');
 	}
+}

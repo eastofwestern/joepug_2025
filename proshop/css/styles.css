@@ -864,10 +864,8 @@ ul {
   color: #000000;
   float: left;
   width: 150px;
-  height: 150px;
+  height: 200px;
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
 
 .picCover {

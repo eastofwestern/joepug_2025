@@ -323,7 +323,7 @@ main {
     &:before {
       content: "";
       display: block;
-      height: 140px;
+      height: 110px;
     }
   }
 }
@@ -332,7 +332,7 @@ main {
   main {
     #content {
       &:before {
-        display: none;
+        height: 100px;
       }
     }
   }

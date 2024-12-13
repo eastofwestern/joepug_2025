@@ -1,192 +1,290 @@
 /* ************** HEADER ******************* */
 
 header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 140px;
-	z-index: 100;
-	
-	.inner {
-		position: absolute;
-		z-index: 15;
-		width: 100%;
-		height: 100%;
-		
-		.logo {
-			position: absolute;
-			top: 35px;
-			left: 35px;
-			width: auto;
-			height: auto;
-			
-			img, svg {
-				display: block;
-				width: 100%;
-				height: auto;
-				
-				* {
-					 fill: #000;
-				}
-			}
-		}
-		
-		.menuBtn {
-			position: absolute;
-			top: 37px;
-			right: 50px;
-			cursor: pointer;
-			z-index: 3;
-			display: none;
-			
-			div {
-				width: 22px;
-				height: 22px;
-				position: relative;
-		
-				.line {
-					height: 4px;
-					width: 100%;
-					display: block;
-					position: absolute;
-					right: 0;
-					background-color: #000;
-					opacity: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  z-index: 100;
 
-					transform: rotate(0deg);
+  .inner {
+    position: absolute;
+    z-index: 15;
+    width: 100%;
+    height: 100%;
 
-					transition-property: background-color, opacity, transform, top;
-					transition-duration: .2s, .1s, .3s, .3s;
-					transition-delay: 0s, 0s, 0s, 0s;
+    .logo {
+      position: absolute;
+      top: 35px;
+      left: 35px;
+      width: auto;
+      height: auto;
 
-					&:nth-child(1) {
-						top: 0px;
-					}
+      img,
+      svg {
+        display: block;
+        width: 100%;
+        height: auto;
 
-					&:nth-child(2) {
-						top: 10px;
-					}
+        * {
+          fill: #000;
+        }
+      }
+    }
 
-					&:nth-child(3) {
-						top: 20px;
-					}
-					
-				}
-				
-			}
-			
-		}
-		
-	}
-	
-	nav {
-		position: absolute;
-		z-index: 16;
-		top: 35px;
-		right: 5%;
-		text-align: right;
-		color: $color-accent1;
-		
-		ul {
-			list-style-type: none;
-			display: flex;
-			
-			li {
-				margin-right: 15px;
-				position: relative;
+    .menuBtn {
+      position: absolute;
+      top: 37px;
+      right: 50px;
+      cursor: pointer;
+      z-index: 3;
+      display: none;
 
-				&:last-child {
-					margin-right: 0px;
-				}
-				
-				a {
-					transition: color .3s;
-					
-					&:hover, &.pageOn {
-						color: #ccc;
-					}
-				}
-				&:hover {
-					ul.subs {
-						display: block;
-					}
-				}
-			}
-			&.subs {
-				display: none;
-				position: absolute;
-				top: 0;
-				left: 0;
-				padding-top: 30px;
-				text-align: left;
-				li {
-					display: block;
-				}
-			}
-		}
-		&.takeover {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			transform: unset;
-			background-color: rgba(255,255,255,.9);
-			opacity: 0;
-			transition: opacity .5s;
-			pointer-events: none;
-			ul {
-				width: 90%;
-				text-align: center;
-				@include absolute-vertical;
-				flex-direction: column;
-				li {
-					margin: 0px auto;
-					a {
-						font-size: 5rem;
-					}
-				}
-			}
-		}
-	}
+      div {
+        width: 22px;
+        height: 22px;
+        position: relative;
 
+        .line {
+          height: 4px;
+          width: 100%;
+          display: block;
+          position: absolute;
+          right: 0;
+          background-color: #000;
+          opacity: 1;
+
+          transform: rotate(0deg);
+
+          transition-property: background-color, opacity, transform, top;
+          transition-duration: 0.2s, 0.1s, 0.3s, 0.3s;
+          transition-delay: 0s, 0s, 0s, 0s;
+
+          &:nth-child(1) {
+            top: 0px;
+          }
+
+          &:nth-child(2) {
+            top: 10px;
+          }
+
+          &:nth-child(3) {
+            top: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  nav {
+    position: absolute;
+    z-index: 16;
+    top: 40px;
+    right: 35px;
+    text-align: right;
+    color: $color-accent1;
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      padding-right: 30px;
+      li {
+        // margin-right: 15px;
+        // position: relative;
+        font-size: 0.8rem;
+        font-family: $font-sud;
+        font-weight: 600;
+        letter-spacing: 1.5;
+        padding-bottom: 5px;
+        &:last-child {
+        }
+
+        a {
+          transition: color 0.3s;
+          text-decoration: none;
+          color: $color-gray;
+          &:hover,
+          &.pageOn {
+            color: $color-foreground;
+            text-decoration: underline;
+          }
+        }
+        &:hover {
+          ul.subs {
+            // display: block;
+          }
+        }
+        &:last-child {
+          position: absolute;
+          top: 0;
+          right: 0;
+          writing-mode: vertical-lr;
+          //   text-orientation: upright;
+        }
+      }
+      &.subs {
+        pointer-events: none;
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: 30px;
+        text-align: left;
+        li {
+          display: block;
+        }
+      }
+    }
+    &.takeover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: unset;
+      background-color: rgba(255, 255, 255, 0.9);
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+      ul {
+        width: 90%;
+        text-align: center;
+        @include absolute-vertical;
+        flex-direction: column;
+        li {
+          margin: 0px auto;
+          a {
+            font-size: 5rem;
+          }
+        }
+      }
+    }
+  }
 }
 
 /* MENU ON */
 
 .menuOn {
+  header {
+    .inner {
+      .menuBtn .line {
+        background-color: rgba(0, 0, 0, 1) !important;
 
-	header {
-		.inner {
-			.menuBtn .line {
-				background-color: rgba(0,0,0,1) !important;
+        transition-property: background-color, opacity, transform, top;
+        transition-duration: 0.2s, 0.1s, 0.3s, 0.3s;
+        transition-delay: 0s, 0s, 0s, 0s;
 
-				transition-property: background-color, opacity, transform, top;
-				transition-duration: .2s, .1s, .3s, .3s;
-				transition-delay: 0s, 0s, 0s, 0s;
-			
-				&:nth-child(1) {
-					top: 8px;
-					transform: rotate(45deg);
-				}
+        &:nth-child(1) {
+          top: 8px;
+          transform: rotate(45deg);
+        }
 
-				&:nth-child(2) {
-					opacity: 0;
-					transition: opacity .1s 0s;
-				}
+        &:nth-child(2) {
+          opacity: 0;
+          transition: opacity 0.1s 0s;
+        }
 
-				&:nth-child(3) {
-					top: 8px;
-					transform: rotate(135deg);
-				}
+        &:nth-child(3) {
+          top: 8px;
+          transform: rotate(135deg);
+        }
+      }
+    }
+    nav.takeover {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
 
-			}
-		}
-		nav.takeover {
-			opacity: 1;
-			pointer-events: all;
-		}		
-	}
-	
+/* CONTACT MODULE */
+.contact_module {
+  z-index: 101;
+  position: fixed;
+  width: 100vw;
+  height: auto;
+  transform: translateY(0);
+  transition: transform 0.5s;
+  &.hidden {
+    transform: translateY(-100%);
+  }
+  .closeBtn {
+    p {
+      font-family: $font-sud;
+      text-decoration: underline;
+      letter-spacing: 1.5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      position: absolute;
+      writing-mode: vertical-lr;
+      top: 45px;
+      right: 50px;
+      cursor: pointer;
+    }
+  }
+  table {
+    height: 80vh !important;
+    background-color: transparent;
+
+    tbody {
+      tr {
+        &:first-child {
+          vertical-align: bottom;
+          height: 200px !important;
+          h3 {
+            font-weight: 400;
+            width: 90%;
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+          }
+        }
+        &:nth-child(2) {
+          vertical-align: top;
+          height: 150px !important;
+          h3 {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+          }
+          p {
+            font-size: 1.2rem;
+          }
+          td {
+            padding-bottom: 3vh;
+          }
+        }
+        &:last-child {
+          vertical-align: top;
+          padding-bottom: 20px;
+          p:first-child {
+            width: 90%;
+            margin-bottom: 0;
+            padding-top: 20px;
+            border-top: 1px solid black;
+          }
+          td {
+            padding-bottom: 5vh;
+            a {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        td {
+          padding: 26px 6% 0 4%;
+
+          &:first-child {
+            background-color: rgba(197, 197, 197, 0.98);
+          }
+          &:nth-child(2) {
+            background-color: rgba(247, 218, 112, 0.98);
+          }
+          &:last-child {
+            background-color: rgba(246, 237, 218, 0.98);
+          }
+        }
+      }
+    }
+  }
 }

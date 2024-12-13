@@ -9,10 +9,6 @@ $catDetails = catDetails($catID);
 $images = getImages($catID, $catDetails['sorter']);
 $firstImage = getFirstImage($catID, $catDetails['sorter']);
 
-/* THIS CODE IS ONLY USED FOR MODULE BASED HOMEPAGE */
-$pageSubs = getCatModules($catID, $catDetails['sorter']);
-$isMods = true;
-
 $slug = $catDetails['slug'];
 
 $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug));
@@ -55,88 +51,93 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 <body class="preload homepage">
 
 	<?php include('includes/header.php'); ?>
+	<?php include('contact.php'); ?>
+	<div id="smooth-wrapper">
+		<div id="smooth-content">
+			<main>
 
-	<main>
+				<section id="content">
 
-		<section id="content">
+					<article class="inner home">
 
-			<article class="inner home">
-
-				<?php
-
-				/*
-					
-						FOR MODULE BASED HOMEPAGE, INCLUDE LAYOUTS BELOW.
-						FOR SINGLE LAYOUT HOMEPAGE, COPY/PASTE THE CORRECT LAYOUT FROM THE _LAYOUTS folder
-
-						COMMON CELL MARK-UP INCLUDED BELOW FOR AUTOPLAY VIDEOS, TITLES, CAPTIONS.  CAN BE USED IN ANY PARENT LAYOUT (I.E. SLIDESHOW, GRID, ETC)
-
-					*/
+						<div class="grid loose">
 
 
-				?>
+							<?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
 
-				<?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
+								<?php
 
-					<?php
+								$ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
+								$itemRatio = $item['height'] / $item['width'];
+								$itemPad = $itemRatio * 100;
 
-					$ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
-					$itemRatio = $item['height'] / $item['width'];
-					$itemPad = $itemRatio * 100;
+								$itemVideo = getImageVideo($item['id']);
 
-					$itemVideo = getImageVideo($item['id']);
+								$cellClass = "";
 
-					$cellClass = "";
+								$hasAutoVideo = false;
+								if ($itemVideo['hoverFile'] != "") {
+									$hasAutoVideo = true;
+									$cellClass .= " autovideo";
+								}
 
-					$hasAutoVideo = false;
-					if ($itemVideo['hoverFile'] != "") {
-						$hasAutoVideo = true;
-						$cellClass .= " autovideo";
-					}
+								$hasTitle = false;
+								$hasCaption = false;
 
-					$hasTitle = false;
-					$hasCaption = false;
+								if ($item['title'] != "title:" and $item['title'] != "") {
+									$hasTitle = true;
+								}
 
-					if ($item['title'] != "title:" and $item['title'] != "") {
-						$hasTitle = true;
-					}
+								if ($item['caption'] != "caption:" and $item['caption'] != "") {
+									$hasCaption = true;
+								}
 
-					if ($item['caption'] != "caption:" and $item['caption'] != "") {
-						$hasCaption = true;
-					}
+								$styleStr = "z-index: " . $count . ";";
+								if ($item['catTopMargin'] != "") {
+									$styleStr .= "margin-top: " . $item['catTopMargin'] . "%;";
+								}
+								if ($item['catLeftMargin'] != "") {
+									$styleStr .= "margin-left: " . $item['catLeftMargin'] . "%;";
+								}
+								if ($item['catColStart'] != "") {
+									$styleStr .= "grid-column: " . $item['catColStart'] . " / " . $item['catColEnd'] . ";";
+								}
 
-					?>
+								?>
 
-					<figure class="cell <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
-						<div class="mediawrap" style="padding-top: <?= $itemPad ?>%;">
-							<img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" alt="<?= $company ?>" />
-							<?php if ($hasAutoVideo) { ?>
-								<div class="vidhold"></div>
+								<figure class="cell <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?> style="<?= $styleStr ?>">
+									<div class="mediawrap" style="padding-top: <?= $itemPad ?>%;">
+										<img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" alt="<?= $company ?>" />
+										<?php if ($hasAutoVideo) { ?>
+											<div class="vidhold"></div>
+										<?php } ?>
+									</div>
+									<?php if ($hasTitle or $hasCaption) { ?>
+										<figcaption class="info">
+											<?php if ($hasTitle) { ?>
+												<h2><?= $item['title'] ?></h2>
+											<?php } ?>
+											<?php if ($hasCaption) { ?>
+												<h3><?= $item['caption'] ?></h3>
+											<?php } ?>
+										</figcaption>
+									<?php } ?>
+								</figure>
+
 							<?php } ?>
+
 						</div>
-						<?php if ($hasTitle or $hasCaption) { ?>
-							<figcaption class="info">
-								<?php if ($hasTitle) { ?>
-									<h2><?= $item['title'] ?></h2>
-								<?php } ?>
-								<?php if ($hasCaption) { ?>
-									<h3><?= $item['caption'] ?></h3>
-								<?php } ?>
-							</figcaption>
-						<?php } ?>
-					</figure>
 
-				<?php } ?>
+					</article>
 
-				<?php include('layouts.php'); ?>
+				</section>
 
-			</article>
+			</main>
+			<?php include('includes/footer.php'); ?>
+		</div>
+	</div>
 
-		</section>
 
-	</main>
-
-	<?php include('includes/footer.php'); ?>
 	<?php include('includes/overlays.php'); ?>
 	<?php include('includes/scripts.php'); ?>
 

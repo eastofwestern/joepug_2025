@@ -78,15 +78,15 @@ $result2 = getImages($catID, $theCat['sorter']);
 
 			<?php include('metaEditor.php'); ?>
 
-			<?php if ($theParent['pageType'] === "directors") { ?>
+			<?php if ($theCat['pageType'] === "text + media" or $theCat['pageType'] === "text + two media" or $theCat['pageType'] === "grid - six items" or $theCat['pageType'] === "grid - six items (narrow)") { ?>
+				<span class="head">SECTION TEXT</span><br /><br />
 
 				<form action="updateCatText.php" method="post" name="cattext" id="cattext">
 					<input type="hidden" id="source" name="source" value="manage_images.php">
 					<input type="hidden" id="catID" name="catID" value="<?= $catID ?>">
 					<input type="hidden" id="parentID" name="parentID" value="<?= $parentID ?>">
 
-					<h3>BIO</h3>
-					<textarea class="mceEditor" id="content" name="content" style="width: 900px; height: 200px;"><?= $theCat['content'] ?></textarea><br /><br />
+					<textarea class="mceEditor" id="page_content" name="page_content" style="width: 900px; height: 100px;"><?= $theCat['content'] ?></textarea><br /><br />
 
 					<input type="submit" id="btn" value="UPDATE" /><br /><br />
 
@@ -94,17 +94,11 @@ $result2 = getImages($catID, $theCat['sorter']);
 
 			<?php } ?>
 
-			<div>
-				<form action="updateCatColor.php" method="post">
-					<input type="hidden" name="catID" value="<?= $catID ?>" />
-					<input type="hidden" name="parentID" value="<?= $parentID ?>" />
-					<input type="hidden" name="parentParentID" value="<?= $parentParentID ?>" />
-					<input type="hidden" name="source" value="manage_images.php" />
-					<span class="head">BACKGROUND COLOR:</span><br />
-					<input type="text" id="colorpicker" name="bgColor" value="<?= $theCat['bgColor'] ?>"><br /><br />
-					<input type="submit" id="btn" value="UPDATE COLOR" /><br /><br />
-				</form>
-			</div>
+			<?php if ($theCat['pageType'] === "grid - loose") { ?>
+				<h3>GRID TIPS</h3>
+				<p>If you want items to stay on the same row make sure the end column and start column do not overlap.</p>
+				<p>The margin numbers are a % of the size of the image. You can use negative numbers to pull items up instead of down with top margin. Same idea with left margin. Using a negative number will pull the item to the left instead of right.<br /><br /></p>
+			<?php } ?>
 
 			<div class="uploadHolder" style="width: 60%; float: left;">
 				<h3>ADD NEW ITEM(S)</h3>
@@ -177,6 +171,7 @@ $result2 = getImages($catID, $theCat['sorter']);
 				<input type="hidden" name="parentID" value="<?= $parentID ?>" />
 				<input type="hidden" name="parentParentID" value="<?= $parentParentID ?>" />
 				Sort By: <select name="thesort" onchange="this.form.submit()">
+					<option value="alphabetical" <?php if ($theCat['sorter'] === "alphabetical") { ?>selected<?php } ?>>alphabetical</option>
 					<option value="filename" <?php if ($theCat['sorter'] === "filename") { ?>selected<?php } ?>>filename</option>
 					<option value="drag" <?php if ($theCat['sorter'] === "drag") { ?>selected<?php } ?>>drag</option>
 				</select>
@@ -324,11 +319,15 @@ $result2 = getImages($catID, $theCat['sorter']);
 
 										$ext = pathinfo(getOption("physicalPath") . "/images/pics/" . $pic['img'], PATHINFO_EXTENSION);
 
+										/*
 										if (file_exists(getOption("physicalPath") . "/images/pics/500/" . $pic['img'])) {
 											$theImg = getOption("imagePath") . "500/" . $pic['img'];
 										} else {
 											$theImg = getOption("imagePath") . $pic['img'];
 										}
+										*/
+
+										$theImg = getOption("imagePath") . "500/" . $pic['img'];
 
 										if ($ext === "gif") {
 											$theImg = getOption("imagePath") . $pic['img'];
@@ -447,23 +446,49 @@ $result2 = getImages($catID, $theCat['sorter']);
 											
 											*/ ?>
 
+												<?php if ($theCat['pageType'] === "grid - loose") { ?>
+
+													<span class="smallGray">top margin:</span>
+													<input type="text" class="topMargin" name="topMargin" value="<?= $pic['catTopMargin'] ?>" style="width: 30px" />%<br />
+
+													<span class="smallGray">left margin:</span>
+													<input type="text" class="leftMargin" name="leftMargin" value="<?= $pic['catLeftMargin'] ?>" style="width: 30px;" />%<br />
+
+													<div style="display: flex; justify-content: space-between;">
+
+														<div style="width: 48%;">
+															<span class="smallGray">column start:</span>
+															<input type="text" class="colStart" name="colStart" value="<?= $pic['catColStart'] ?>" /><br />
+														</div>
+
+														<div style="width: 48%;">
+															<span class="smallGray">column end:</span>
+															<input type="text" class="colEnd" name="colEnd" value="<?= $pic['catColEnd'] ?>" /><br />
+														</div>
+
+													</div>
+
+												<?php } ?>
+
+
+												<?php if ($theCat['pageType'] === "grid - masonry") { ?>
+
+													<span class="smallGray">image size:</span>
+													<select name="imgSize[]" class="imgSize" style="font-size: 10px; width: 122px;">
+														<option value="" selected>--select--</option>
+
+														<option value="large" <?php if ($pic['catSize'] === "large") { ?>selected<?php } ?>>large</option>
+
+													</select><br />
+
+												<?php } ?>
+
+
 												<?php /*
-											
-											<?php if ($catID != 551) { ?>
-											
-												<span class="smallGray">image size:</span>
-												<select name="imgSize[]" class="imgSize" style="font-size: 10px; width: 122px;">
-													<option value="" selected>--select--</option>
-
-													<option value="large" <?php if ($pic['catSize'] === "large") { ?>selected<?php } ?>>large</option>
-
-												</select><br />
-												
-											<?php } ?>
-											
-											*/ ?>
 
 												<input type="checkbox" name="rowBreak[]" class="rowBreak" value="no" style="width: 20px;" <?php if ($pic['catBreak'] === "yes") { ?>checked<?php } ?>> <span style="font-size: 10px; color: #fff; position: relative; top: -3px;">end row</span><br />
+
+												*/ ?>
 
 											</div>
 
@@ -534,9 +559,8 @@ $result2 = getImages($catID, $theCat['sorter']);
 		mode: "specific_textareas",
 		selector: ".mceEditor",
 		images_upload_url: 'postAcceptor.php',
-		plugins: "image link media lists code table",
+		plugins: "image link media lists code",
 		toolbar: "styles bold italic forecolor alignleft aligncenter alignright alignjustify bullist numlist outdent indent link image media code",
-		preview_styles: false,
 		style_formats: [{
 				title: 'Heading 1',
 				block: 'h1'
@@ -552,6 +576,31 @@ $result2 = getImages($catID, $theCat['sorter']);
 			{
 				title: 'Paragraph',
 				block: 'p'
+			},
+			{
+				title: 'Paragraph - Large',
+				block: 'p',
+				classes: 'large'
+			},
+			{
+				title: 'Light Font',
+				inline: 'span',
+				classes: 'light',
+			},
+			{
+				title: 'Animate - Letters',
+				inline: 'span',
+				classes: 'split'
+			},
+			{
+				title: 'Animate - Fade On',
+				inline: 'span',
+				classes: 'fadeOn'
+			},
+			{
+				title: 'Animate - Fade Up',
+				inline: 'span',
+				classes: 'fadeUp'
 			},
 		],
 		image_class_list: [{
@@ -576,10 +625,30 @@ $result2 = getImages($catID, $theCat['sorter']);
 				value: 'btn'
 			}
 		],
-		content_css: '/css/admin.css',
+		content_css: '/css/admin.css?v=3',
 		relative_urls: false,
+		/*
+		setup: function(ed) {
+			ed.addButton('column', {
+				title: 'Make Column',
+				text: 'Column',
+				icon: false,
+				onclick: function() {
+					var text = ed.selection.getContent({
+						'format': 'html'
+					});
+					if (text && text.length > 0) {
+						ed.execCommand('mceInsertContent', false,
+							'<div class="col">' + text + '</div>');
+					}
+				}
+			});
+		}
+		*/
 	});
+</script>
 
+<script type="text/javascript">
 	// HTML 5 FILE UPLOAD
 	(function() {
 		var filesUpload = document.getElementById("files-upload"),
@@ -819,6 +888,30 @@ $result2 = getImages($catID, $theCat['sorter']);
 			imgSizeArray.push(imgSize);
 		});
 
+		var topMarginArray = [];
+		$('.topMargin').each(function() {
+			var topMargin = $(this).val();
+			topMarginArray.push(topMargin);
+		});
+
+		var leftMarginArray = [];
+		$('.leftMargin').each(function() {
+			var leftMargin = $(this).val();
+			leftMarginArray.push(leftMargin);
+		});
+
+		var colStartArray = [];
+		$('.colStart').each(function() {
+			var colStart = $(this).val();
+			colStartArray.push(colStart);
+		});
+
+		var colEndArray = [];
+		$('.colEnd').each(function() {
+			var colEnd = $(this).val();
+			colEndArray.push(colEnd);
+		});
+
 		var rowBreakArray = [];
 		$('.rowBreak').each(function() {
 			if ($(this).is(':checked')) {
@@ -847,7 +940,11 @@ $result2 = getImages($catID, $theCat['sorter']);
 			"show": showArray,
 			"deleteArray": deleteArray,
 			"imgSizeArray": imgSizeArray,
-			"rowBreakArray": rowBreakArray
+			"rowBreakArray": rowBreakArray,
+			"topMarginArray": topMarginArray,
+			"leftMarginArray": leftMarginArray,
+			"colStartArray": colStartArray,
+			"colEndArray": colEndArray,
 		};
 		var data_encoded = JSON.stringify(data);
 
@@ -859,7 +956,6 @@ $result2 = getImages($catID, $theCat['sorter']);
 			},
 			success: function(response) {
 				window.location.href = response;
-				//console.log(response);
 			},
 			error: function() {
 				alert('failure');
@@ -1113,11 +1209,10 @@ $result2 = getImages($catID, $theCat['sorter']);
 
 	$(document).ready(function() {
 
-		// add the fixed class to the body when the toolbar hits the top of the window
-		var toolbarOffset = $('.toolbar').offset().top - 51;
-
-		$('#contentArea').scroll(function() {
-			if ($('#contentArea').scrollTop() > toolbarOffset) {
+		$('#contentArea').scroll(function(event) {
+			var scroll = $('#contentArea').scrollTop();
+			console.log(scroll);
+			if (scroll > 445) {
 				$('body').addClass('fixed');
 			} else {
 				$('body').removeClass('fixed');
@@ -1148,13 +1243,6 @@ $result2 = getImages($catID, $theCat['sorter']);
 			height: "227px",
 			iframe: true,
 			opacity: ".95"
-		});
-
-		$("#colorpicker").spectrum({
-			color: '<?= $theCat['bgColor'] ?>',
-			showInput: true,
-			showAlpha: false,
-			preferredFormat: "name"
 		});
 
 	});

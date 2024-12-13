@@ -6,7 +6,9 @@ import socialIcons from "social-icons";
 import arRows from "ar-rows";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import ScrollSmoother from "gsap/ScrollSmoother";
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
 import zenscroll from "zenscroll";
 
 /* SETUP VARS */
@@ -18,9 +20,10 @@ let socialEl = document.querySelectorAll(".social");
 let rowsEl = document.querySelectorAll(".ar-rows");
 const nav = document.querySelector("nav");
 const overlay = document.getElementById("overlay");
+let overlayInner, overlayCloser;
 if (typeof overlay != "undefined" && overlay != null) {
-  const overlayInner = overlay.querySelector(".inner");
-  const overlayCloser = overlay.querySelector(".closer");
+  overlayInner = overlay.querySelector(".inner");
+  overlayCloser = overlay.querySelector(".closer");
 }
 
 window.addEventListener("load", function () {
@@ -31,6 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ***************************************** */
   /* INITIALIZATION ON PAGE LOAD */
   /* ***************************************** */
+
+  ScrollSmoother.create({
+    smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+    effects: true, // looks for data-speed and data-lag attributes on elements
+    smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
+  });
 
   // global animation effects
   ScrollTrigger.batch(".fadeUp", {
@@ -327,11 +336,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.addEventListener("resize", reportWindowSize);
 
-
-  
   /* ***************************************** */
   /* EVENTS */
   /* ***************************************** */
+
+  // Contact toggle
+
+  let contactModule = document.querySelector(".contact_module");
+  let contactBtn = document.querySelector("#contact");
+  let contactCloseBtn = contactModule.querySelector(".closeBtn");
+  console.log(contactBtn);
+  contactBtn.addEventListener("click", (e) => {
+    e.preventDefault;
+    console.log("click");
+    contactModule.classList.remove("hidden");
+  });
+  contactCloseBtn.addEventListener("click", (e) => {
+    e.preventDefault;
+    contactModule.classList.add("hidden");
+  });
 
   // overlay links
   let overlayLinks = document.querySelectorAll(".openOverlay");

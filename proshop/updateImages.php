@@ -4,9 +4,9 @@ session_start();
 include 'includes/secure.php';
 include '../includes/connect.php';
 include 'includes/functions.php';
+include 'classes/resize-class.php';
 
 $detailID = 0;
-$moduleID = 0;
 $thisDesc = "";
 $thisHover = "";
 $thisImgSize = "";
@@ -70,6 +70,19 @@ if (isset($_POST["myContent"])) {
         if (isset($data_array["rowBreakArray"])) {
             $rowBreakArray = $data_array["rowBreakArray"];
         }
+
+        if (isset($data_array["topMarginArray"])) {
+            $topMarginArray = $data_array["topMarginArray"];
+        }
+        if (isset($data_array["leftMarginArray"])) {
+            $leftMarginArray = $data_array["leftMarginArray"];
+        }
+        if (isset($data_array["colStartArray"])) {
+            $colStartArray = $data_array["colStartArray"];
+        }
+        if (isset($data_array["colEndArray"])) {
+            $colEndArray = $data_array["colEndArray"];
+        }
     }
 } else {
     echo "Error!";
@@ -121,8 +134,21 @@ foreach ($picIDArray as $picID) {
         $thisRowBreak = "";
     }
 
-    if ($thisCaption != "caption:" and $thisCaption != "") {
-        $thisSlug = createSlug($thisTitle . "-" . $thisCaption);
+    $thisTopMargin = mysqli_real_escape_string(Database::$conn, $topMarginArray[$myCount]);
+    $thisLeftMargin = mysqli_real_escape_string(Database::$conn, $leftMarginArray[$myCount]);
+    if (isset($colStartArray[$myCount])) {
+        $thisColStart = mysqli_real_escape_string(Database::$conn, $colStartArray[$myCount]);
+    } else {
+        $thisColStart = "";
+    }
+    if (isset($colEndArray[$myCount])) {
+        $thisColEnd = mysqli_real_escape_string(Database::$conn, $colEndArray[$myCount]);
+    } else {
+        $thisColEnd = "";
+    }
+
+    if ($thisCaption != "" and $thisCaption != "caption:") {
+        $thisSlug = createSlug($thisTitle, "-", $thisCaption);
     } else {
         $thisSlug = createSlug($thisTitle);
     }
@@ -138,39 +164,30 @@ foreach ($picIDArray as $picID) {
 
     // NEW LOGIC TO ALLOW FOR SINGLE PIC TO LIVE IN MULTIPLE CATEGORIES
 
-    // only run cat_pics querys if we are not in a module
-    if ($moduleID == 0) {
+    $query1a = "SELECT * FROM cat_pics WHERE catid = '$thisMoveCat' and picid = '$picID'";
 
-        // Update imgSize and rowBreak for cat_pics (if not in module
+    //echo $query1a . "\n";
 
-        $query1a = "SELECT * FROM cat_pics WHERE catid = '$thisMoveCat' and picid = '$picID'";
+    $result1a = mysqli_query(Database::$conn, $query1a);
+    $num1a = mysqli_num_rows($result1a);
 
-        //echo $query1a . "\n";
+    //echo $num1a . "\n\n";
 
-        $result1a = mysqli_query(Database::$conn, $query1a);
-        $num1a = mysqli_num_rows($result1a);
+    if ($num1a == 0) {
 
-        //echo $num1a . "\n\n";
+        $query1b = "INSERT INTO cat_pics (picid, catid, imgSize, rowBreak, topMargin, leftMargin, colStart, colEnd) VALUES ('$picID', '$thisMoveCat', '$thisImgSize', '$thisRowBreak', '$thisTopMargin', '$thisLeftMargin', '$thisColStart', '$thisColEnd')";
 
-        if ($num1a == 0) {
+        $result1b = mysqli_query(Database::$conn, $query1b);
+    } else {
 
-            $query1b = "INSERT INTO cat_pics (picid, catid, imgSize, rowBreak) VALUES ('$picID', '$thisMoveCat', '$thisImgSize', '$thisRowBreak')";
+        $query1b = "UPDATE cat_pics SET imgSize = '$thisImgSize', rowBreak = '$thisRowBreak', topMargin = '$thisTopMargin', leftMargin = '$thisLeftMargin', colStart = '$thisColStart', colEnd = '$thisColEnd' WHERE picid = '$picID' AND catid = '$catID'";
 
-            $result1b = mysqli_query(Database::$conn, $query1b);
-        } else {
+        $result1b = mysqli_query(Database::$conn, $query1b);
+    }
 
-            $query1b = "UPDATE cat_pics SET imgSize = '$thisImgSize', rowBreak = '$thisRowBreak' WHERE picid = '$picID' AND catid = '$catID'";
-
-            $result1b = mysqli_query(Database::$conn, $query1b);
-        }
-
-        // if they are moving to a new category we need to delete from existing
-        if ($thisMoveCat != $catID) {
-
-            $query1c = "DELETE FROM cat_pics WHERE picid = '$picID' AND catid = '$catID'";
-
-            $result1c = mysqli_query(Database::$conn, $query1c);
-        }
+    if (!$result1b) {
+        die('Could not query 1b:' . mysqli_error(Database::$conn));
+        exit;
     }
 
     // Update imgSize and rowBreak for module_pics
@@ -179,6 +196,14 @@ foreach ($picIDArray as $picID) {
         $query11 = "UPDATE module_pics SET rowBreak = '$thisRowBreak', imgSize = '$thisImgSize' WHERE modid = '$moduleID' AND picid = '$picID'";
 
         $result11 = mysqli_query(Database::$conn, $query11);
+    }
+
+    // if they are moving to a new category we need to delete from existing
+    if ($thisMoveCat != $catID) {
+
+        $query1c = "DELETE FROM cat_pics WHERE picid = '$picID' AND catid = '$catID'";
+
+        $result1c = mysqli_query(Database::$conn, $query1c);
     }
 
     if ($thisCopyCat != "") {
