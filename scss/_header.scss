@@ -18,11 +18,14 @@ header {
       position: absolute;
       top: 35px;
       left: 35px;
-      width: auto;
-      height: auto;
+      // width: 300px;
+      // height: 300px;
+      height: 50px;
+      width: 150px;
 
       img,
       svg {
+        position: absolute;
         display: block;
         width: 100%;
         height: auto;

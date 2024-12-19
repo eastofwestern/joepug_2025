@@ -290,8 +290,8 @@ header .inner {
 }
 
 header .inner .logo {
-  width: auto;
-  height: auto;
+  width: 150px;
+  height: 50px;
   position: absolute;
   top: 35px;
   left: 35px;
@@ -301,6 +301,7 @@ header .inner .logo img, header .inner .logo svg {
   width: 100%;
   height: auto;
   display: block;
+  position: absolute;
 }
 
 header .inner .logo img *, header .inner .logo svg * {
@@ -708,6 +709,25 @@ footer .inner .social li svg * {
   grid-column: span 3;
 }
 
+.filter ul {
+  width: 92%;
+  margin: 65px auto 0;
+  list-style-type: none;
+  display: flex;
+}
+
+.filter ul li {
+  margin-right: 15px;
+}
+
+.filter ul li a {
+  text-decoration: none;
+}
+
+.filter ul li.pageOn a, .filter ul li:hover a {
+  text-decoration: underline;
+}
+
 .grid.flex {
   border-top: 1px solid #000;
   width: 92%;
@@ -729,6 +749,7 @@ footer .inner .social li svg * {
 .grid.flex .row .cell {
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
   margin-right: 25px;
   display: flex;
 }
@@ -741,6 +762,19 @@ footer .inner .social li svg * {
   object-fit: contain;
   width: auto;
   height: 100%;
+}
+
+.grid.flex.archive {
+  padding-top: 75px;
+}
+
+.grid.flex.archive .row {
+  border-bottom: none;
+}
+
+.grid.flex.archive .row .cell {
+  margin-bottom: 40px;
+  margin-right: 40px;
 }
 
 .justified {

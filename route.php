@@ -31,6 +31,9 @@ if (isset($parts['query'])) {
 	$video = $query['video'];
 }
 
+$archiveCheck = stristr($slug, "/archive/");
+$archiveSlug = str_replace("/archive/", "", $slug);
+
 $projectCheck = stristr($slug, "/project/");
 $projectSlug = str_replace("/project/", "", $slug);
 
@@ -54,9 +57,13 @@ if ($slug === "") {
 	if ($projectCheck) {
 
 		include('project.php');
+		
 	} elseif ($slideshowCheck) {
 
 		include('slideshow.php');
+	} elseif ($archiveCheck) {
+
+		include('grid-archive.php');
 	} elseif ($row['pageType'] === "grid") {
 
 		include('gridpage.php');
@@ -66,6 +73,9 @@ if ($slug === "") {
 	} elseif ($row['pageType'] === "grid - series") {
 
 		include('grid-series.php');
+	} elseif ($row['pageType'] === "grid - archive") {
+
+		include('grid-archive.php');
 	} elseif ($row['pageType'] === "modules") {
 
 		include('modulespage.php');

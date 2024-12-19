@@ -33,43 +33,44 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 </head>
 
 <body class="textpage">
-
 	<?php include('includes/header.php'); ?>
-
-	<main>
-
-		<section id="content">
-
-			<article class="inner textpage">
-				<div class="two_column">
-					<div class="col_wrap">
-						<div class="col">
-							<div class="text-block">
-								<div class="inner">
-									<?= $pageText['content'] ?>
+	<?php include('contact.php'); ?>
+	<div id="smooth-wrapper">
+		<div id="smooth-content">
+			<main>
+				<section id="content">
+					<article class="inner textpage">
+						<div class="two_column">
+							<div class="col_wrap">
+								<div class="col">
+									<div class="text-block">
+										<div class="inner">
+											<?= $pageText['content'] ?>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<div class="text-block">
+										<div class="inner">
+											<?= $pageText['content2'] ?>
+										</div>
+									</div>
 								</div>
 							</div>
+
+
 						</div>
-						<div class="col">
-							<div class="text-block">
-								<div class="inner">
-									<?= $pageText['content2'] ?>
-								</div>
-							</div>
-						</div>
-					</div>
 
 
-				</div>
+					</article>
 
+				</section>
 
-			</article>
+			</main>
+			<?php include('includes/footer.php'); ?>
+		</div>
+	</div>
 
-		</section>
-
-	</main>
-
-	<?php include('includes/footer.php'); ?>
 	<?php include('includes/overlays.php'); ?>
 	<?php include('includes/scripts.php'); ?>
 

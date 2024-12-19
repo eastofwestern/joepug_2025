@@ -1,7 +1,7 @@
 <?php
 $contactID = 728;
 $contactDetails = catDetails($contactID);
-$pageText = getPageTextID($contactID)
+$contactPageText = getPageTextID($contactID)
 
 ?>
 
@@ -11,6 +11,6 @@ $pageText = getPageTextID($contactID)
         <p>CLOSE</p>
     </div>
     <div class="inner">
-        <?= $pageText['content'] ?>
+        <?= $contactPageText['content'] ?>
     </div>
 </div>
