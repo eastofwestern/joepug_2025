@@ -7,7 +7,8 @@ import arRows from "ar-rows";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+import Flip from "gsap/Flip";
+gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother);
 
 import zenscroll from "zenscroll";
 
@@ -339,6 +340,81 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ***************************************** */
   /* EVENTS */
   /* ***************************************** */
+  //Logo animation
+  let logo = document.querySelector(".logo");
+  let letters = gsap.utils.toArray("path");
+  let J = logo.querySelector("#J");
+  let O = logo.querySelector("#O");
+  let E = logo.querySelector("#E");
+  let P = logo.querySelector("#P");
+  let U = logo.querySelector("#U");
+  let G = logo.querySelector("#G");
+  const state = Flip.getState([J, O, E, P, U, G]);
+  function unscramble() {
+    // const state = Flip.getState([J, O, E, P, U, G]);
+
+    // let logoTL = gsap.timeline();
+    // logoTL
+    //   .to(J, {
+    //     x: 100,
+    //     rotate: 92,
+    //   })
+    //   .to(O, {
+    //     y: 20,
+    //     x: 20,
+    //   });
+
+    gsap.set(J, {
+      x: 14,
+      y: 2,
+      rotate: 15.5,
+      scale: 0.95,
+    });
+    gsap.set(O, {
+      x: 3,
+      y: 22,
+      scale: 1.08,
+    });
+    gsap.set(E, {
+      x: 82,
+      rotate: 104.5,
+      y: -23,
+      scale: 1.09,
+    });
+    gsap.set(P, {
+      x: 45,
+      y: 3,
+      scale: 1.11,
+    });
+    gsap.set(U, {
+      x: 34,
+      rotate: -16,
+      y: 26.5,
+      scale: 1.24,
+    });
+    gsap.set(G, {
+      x: 104,
+      rotate: 28,
+      y: -35,
+      scale: 1.08,
+    });
+
+    Flip.from(state, {
+      absolute: true,
+      druation: 0.7,
+    });
+  }
+
+  function scramble() {
+    Flip.to(state, {
+      absolute: true,
+    });
+  }
+
+  logo.addEventListener("mouseover", unscramble);
+  logo.addEventListener("mouseleave", scramble);
+
+  
 
   //Footer animation
   let footer = document.querySelector("footer");
@@ -349,14 +425,15 @@ document.addEventListener("DOMContentLoaded", function () {
   let footerTL = gsap.timeline({
     scrollTrigger: {
       trigger: footer,
-      start: "30% bottom",
+      start: "50% bottom",
       end: "bottom bottom",
       scrub: 2,
     },
   });
   footerTL
     .to(joe, {
-      clipPath: "inset(0 1% 0 0)",
+      clipPath: "inset(0 10% 0 0)",
+      duration: 2,
     })
     .to(pug, {
       delay: 2,

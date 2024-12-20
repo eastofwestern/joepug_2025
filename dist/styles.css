@@ -302,10 +302,15 @@ header .inner .logo img, header .inner .logo svg {
   height: auto;
   display: block;
   position: absolute;
+  overflow: visible;
 }
 
 header .inner .logo img *, header .inner .logo svg * {
   fill: #000;
+}
+
+header .inner .logo svg:first-child {
+  display: none;
 }
 
 header .inner .menuBtn {

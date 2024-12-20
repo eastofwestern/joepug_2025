@@ -29,9 +29,16 @@ header {
         display: block;
         width: 100%;
         height: auto;
-
+        overflow: visible;
         * {
           fill: #000;
+        }
+      }
+      svg:first-child {
+        display: none;
+      }
+      .flipped {
+        &#J {
         }
       }
     }
