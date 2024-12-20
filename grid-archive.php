@@ -58,6 +58,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 <body class="preload workpage">
 
     <?php include('includes/header.php'); ?>
+    <?php include('contact.php'); ?>
     <div id="smooth-wrapper">
         <div id="smooth-content">
             <main>

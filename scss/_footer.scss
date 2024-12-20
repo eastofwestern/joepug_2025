@@ -4,19 +4,62 @@ footer {
   position: relative;
   z-index: 5;
   text-align: center;
-  background: #151515;
-  color: #fff;
+  // background: #151515;
+  color: black;
 
   .inner {
-    width: 90%;
+    width: 92%;
     margin: auto;
     text-align: center;
     font-size: 0px;
     line-height: 0px;
     padding: 45px 0px;
-
-    p {
-      font-size: 0.8rem;
+    a {
+      text-decoration: none;
+    }
+    .animated_name {
+      padding-top: 200px;
+      width: 100%;
+      margin: auto;
+      position: relative;
+      img {
+        position: absolute;
+        left: 0;
+        bottom: 7px;
+        clip-path: inset(0 77% 0 0);
+      }
+      svg {
+        position: absolute;
+        right: 0%;
+        bottom: 0;
+        
+      }
+    }
+    .bottom {
+      position: relative;
+      width: 100%;
+      border-top: 1px solid black;
+      padding-top: 20px;
+      display: flex;
+      .col {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-right: 8%;
+      }
+      p {
+        text-align: left;
+        font-size: 0.7rem;
+        margin-bottom: 0;
+        &.title {
+          font-family: $font-sud;
+          font-weight: 600;
+        }
+        &.credit {
+          position: absolute;
+          right: 20px;
+        }
+      }
     }
 
     ul {

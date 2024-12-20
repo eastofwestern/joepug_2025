@@ -294,7 +294,7 @@ header .inner .logo {
   height: 50px;
   position: absolute;
   top: 35px;
-  left: 35px;
+  left: 4%;
 }
 
 header .inner .logo img, header .inner .logo svg {
@@ -564,22 +564,73 @@ header nav.takeover ul li a {
 footer {
   z-index: 5;
   text-align: center;
-  color: #fff;
-  background: #151515;
+  color: #000;
   position: relative;
 }
 
 footer .inner {
   text-align: center;
-  width: 90%;
+  width: 92%;
   margin: auto;
   padding: 45px 0;
   font-size: 0;
   line-height: 0;
 }
 
-footer .inner p {
-  font-size: .8rem;
+footer .inner a {
+  text-decoration: none;
+}
+
+footer .inner .animated_name {
+  width: 100%;
+  margin: auto;
+  padding-top: 200px;
+  position: relative;
+}
+
+footer .inner .animated_name img {
+  -webkit-clip-path: inset(0 77% 0 0);
+  clip-path: inset(0 77% 0 0);
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+}
+
+footer .inner .animated_name svg {
+  position: absolute;
+  bottom: 0;
+  right: 0%;
+}
+
+footer .inner .bottom {
+  border-top: 1px solid #000;
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  position: relative;
+}
+
+footer .inner .bottom .col {
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 8%;
+  display: flex;
+}
+
+footer .inner .bottom p {
+  text-align: left;
+  margin-bottom: 0;
+  font-size: .7rem;
+}
+
+footer .inner .bottom p.title {
+  font-family: SudRegular, sans-serif;
+  font-weight: 600;
+}
+
+footer .inner .bottom p.credit {
+  position: absolute;
+  right: 20px;
 }
 
 footer .inner ul {
