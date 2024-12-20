@@ -698,7 +698,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let flkty = new Flickity(slideshowEl, {
             // options
             fade: true,
-            cellSelector: ".cell"
+            cellSelector: ".cell",
+            Draggable: true
         });
         // change event
         flkty.on("change", function(index) {
@@ -791,8 +792,9 @@ document.addEventListener("DOMContentLoaded", function() {
         xhr.send();
         return xhr;
     }
-    function openOverlay() {
+    function openOverlay(target) {
         overlay.classList.add("on");
+        target.appendChild(overlay);
     }
     function closeOverlay() {
         overlay.classList.remove("on");
@@ -948,8 +950,19 @@ document.addEventListener("DOMContentLoaded", function() {
             let id = overlayLink.getAttribute("data-id");
             getAjax("/getItem.php?id=" + id, function(data) {
                 overlayInner.innerHTML = data;
-                openOverlay();
             });
+            // Open Overlay in the row that was clicked
+            parentRow = e.currentTarget.closest(".row");
+            openOverlay(parentRow);
+            let workpage = document.querySelector(".workpage");
+            // Hide other cells in the row
+            if (workpage) {
+                let parent = e.currentTarget.closest(".row");
+                let cells = parent.querySelectorAll(".cell");
+                cells.forEach((cell)=>{
+                    cell.classList.add("hide");
+                });
+            }
         });
     });
     //hamburger menu toggle

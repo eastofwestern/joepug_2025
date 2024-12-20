@@ -72,7 +72,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                 <section id="content">
 
                     <article class="inner work">
-
+                        <?php include('includes/overlays.php'); ?>
 
                         <?php for ($projectCount = 1; $project = mysqli_fetch_array($projects); ++$projectCount) { ?>
                             <?php
@@ -82,50 +82,55 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                             ?>
                             <div class="grid flex">
                                 <p><?= $project["subName"] ?> </p>
-                                <div class="row"> <?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
+                                <div class="row">
+
+
+                                    <!-- ROW VIEW -->
+                                    <?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
 
                                         <?php
 
-                                                        $ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
-                                                        $itemRatio = $item['height'] / $item['width'];
-                                                        $itemPad = $itemRatio * 100;
+                                        $ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
+                                        $itemRatio = $item['height'] / $item['width'];
+                                        $itemPad = $itemRatio * 100;
 
-                                                        $itemVideo = getImageVideo($item['id']);
+                                        $itemVideo = getImageVideo($item['id']);
 
-                                                        $cellClass = "";
+                                        $cellClass = "";
 
-                                                        $hasAutoVideo = false;
-                                                        if ($itemVideo['hoverFile'] != "") {
-                                                            $hasAutoVideo = true;
-                                                            $cellClass .= " autovideo";
-                                                        }
+                                        $hasAutoVideo = false;
+                                        if ($itemVideo['hoverFile'] != "") {
+                                            $hasAutoVideo = true;
+                                            $cellClass .= " autovideo";
+                                        }
 
-                                                        $hasTitle = false;
-                                                        $hasCaption = false;
+                                        $hasTitle = false;
+                                        $hasCaption = false;
 
-                                                        if ($item['title'] != "title:" and $item['title'] != "") {
-                                                            $hasTitle = true;
-                                                        }
+                                        if ($item['title'] != "title:" and $item['title'] != "") {
+                                            $hasTitle = true;
+                                        }
 
-                                                        // if ($item['caption'] != "caption:" and $item['caption'] != "") {
-                                                        //     $hasCaption = true;
-                                                        // }
+                                        // if ($item['caption'] != "caption:" and $item['caption'] != "") {
+                                        //     $hasCaption = true;
+                                        // }
 
-                                                        // TO DO: need to figure ouut how to get categories here
+                                        // TO DO: need to figure ouut how to get categories here
 
-                                                        $theLink = "#" . $item['slug'];
-                                                        $theTarget = "_parent";
-                                                        if ($item['picURL'] != "" and $item['picURL'] != "url:") {
-                                                            $theLink = $item['picURL'];
-                                                            if (strpos($theLink, 'http') !== false) {
-                                                                $theTarget = "_blank";
-                                                            }
-                                                        }
+                                        $theLink = "#" . $item['slug'];
+                                        $theTarget = "_parent";
+                                        if ($item['picURL'] != "" and $item['picURL'] != "url:") {
+                                            $theLink = $item['picURL'];
+                                            if (strpos($theLink, 'http') !== false) {
+                                                $theTarget = "_blank";
+                                            }
+                                        }
 
                                         ?>
+                                        <!-- Need to add openOverlay or openSlideshow  -->
 
                                         <figure class="cell fadeOn <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
-                                            <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openVideo openOverlay" data-id="<?= $item['id'] ?>">
+                                            <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openVideo " data-id="<?= $item['id'] ?>">
 
 
                                                 <div class="media_wrap">
@@ -147,6 +152,75 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 
                                     <?php } ?>
+
+                                    
+                                    <!-- SLIDESHOW VIEW -->
+                                    <div class="slideshow_wrapper" style="background-color: <?= $page['bgColor'] ?>;">
+                                        <div class="slideshow data-flickity">
+
+                                            <?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
+
+                                                <?php
+
+                                                $ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
+                                                $itemRatio = $item['height'] / $item['width'];
+                                                $itemPad = $itemRatio * 100;
+
+                                                $itemVideo = getImageVideo($item['id']);
+
+                                                $cellClass = "";
+
+                                                $hasAutoVideo = false;
+                                                if ($itemVideo['hoverFile'] != "") {
+                                                    $hasAutoVideo = true;
+                                                    $cellClass .= " autovideo";
+                                                }
+
+                                                $hasFullVideo = false;
+                                                $fullVideoType = "";
+                                                $videoStr = "";
+                                                if ($itemVideo['embed'] != "") {
+                                                    $hasFullVideo = true;
+                                                    $cellClass .= " fullvideo";
+                                                    $fullVideoType = "embed";
+                                                }
+                                                if ($itemVideo['file'] != "") {
+                                                    $hasFullVideo = true;
+                                                    $cellClass .= " fullvideo";
+                                                    $fullVideoType = "file";
+                                                    $videoStr = '<video playsinline><source src="/videos/' . $itemVideo['file'] . '" type="video/mp4"></video>';
+                                                }
+                                                if ($itemVideo['url_desktop'] != "") {
+                                                    $hasFullVideo = true;
+                                                    $cellClass .= " fullvideo";
+                                                    $fullVideoType = "url";
+                                                    $videoStr = '<video playsinline class="sizeload" data-hd="' . $itemVideo['url_desktop'] . '" data-sd="' . $itemVideo['url_mobile'] . '"><source src="" type="video/mp4"></video>';
+                                                }
+
+                                                $hasTitle = false;
+                                                $hasCaption = false;
+
+                                                if ($item['title'] != "title:" and $item['title'] != "") {
+                                                    $hasTitle = true;
+                                                }
+
+                                                if ($item['caption'] != "caption:" and $item['caption'] != "") {
+                                                    $hasCaption = true;
+                                                }
+
+                                                ?>
+
+                                                <figure class="cell <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
+                                                    <img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo <?php if (!$hasAutoVideo) { ?>loadmeview<?php } ?> <?= $ext ?>" width="<?= $item['width'] ?>" height="<?= $item['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $item['title'] ?> ?>" <?php } ?> />
+
+                                                    <div class="number">
+                                                        <p>- <?= $count ?> -</p>
+                                                    </div>
+                                                </figure>
+
+                                            <?php } ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -187,7 +261,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
     </div>
 
 
-    <?php include('includes/overlays.php'); ?>
+
     <?php include('includes/scripts.php'); ?>
 
 </body>

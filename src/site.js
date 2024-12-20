@@ -130,6 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // options
       fade: true,
       cellSelector: ".cell",
+      Draggable: true,
     });
 
     // change event
@@ -277,8 +278,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return xhr;
   }
 
-  function openOverlay() {
+  function openOverlay(target) {
     overlay.classList.add("on");
+    target.appendChild(overlay);
   }
 
   function closeOverlay() {
@@ -414,8 +416,6 @@ document.addEventListener("DOMContentLoaded", function () {
   logo.addEventListener("mouseover", unscramble);
   logo.addEventListener("mouseleave", scramble);
 
-  
-
   //Footer animation
   let footer = document.querySelector("footer");
   let joe = footer.querySelector(".animated_name img");
@@ -480,11 +480,25 @@ document.addEventListener("DOMContentLoaded", function () {
   overlayLinks.forEach((overlayLink) => {
     overlayLink.addEventListener("click", function (e) {
       e.preventDefault();
+
       let id = overlayLink.getAttribute("data-id");
       getAjax("/getItem.php?id=" + id, function (data) {
         overlayInner.innerHTML = data;
-        openOverlay();
       });
+
+      // Open Overlay in the row that was clicked
+      parentRow = e.currentTarget.closest(".row");
+      openOverlay(parentRow);
+
+      let workpage = document.querySelector(".workpage");
+      // Hide other cells in the row
+      if (workpage) {
+        let parent = e.currentTarget.closest(".row");
+        let cells = parent.querySelectorAll(".cell");
+        cells.forEach((cell) => {
+          cell.classList.add("hide");
+        });
+      }
     });
   });
 
