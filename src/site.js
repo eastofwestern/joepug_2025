@@ -340,6 +340,48 @@ document.addEventListener("DOMContentLoaded", function () {
   /* EVENTS */
   /* ***************************************** */
 
+  //Footer animation
+  let footer = document.querySelector("footer");
+  let joe = footer.querySelector(".animated_name img");
+  let pug = footer.querySelector("#pug");
+  let liese = footer.querySelector("#liese");
+  console.log(pug);
+  let footerTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: footer,
+      start: "30% bottom",
+      end: "bottom bottom",
+      scrub: 2,
+    },
+  });
+  footerTL
+    .to(joe, {
+      clipPath: "inset(0 1% 0 0)",
+    })
+    .to(pug, {
+      delay: 2,
+
+      left: 265,
+    })
+    .to(
+      liese,
+      {
+        left: 265,
+      },
+      "<"
+    )
+    .to(
+      joe,
+      {
+        clipPath: "inset(0 77% 0 0)",
+      },
+      "<"
+    );
+
+  window.addEventListener("resize", function () {
+    footerTL.progress(0).invalidate().restart();
+  });
+
   // Contact toggle
 
   let contactModule = document.querySelector(".contact_module");

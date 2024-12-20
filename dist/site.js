@@ -142,10 +142,10 @@
       this[globalName] = mainExports;
     }
   }
-})({"dFlEs":[function(require,module,exports) {
+})({"bCPgf":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
-var HMR_PORT = 61944;
+var HMR_PORT = 53410;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "69972a5eef2d9f38";
 module.bundle.HMR_BUNDLE_ID = "f93fd84b4c2609cc";
@@ -821,7 +821,34 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     /* HANDLE WINDOW RESIZE */ function reportWindowSize() {}
     window.addEventListener("resize", reportWindowSize);
-    /* ***************************************** */ /* EVENTS */ /* ***************************************** */ // Contact toggle
+    /* ***************************************** */ /* EVENTS */ /* ***************************************** */ //Footer animation
+    let footer = document.querySelector("footer");
+    let joe = footer.querySelector(".animated_name img");
+    let pug = footer.querySelector("#pug");
+    let liese = footer.querySelector("#liese");
+    console.log(pug);
+    let footerTL = (0, _gsapDefault.default).timeline({
+        scrollTrigger: {
+            trigger: footer,
+            start: "30% bottom",
+            end: "bottom bottom",
+            scrub: 2
+        }
+    });
+    footerTL.to(joe, {
+        clipPath: "inset(0 1% 0 0)"
+    }).to(pug, {
+        delay: 2,
+        left: 265
+    }).to(liese, {
+        left: 265
+    }, "<").to(joe, {
+        clipPath: "inset(0 77% 0 0)"
+    }, "<");
+    window.addEventListener("resize", function() {
+        footerTL.progress(0).invalidate().restart();
+    });
+    // Contact toggle
     let contactModule = document.querySelector(".contact_module");
     let contactBtn = document.querySelector("#contact");
     let contactCloseBtn = contactModule.querySelector(".closeBtn");
@@ -11521,6 +11548,6 @@ _getGSAP() && gsap.registerPlugin(ScrollSmoother);
     return zenscroll;
 });
 
-},{}]},["dFlEs","b29kf"], "b29kf", "parcelRequire04be")
+},{}]},["bCPgf","b29kf"], "b29kf", "parcelRequire04be")
 
 //# sourceMappingURL=site.js.map

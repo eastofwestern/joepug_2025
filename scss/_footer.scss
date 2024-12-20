@@ -14,6 +14,7 @@ footer {
     font-size: 0px;
     line-height: 0px;
     padding: 45px 0px;
+    overflow: hidden;
     a {
       text-decoration: none;
     }
@@ -22,17 +23,29 @@ footer {
       width: 100%;
       margin: auto;
       position: relative;
+      margin-bottom: 25px;
+
       img {
         position: absolute;
         left: 0;
-        bottom: 7px;
+        bottom: 0;
         clip-path: inset(0 77% 0 0);
+        height: 120px;
       }
       svg {
+        height: 120px;
         position: absolute;
-        right: 0%;
+        overflow: hidden;
         bottom: 0;
-        
+        &#pug {
+          right: -35px;
+        }
+        &#liese {
+          box-sizing: content-box;
+          right: -295px;
+          padding-left: 295px;
+          opacity: 1;
+        }
       }
     }
     .bottom {
