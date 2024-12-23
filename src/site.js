@@ -372,65 +372,97 @@ document.addEventListener("DOMContentLoaded", function () {
   let P = logo.querySelector("#P");
   let U = logo.querySelector("#U");
   let G = logo.querySelector("#G");
-  const state = Flip.getState([J, O, E, P, U, G]);
+  const initialState = Flip.getState([J, O, E, P, U, G]);
   function unscramble() {
-    // const state = Flip.getState([J, O, E, P, U, G]);
+    const state = Flip.getState([J, O, E, P, U, G]);
+    let logoRect = logo.getBoundingClientRect();
 
-    // let logoTL = gsap.timeline();
-    // logoTL
-    //   .to(J, {
-    //     x: 100,
-    //     rotate: 92,
-    //   })
-    //   .to(O, {
-    //     y: 20,
-    //     x: 20,
-    //   });
+    console.log(logoRect);
 
     gsap.set(J, {
-      x: 14,
-      y: 2,
+      x: logoRect.left - 36,
+      y: logoRect.top - 43,
       rotate: 15.5,
       scale: 0.95,
     });
     gsap.set(O, {
-      x: 3,
-      y: 22,
+      x: logoRect.left - 47,
+      y: logoRect.top - 23,
       scale: 1.08,
     });
     gsap.set(E, {
-      x: 82,
+      x: logoRect.left + 32,
       rotate: 104.5,
-      y: -23,
+      y: logoRect.top - 68,
       scale: 1.09,
     });
     gsap.set(P, {
-      x: 45,
-      y: 3,
+      x: logoRect.left - 5,
+      y: logoRect.top - 42,
       scale: 1.11,
     });
     gsap.set(U, {
-      x: 34,
+      x: logoRect.left - 16,
       rotate: -16,
-      y: 26.5,
+      y: logoRect.top - 18.5,
       scale: 1.24,
     });
     gsap.set(G, {
-      x: 104,
+      x: logoRect.left + 54,
       rotate: 28,
-      y: -35,
+      y: logoRect.top - 80,
       scale: 1.08,
     });
 
     Flip.from(state, {
       absolute: true,
-      druation: 0.7,
+      duration: 0.6,
     });
   }
 
   function scramble() {
-    Flip.to(state, {
+    const state = Flip.getState([J, O, E, P, U, G]);
+
+    gsap.set(J, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+    });
+    gsap.set(O, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+    });
+    gsap.set(E, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+    });
+    gsap.set(P, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+    });
+    gsap.set(U, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+    });
+    gsap.set(G, {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+    });
+
+    Flip.from(state, {
       absolute: true,
+      duration: 0.5,
     });
   }
 
