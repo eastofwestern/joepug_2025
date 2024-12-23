@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 session_start();
 include('includes/connect.php');
 include('includes/functions.php');
@@ -14,7 +14,9 @@ $catDetails = catDetails($catID);
 
 $images = getImages($catID);
 
+
 ?>
+
 
 <div class="wrap">
     <!-- <?php if ($itemVideo['embed'] != "") { ?>
@@ -28,8 +30,10 @@ $images = getImages($catID);
     <?php } ?> -->
 
 
-    <div class="slideshow data-flickity">
+    <!-- <div class="slideshow data-flickity">
 
+
+        NOTE: I was trying with this code to grab images from database, but was unable to. I need help with how to get the correct image path/image data from database
         <?php for ($count = 1; $image = mysqli_fetch_array($images); ++$count) { ?>
 
             <?php
@@ -95,6 +99,44 @@ $images = getImages($catID);
             </figure>
 
         <?php } ?>
+    </div> -->
+    <!-- PLACEHOLDER CODE: -->
+
+    <div class="slideshow data-flickity">
+        <figure class="cell">
+            <img src="/images/pics/734_LQuEdA_image-28.jpg" alt="">
+            <div class="number">
+                <p>- 1 -</p>
+            </div>
+        </figure>
+        <figure class="cell">
+            <img src="/images/pics/734_0NDOJe_image-29.jpg" alt="">
+            <div class="number">
+                <p>- 2 -</p>
+            </div>
+        </figure>
+        <figure class="cell">
+            <img src="/images/pics/734_hcr2jo_image-30.jpg" alt="">
+            <div class="number">
+                <p>- 3 -</p>
+            </div>
+        </figure>
+        <figure class="cell">
+            <img src="/images/pics/734_qikboB_image-31.jpg" alt="">
+            <div class="number">
+                <p>- 4 -</p>
+            </div>
+        </figure>
+        <figure class="cell">
+            <img src="/images/pics/734_S0HX1J_image-32.jpg" alt="">
+            <div class="number">
+                <p>- 5 -</p>
+            </div>
+        </figure>
     </div>
+
+
+
+
 
 </div>

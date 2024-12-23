@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* other libraries, pull in if needed:
 
 //MASONRY
@@ -42,4 +42,4 @@
 */ ?>
 
 <script src="https://cdn.jsdelivr.net/npm/intersection-observer@0.7.0/intersection-observer.js"></script>
-<script src="/dist/site.js?v=<?=rand()?>"></script>
+<script src="/dist/site.js?v=<?= rand() ?>"></script>

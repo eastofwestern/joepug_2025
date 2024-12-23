@@ -120,25 +120,41 @@ document.addEventListener("DOMContentLoaded", function () {
     msnry.on("layoutComplete", onLayoutComplete);
   });
 
-  //initialize flickity for slideshows
+  //initialize flickity for slideshows - called in AJAX call
+  function initializeFlickity() {
+    let slideshowEl = document.querySelector(".slideshow");
+    let counterEl = document.querySelector(".counter .current");
 
-  let slideshowEl = document.querySelector(".slideshow");
-  let counterEl = document.querySelector(".counter .current");
+    console.log(slideshowEl);
 
-  if (typeof slideshowEl != "undefined" && slideshowEl != null) {
-    let flkty = new Flickity(slideshowEl, {
-      // options
-      fade: true,
-      cellSelector: ".cell",
-      Draggable: true,
-    });
+    if (typeof slideshowEl != "undefined" && slideshowEl != null) {
+      console.log("initializing Flickity...");
+      let flkty = new Flickity(slideshowEl, {
+        // options
+        fade: true,
+        cellSelector: ".cell",
+        draggable: true,
+        pageDots: false,
+        selectedAttraction: 0.2,
+        friction: 0.8,
+        wrapAround: false,
+        freeScroll: false,
+        cellAlign: "center",
+        initialIndex: 0, // Needs to be set to the count of the slide that was clicked
+      });
 
-    // change event
-    flkty.on("change", function (index) {
-      let slideCount = index + 1;
-      counterEl.innerHTML = slideCount;
-    });
+      // change event
+      flkty.on("change", function (index) {
+        let slideCount = index + 1;
+        counterEl.innerHTML = slideCount;
+      });
+      console.log(slideshowEl);
+      console.log(flkty);
+    } else {
+      console.log("no slideshow found");
+    }
   }
+  // initializeFlickity();
 
   /* HANDLE CELLS THAT REQUIRE RATIO SIZING */
   let ratioCells = document.getElementsByClassName("ratioSize");
@@ -481,9 +497,16 @@ document.addEventListener("DOMContentLoaded", function () {
     overlayLink.addEventListener("click", function (e) {
       e.preventDefault();
 
+      // If there are already hidden cells, show them so that they don't remain hidden when the new overlay is open
+      let hiddenCells = document.querySelectorAll(".cell.hide");
+      hiddenCells.forEach((cell) => {
+        cell.classList.remove("hide");
+      });
+
       let id = overlayLink.getAttribute("data-id");
       getAjax("/getItem.php?id=" + id, function (data) {
         overlayInner.innerHTML = data;
+        initializeFlickity(); // Added it here so that it will initialize after openOverlay is called
       });
 
       // Open Overlay in the row that was clicked

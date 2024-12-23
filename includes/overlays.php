@@ -5,7 +5,7 @@
 			<span class="line"></span>
 		</div>
 	</div>
-	<div class="inner">
+	<div class="inner" id="overlayInner">
 
 	</div>
 

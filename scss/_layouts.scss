@@ -353,93 +353,92 @@
 }
 
 /* BEGIN SLIDESHOW LAYOUTS */
-.slideshow_wrapper {
-  width: 100%;
-  display: flex;
-  display: none;
-  .slideshow {
-    position: relative;
-    top: auto;
-    width: 100%;
-    height: 600px;
-    text-align: center;
-    overflow: hidden;
-    display: flex;
-    flex-wrap: none;
-    flex-direction: row;
+// .slideshow_wrapper {
+//   width: 100%;
+//   display: flex;
+//   display: none;
+//   .slideshow {
+//     position: relative;
+//     top: auto;
+//     width: 100%;
+//     height: 600px;
+//     text-align: center;
+//     overflow: hidden;
+//     display: flex;
+//     flex-wrap: none;
+//     flex-direction: row;
+//     display: none;
+//     .cell {
+//       width: 100%;
+//       height: 100%;
+//       position: absolute;
+//     }
+//     .flickity-viewport {
+//       width: 100%;
+//     }
+//     .ui {
+//       width: 18px;
+//       position: absolute;
+//       z-index: 20;
+//       top: 50%;
+//       -ms-transform: translateY(-50%);
+//       transform: translateY(-50%);
+//       cursor: pointer;
+//     }
 
-    .flickity-viewport {
-      width: 100%;
-    }
-    .ui {
-      width: 18px;
-      position: absolute;
-      z-index: 20;
-      top: 50%;
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-      cursor: pointer;
-    }
+//     .ui.prev {
+//       left: 0px;
+//       padding: 23px;
+//     }
 
-    .ui.prev {
-      left: 0px;
-      padding: 23px;
-    }
+//     .ui.next {
+//       right: 0;
+//       padding: 23px;
+//     }
 
-    .ui.next {
-      right: 0;
-      padding: 23px;
-    }
+//     .ui.close {
+//       width: 20px;
+//       height: 20px;
+//       padding: 20px 22px;
+//       top: 0;
+//       left: 0;
+//       -ms-transform: none;
+//       transform: none;
+//     }
 
-    .ui.close {
-      width: 20px;
-      height: 20px;
-      padding: 20px 22px;
-      top: 0;
-      left: 0;
-      -ms-transform: none;
-      transform: none;
-    }
+//     .ui line {
+//       stroke: #000000;
+//       stroke-width: 4;
+//     }
 
-    .ui line {
-      stroke: #000000;
-      stroke-width: 4;
-    }
+//     &.fullbleed {
+//       h1 {
+//         @include absolute-vertical;
+//         z-index: 10;
+//         color: #000;
+//       }
+//     }
+//     .flickity-page-dots {
+//       display: none;
+//     }
+//     &.center {
+//       figure {
+//         &:before {
+//           @include inline-vertical-before;
+//         }
 
-    figure {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-    }
-
-    &.fullbleed {
-      h1 {
-        @include absolute-vertical;
-        z-index: 10;
-        color: #000;
-      }
-    }
-    .flickity-page-dots {
-      display: none;
-    }
-    &.center {
-      figure {
-        &:before {
-          @include inline-vertical-before;
-        }
-
-        img.photo {
-          display: inline-block;
-          vertical-align: middle;
-          max-width: 100%;
-          max-height: 100%;
-          width: auto;
-          height: auto;
-        }
-      }
-    }
-  }
-}
+//         img.photo {
+//           display: inline-block;
+//           vertical-align: middle;
+//           max-width: 100%;
+//           max-height: 100%;
+//           width: auto;
+//           height: auto;
+//         }
+//       }
+//     }
+//   }
+// }
 
 .slick-dots {
   bottom: 8%;
