@@ -128,7 +128,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                                         ?>
                                         <!-- Need to add openOverlay or openSlideshow  -->
 
-                                        <figure class="cell fadeOn <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
+                                        <figure class="cell fadeOn <?= $cellClass ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
                                             <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openVideo  openOverlay" data-id="<?= $item['id'] ?>">
 
 
@@ -146,6 +146,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                                             <div class="number">
                                                 <p>- <?= $count ?> -</p>
                                             </div>
+
                                         </figure>
 
 

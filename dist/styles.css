@@ -830,6 +830,10 @@ footer .inner .social li svg * {
   display: none;
 }
 
+.grid.flex .row .cell.selected img {
+  opacity: .5;
+}
+
 .grid.flex .row .cell .media_wrap {
   height: 225px;
 }

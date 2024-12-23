@@ -151,6 +151,11 @@
       &.hide {
         display: none;
       }
+      &.selected {
+        img {
+          opacity: 0.5;
+        }
+      }
       .media_wrap {
         height: 225px;
         img {

@@ -88,7 +88,7 @@ $images = getImages($catID);
 
             ?>
 
-            <figure class="cell <?= $cellClass ?>">
+            <figure class="cell <?= $cellClass ?>" data-id="<? $itemID ?>">
                 <img src="<?= $image["img"] ?>" data-img="<?= $image['img'] ?>" class="photo loadmeview <?= $ext ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $image['title'] ?> ?>" <?php } ?> />
 
 
@@ -103,35 +103,35 @@ $images = getImages($catID);
     <!-- PLACEHOLDER CODE: -->
 
     <div class="slideshow data-flickity">
-        <figure class="cell">
+        <figure class="cell" data-id="15169">
             <p class="title"><strong> Project Title | </strong> Client</p>
             <img src="/images/pics/734_LQuEdA_image-28.jpg" alt="">
             <div class="number">
                 <p>- 1 -</p>
             </div>
         </figure>
-        <figure class="cell">
-            <p class="title"><strong> Project Title | </strong> Client</p>
+        <figure class="cell" data-id="15166">
+            <p class=" title"><strong> Project Title | </strong> Client</p>
             <img src="/images/pics/734_0NDOJe_image-29.jpg" alt="">
             <div class="number">
                 <p>- 2 -</p>
             </div>
         </figure>
-        <figure class="cell">
+        <figure class="cell" data-id="15165">
             <p class="title"><strong> Project Title | </strong> Client</p>
             <img src="/images/pics/734_hcr2jo_image-30.jpg" alt="">
             <div class="number">
                 <p>- 3 -</p>
             </div>
         </figure>
-        <figure class="cell">
+        <figure class="cell" data-id="15164">
             <p class="title"><strong> Project Title | </strong> Client</p>
             <img src="/images/pics/734_qikboB_image-31.jpg" alt="">
             <div class="number">
                 <p>- 4 -</p>
             </div>
         </figure>
-        <figure class="cell">
+        <figure class="cell" data-id="15171">
             <p class="title"><strong> Project Title | </strong> Client</p>
             <img src="/images/pics/734_S0HX1J_image-32.jpg" alt="">
             <div class="number">

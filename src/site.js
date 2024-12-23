@@ -121,10 +121,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   //initialize flickity for slideshows - called in AJAX call
-  function initializeFlickity() {
+  let archive = document.querySelector(".archive");
+  function initializeFlickity(cellIndex) {
     let slideshowEl = document.querySelector(".slideshow");
     let counterEl = document.querySelector(".counter .current");
-
+    console.log(counterEl);
     if (typeof slideshowEl != "undefined" && slideshowEl != null) {
       let flkty = new Flickity(slideshowEl, {
         // options
@@ -137,16 +138,27 @@ document.addEventListener("DOMContentLoaded", function () {
         wrapAround: false,
         freeScroll: false,
         cellAlign: "center",
-        initialIndex: 1, // Needs to be set to the count of the slide that was clicked
+        initialIndex: cellIndex, // Needs to be set to the count of the slide that was clicked
       });
 
-      // change event
       flkty.on("change", function (index) {
         let slideCount = index + 1;
-        counterEl.innerHTML = slideCount;
+        // counterEl.innerHTML = slideCount;
+        let slideID = flkty.selectedElement.getAttribute("data-id");
+        if (archive) {
+          let cells = document.querySelectorAll(".cell");
+          cells.forEach((cell) => {
+            let link = cell.querySelector("a");
+            if (link.getAttribute("data-id") == slideID) {
+              cell.classList.add("selected");
+            } else {
+              if (cell.classList.contains("selected")) {
+                cell.classList.remove("selected");
+              }
+            }
+          });
+        }
       });
-    } else {
-      console.log("no slideshow found");
     }
   }
 
@@ -489,23 +501,20 @@ document.addEventListener("DOMContentLoaded", function () {
   overlayLinks.forEach((overlayLink) => {
     overlayLink.addEventListener("click", function (e) {
       e.preventDefault();
-
-      // console.log(e.currentTarget);
-      // let dataID = e.currentTarget.getAttribute("data-id");
-      // console.log(dataID);
-
+      let cells = document.querySelectorAll(".cell");
+      let clickedCell = e.currentTarget.closest(".cell");
+      let cellIndex = Array.from(cells).indexOf(clickedCell);
       let id = overlayLink.getAttribute("data-id");
       getAjax("/getItem.php?id=" + id, function (data) {
         overlayInner.innerHTML = data;
-        initializeFlickity();
+        initializeFlickity(cellIndex);
       });
 
       let workpage = document.querySelector(".workpage");
       //  --------- WORKPAGE SLIDESHOW LOGIC
 
-      let hiddenCells = document.querySelectorAll(".cell.hide");
-
       if (workpage) {
+        let hiddenCells = document.querySelectorAll(".cell.hide");
         // If there are already hidden cells, show them so that they don't remain hidden when the new overlay is open
         hiddenCells.forEach((cell) => {
           cell.classList.remove("hide");
@@ -521,24 +530,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
         openOverlay();
       } else {
-        // ----------- ARCHIVE SLIDESHOW LOGIC
+        /* ----------- ARCHIVE SLIDESHOW LOGIC -----------*/
         //  For non-workpage, append overlay next to the last cell in current row
         // closeOverlay();
         let parentRow = e.currentTarget.closest(".row");
         let cells = Array.from(parentRow.children);
         let clickedCell = e.currentTarget.closest(".cell");
+        let cellIndex = Array.from(cells).indexOf(clickedCell);
         let clickedCellRect = clickedCell.getBoundingClientRect();
         let firstCellInNextRow = null;
 
         for (let i = 0; i < cells.length; i++) {
           let cell = cells[i];
+          cell.classList.remove("selected");
           let cellRect = cell.getBoundingClientRect();
           if (cellRect.top > clickedCellRect.top) {
             firstCellInNextRow = cell;
             break;
           }
         }
-
+        clickedCell.classList.add("selected");
         if (firstCellInNextRow) {
           firstCellInNextRow.insertAdjacentElement("beforebegin", overlay);
         } else {
@@ -547,19 +558,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         openOverlay(parentRow);
 
-        // if data-id of cell matches data-id of image in slideshow, apply "selected class" that has .7 opacity
-        let slideshow = document.querySelector(".slideshow");
-
-        // let slideshow = document.querySelector(".slideshow");
-        // let cellsInSlideshow = slideshow.querySelectorAll(".cell");
-        // cellsInSlideshow.forEach((cell, i) => {
-        //   if (i == index) {
-        //     cell.classList.add("selected");
-        //   }
-        // });
-
         openOverlay();
       }
+      // change event
     });
   });
 
