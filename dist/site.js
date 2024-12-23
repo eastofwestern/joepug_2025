@@ -695,9 +695,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function initializeFlickity() {
         let slideshowEl = document.querySelector(".slideshow");
         let counterEl = document.querySelector(".counter .current");
-        console.log(slideshowEl);
         if (typeof slideshowEl != "undefined" && slideshowEl != null) {
-            console.log("initializing Flickity...");
             let flkty = new Flickity(slideshowEl, {
                 // options
                 fade: true,
@@ -709,15 +707,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 wrapAround: false,
                 freeScroll: false,
                 cellAlign: "center",
-                initialIndex: 0
+                initialIndex: 1
             });
             // change event
             flkty.on("change", function(index) {
                 let slideCount = index + 1;
                 counterEl.innerHTML = slideCount;
             });
-            console.log(slideshowEl);
-            console.log(flkty);
         } else console.log("no slideshow found");
     }
     /* HANDLE CELLS THAT REQUIRE RATIO SIZING */ let ratioCells = document.getElementsByClassName("ratioSize");
@@ -807,7 +803,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     function openOverlay(target) {
         overlay.classList.add("on");
-        target.appendChild(overlay);
     }
     function closeOverlay() {
         overlay.classList.remove("on");
@@ -918,7 +913,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let joe = footer.querySelector(".animated_name img");
     let pug = footer.querySelector("#pug");
     let liese = footer.querySelector("#liese");
-    console.log(pug);
     let footerTL = (0, _gsapDefault.default).timeline({
         scrollTrigger: {
             trigger: footer,
@@ -948,51 +942,72 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(contactBtn);
     contactBtn.addEventListener("click", (e)=>{
         e.preventDefault;
-        console.log("click");
         contactModule.classList.remove("hidden");
     });
     contactCloseBtn.addEventListener("click", (e)=>{
         e.preventDefault;
         contactModule.classList.add("hidden");
     });
-    // overlay links
+    // OPENING OVERLAY AND SLIDESHOW
     let overlayLinks = document.querySelectorAll(".openOverlay");
     overlayLinks.forEach((overlayLink)=>{
         overlayLink.addEventListener("click", function(e) {
             e.preventDefault();
-            // If there are already hidden cells, show them so that they don't remain hidden when the new overlay is open
-            let hiddenCells = document.querySelectorAll(".cell.hide");
-            hiddenCells.forEach((cell)=>{
-                cell.classList.remove("hide");
-            });
+            // console.log(e.currentTarget);
+            // let dataID = e.currentTarget.getAttribute("data-id");
+            // console.log(dataID);
             let id = overlayLink.getAttribute("data-id");
             getAjax("/getItem.php?id=" + id, function(data) {
                 overlayInner.innerHTML = data;
-                initializeFlickity(); // Added it here so that it will initialize after openOverlay is called
+                initializeFlickity();
             });
             let workpage = document.querySelector(".workpage");
-            // Hide other cells in the row
+            //  --------- WORKPAGE SLIDESHOW LOGIC
+            let hiddenCells = document.querySelectorAll(".cell.hide");
             if (workpage) {
+                // If there are already hidden cells, show them so that they don't remain hidden when the new overlay is open
+                hiddenCells.forEach((cell)=>{
+                    cell.classList.remove("hide");
+                });
+                // Hide other cells in the row
                 let parent = e.currentTarget.closest(".row");
                 let cells = parent.querySelectorAll(".cell");
                 cells.forEach((cell)=>{
                     cell.classList.add("hide");
                 });
                 // Open Overlay in the row that was clicked
-                openOverlay(parent);
+                parent.appendChild(overlay);
+                openOverlay();
             } else {
+                // ----------- ARCHIVE SLIDESHOW LOGIC
                 //  For non-workpage, append overlay next to the last cell in current row
+                // closeOverlay();
                 let parentRow = e.currentTarget.closest(".row");
                 let cells = Array.from(parentRow.children);
-                let lastCellInRow = null;
-                cells.forEach((cell)=>{
+                let clickedCell = e.currentTarget.closest(".cell");
+                let clickedCellRect = clickedCell.getBoundingClientRect();
+                let firstCellInNextRow = null;
+                for(let i = 0; i < cells.length; i++){
+                    let cell = cells[i];
                     let cellRect = cell.getBoundingClientRect();
-                    let rowRect = parentRow.getBoundingClientRect();
-                    if (cellRect.top === rowRect.top) lastCellInRow = cell;
-                });
-                if (lastCellInRow) lastCellInRow.insertAdjacentElement("afterend", overlay);
-                // if 
-                openOverlay(overlay);
+                    if (cellRect.top > clickedCellRect.top) {
+                        firstCellInNextRow = cell;
+                        break;
+                    }
+                }
+                if (firstCellInNextRow) firstCellInNextRow.insertAdjacentElement("beforebegin", overlay);
+                else parentRow.appendChild(overlay);
+                openOverlay(parentRow);
+                // if data-id of cell matches data-id of image in slideshow, apply "selected class" that has .7 opacity
+                let slideshow = document.querySelector(".slideshow");
+                // let slideshow = document.querySelector(".slideshow");
+                // let cellsInSlideshow = slideshow.querySelectorAll(".cell");
+                // cellsInSlideshow.forEach((cell, i) => {
+                //   if (i == index) {
+                //     cell.classList.add("selected");
+                //   }
+                // });
+                openOverlay();
             }
         });
     });
