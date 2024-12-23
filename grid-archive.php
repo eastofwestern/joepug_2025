@@ -55,7 +55,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 </head>
 
-<body class="preload workpage">
+<body class="preload archive">
 
     <?php include('includes/header.php'); ?>
     <?php include('contact.php'); ?>
@@ -134,7 +134,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                                     ?>
                                     <!-- Need to add openOverlay back in -->
                                     <figure class="cell fadeOn <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
-                                        <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openVideo " data-id="<?= $item['id'] ?>">
+                                        <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openVideo openOverlay" data-id="<?= $item['id'] ?>">
 
                                             <div class="media_wrap">
                                                 <img class="photo <?php if (!$hasAutoVideo) { ?>loadmeview<?php } ?> <?= $ext ?>" src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" alt="<?= $item['title'] ?>" data-width="<?= $item['width'] ?>" data-height="<?= $item['height'] ?>">

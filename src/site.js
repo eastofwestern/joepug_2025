@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("no slideshow found");
     }
   }
-  // initializeFlickity();
+ 
 
   /* HANDLE CELLS THAT REQUIRE RATIO SIZING */
   let ratioCells = document.getElementsByClassName("ratioSize");
@@ -509,10 +509,6 @@ document.addEventListener("DOMContentLoaded", function () {
         initializeFlickity(); // Added it here so that it will initialize after openOverlay is called
       });
 
-      // Open Overlay in the row that was clicked
-      parentRow = e.currentTarget.closest(".row");
-      openOverlay(parentRow);
-
       let workpage = document.querySelector(".workpage");
       // Hide other cells in the row
       if (workpage) {
@@ -521,6 +517,30 @@ document.addEventListener("DOMContentLoaded", function () {
         cells.forEach((cell) => {
           cell.classList.add("hide");
         });
+
+        // Open Overlay in the row that was clicked
+        openOverlay(parent);
+      } else {
+        //  For non-workpage, append overlay next to the last cell in current row
+        let parentRow = e.currentTarget.closest(".row");
+        let cells = Array.from(parentRow.children);
+        let lastCellInRow = null;
+
+        cells.forEach((cell) => {
+          let cellRect = cell.getBoundingClientRect();
+          let rowRect = parentRow.getBoundingClientRect();
+          if (cellRect.top === rowRect.top) {
+            lastCellInRow = cell;
+          }
+        });
+
+        if (lastCellInRow) {
+          lastCellInRow.insertAdjacentElement("afterend", overlay);
+        }
+
+        // if 
+
+        openOverlay(overlay);
       }
     });
   });

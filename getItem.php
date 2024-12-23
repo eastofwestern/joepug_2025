@@ -104,30 +104,35 @@ $images = getImages($catID);
 
     <div class="slideshow data-flickity">
         <figure class="cell">
+            <p class="project"><strong> Project Title | </strong> Client</p>
             <img src="/images/pics/734_LQuEdA_image-28.jpg" alt="">
             <div class="number">
                 <p>- 1 -</p>
             </div>
         </figure>
         <figure class="cell">
+            <p class="project">Project Title | Client</p>
             <img src="/images/pics/734_0NDOJe_image-29.jpg" alt="">
             <div class="number">
                 <p>- 2 -</p>
             </div>
         </figure>
         <figure class="cell">
+            <p class="project">Project Title | Client</p>
             <img src="/images/pics/734_hcr2jo_image-30.jpg" alt="">
             <div class="number">
                 <p>- 3 -</p>
             </div>
         </figure>
         <figure class="cell">
+            <p class="project">Project Title | Client</p>
             <img src="/images/pics/734_qikboB_image-31.jpg" alt="">
             <div class="number">
                 <p>- 4 -</p>
             </div>
         </figure>
         <figure class="cell">
+            <p class="project">Project Title | Client</p>
             <img src="/images/pics/734_S0HX1J_image-32.jpg" alt="">
             <div class="number">
                 <p>- 5 -</p>

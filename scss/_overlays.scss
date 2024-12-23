@@ -91,7 +91,8 @@
         // cursor: pointer;
         width: 100%;
         .flickity-viewport {
-          height: 70vh !important;
+          min-height: 550px !important;
+          height: 78vh !important;
           position: relative;
           .flickity-slider {
             height: 100%;
@@ -131,6 +132,26 @@
           }
         }
       }
+    }
+  }
+}
+
+.workpage {
+  #overlay {
+    .title {
+      display: none;
+    }
+  }
+}
+
+.archive {
+  #overlay {
+    margin: -10px 0 50px 0;
+    .title {
+      padding-top: 0;
+    }
+    .number {
+      display: none;
     }
   }
 }

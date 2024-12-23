@@ -1133,7 +1133,8 @@ footer .inner .social li svg * {
 
 #overlay .inner .wrap .slideshow .flickity-viewport {
   position: relative;
-  height: 70vh !important;
+  height: 78vh !important;
+  min-height: 550px !important;
 }
 
 #overlay .inner .wrap .slideshow .flickity-viewport .flickity-slider {
@@ -1178,6 +1179,22 @@ footer .inner .social li svg * {
 
 #overlay .inner .wrap .slideshow button.next {
   right: 0;
+}
+
+.workpage #overlay .title {
+  display: none;
+}
+
+.archive #overlay {
+  margin: -10px 0 50px;
+}
+
+.archive #overlay .title {
+  padding-top: 0;
+}
+
+.archive #overlay .number {
+  display: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
