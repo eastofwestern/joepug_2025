@@ -76,8 +76,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                         <?php for ($projectCount = 1; $project = mysqli_fetch_array($projects); ++$projectCount) { ?>
                             <?php
-                            $projectID = getCatID($project['slug']);
-                            $images = getImages($projectID, $catDetails['sorter']);
+                            $images = getImages($project['id'], $project['sorter']);
 
                             ?>
                             <div class="grid flex">
@@ -86,7 +85,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 
                                     <!-- ROW VIEW -->
-                                    <?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
+                                    <?php for ($count = 0; $item = mysqli_fetch_array($images); ++$count) { ?>
 
                                         <?php
 
@@ -129,7 +128,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                                         <!-- Need to add openOverlay or openSlideshow  -->
 
                                         <figure class="cell fadeOn <?= $cellClass ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
-                                            <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openVideo  openOverlay" data-id="<?= $item['id'] ?>">
+                                            <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openSlideshow" data-id="<?= $item['id'] ?>" data-catid="<?= $project['id'] ?>">
 
 
                                                 <div class="media_wrap">
@@ -144,7 +143,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                                             </a>
                                             <div class="number">
-                                                <p>- <?= $count ?> -</p>
+                                                <p>- <?= $count + 1 ?> -</p>
                                             </div>
 
                                         </figure>
@@ -161,24 +160,6 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 
                         <?php } ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

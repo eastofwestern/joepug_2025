@@ -14,29 +14,17 @@ $itemVideo = getImageVideo($itemID);
 // category information
 $catID = $_GET['catid'];
 $catDetails = catDetails($catID);
-$images = getImages($catID);
+$images = getImages($catID, $catDetails['sorter']);
 
 
 ?>
 
 
 <div class="wrap">
-    <!-- <?php if ($itemVideo['embed'] != "") { ?>
-        <?= $itemVideo['embed'] ?>
-    <?php } elseif ($itemVideo['file'] != "") { ?>
-        <video playsinline controls poster="<?= getOption("imagePathFront") ?>1920/<?= $item['img'] ?>">
-            <source src="/videos/<?= $itemVideo['file'] ?>" />
-        </video>
-    <?php } else { ?>
-        <img src="<?= getOption("imagePathFront") ?>1920/<?= $item['img'] ?>" alt="" />
-    <?php } ?> -->
 
+    <div class="slideshow data-flickity">
 
-    <!-- <div class="slideshow data-flickity">
-
-
-        NOTE: I was trying with this code to grab images from database, but was unable to. I need help with how to get the correct image path/image data from database
-        <?php for ($count = 1; $image = mysqli_fetch_array($images); ++$count) { ?>
+        <?php for ($count = 0; $image = mysqli_fetch_array($images); ++$count) { ?>
 
             <?php
 
@@ -47,8 +35,6 @@ $images = getImages($catID);
             $itemVideo = getImageVideo($image['id']);
 
             $cellClass = "";
-
-            print_r($ext);
 
             // $hasAutoVideo = false;
             // if ($itemVideo['hoverFile'] != "") {
@@ -90,18 +76,21 @@ $images = getImages($catID);
 
             ?>
 
-            <figure class="cell <?= $cellClass ?>" data-id="<? $itemID ?>">
-                <img src="<?= $image["img"] ?>" data-img="<?= $image['img'] ?>" class="photo loadmeview <?= $ext ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $image['title'] ?> ?>" <?php } ?> />
+            <figure class="cell <?= $cellClass ?>" data-id="<?= $image['id'] ?>">
+                <img src="<?= $loaderImg ?>" data-img="<?= $image['img'] ?>" class="photo loadmeview <?= $ext ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $image['title'] ?> ?>" <?php } ?> />
 
 
 
                 <div class="number">
-                    <p>- <?= $count ?> -</p>
+                    <p>- <?= $count + 1 ?> -</p>
                 </div>
             </figure>
 
         <?php } ?>
-    </div> -->
+
+    </div>
+
+    <?php /*
     <!-- PLACEHOLDER CODE: -->
 
     <div class="slideshow data-flickity">
@@ -141,6 +130,8 @@ $images = getImages($catID);
             </div>
         </figure>
     </div>
+
+    */ ?>
 
 
 

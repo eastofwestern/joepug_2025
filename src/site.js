@@ -79,19 +79,23 @@ document.addEventListener("DOMContentLoaded", function () {
     wrapCols(textCols[i]);
   }
 
-  //initialize lazyload - sitewide for image
-  const lazyLoad = new LazyLoad({
-    elements_selector: ".loadmeview",
-    callback_enter: loadImage,
-  });
+  function initLoading() {
+    //initialize lazyload - sitewide for image
+    const lazyLoad = new LazyLoad({
+      elements_selector: ".loadmeview",
+      callback_enter: loadImage,
+    });
 
-  //initialize lazyload - autoplay videos
-  const lazyLoadAutoVideo = new LazyLoad({
-    elements_selector: ".autovideo",
-    threshold: 30,
-    callback_enter: playAutoVideo,
-    callback_exit: pauseAutoVideo,
-  });
+    //initialize lazyload - autoplay videos
+    const lazyLoadAutoVideo = new LazyLoad({
+      elements_selector: ".autovideo",
+      threshold: 30,
+      callback_enter: playAutoVideo,
+      callback_exit: pauseAutoVideo,
+    });
+  }
+
+  initLoading();
 
   // initialize masonry
 
@@ -124,8 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let archive = document.querySelector(".archive");
   function initializeFlickity(cellIndex) {
     let slideshowEl = document.querySelector(".slideshow");
-    let counterEl = document.querySelector(".counter .current");
-    console.log(counterEl);
     if (typeof slideshowEl != "undefined" && slideshowEl != null) {
       let flkty = new Flickity(slideshowEl, {
         // options
@@ -138,15 +140,13 @@ document.addEventListener("DOMContentLoaded", function () {
         wrapAround: false,
         freeScroll: false,
         cellAlign: "center",
-        initialIndex: cellIndex, // Needs to be set to the count of the slide that was clicked
+        initialIndex: cellIndex,
       });
 
       flkty.on("change", function (index) {
-        let slideCount = index + 1;
-        // counterEl.innerHTML = slideCount;
         let slideID = flkty.selectedElement.getAttribute("data-id");
         if (archive) {
-          let cells = document.querySelectorAll(".cell");
+          let cells = document.querySelectorAll(".grid_cell");
           cells.forEach((cell) => {
             let link = cell.querySelector("a");
             if (link.getAttribute("data-id") == slideID) {
@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return xhr;
   }
 
-  function openOverlay(target) {
+  function openOverlay() {
     overlay.classList.add("on");
   }
 
@@ -365,19 +365,16 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ***************************************** */
   //Logo animation
   let logo = document.querySelector(".logo");
-  let letters = gsap.utils.toArray("path");
   let J = logo.querySelector("#J");
   let O = logo.querySelector("#O");
   let E = logo.querySelector("#E");
   let P = logo.querySelector("#P");
   let U = logo.querySelector("#U");
   let G = logo.querySelector("#G");
-  const initialState = Flip.getState([J, O, E, P, U, G]);
+
   function unscramble() {
     const state = Flip.getState([J, O, E, P, U, G]);
     let logoRect = logo.getBoundingClientRect();
-
-    console.log(logoRect);
 
     gsap.set(J, {
       x: logoRect.left - 36,
@@ -529,21 +526,27 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // OPENING OVERLAY AND SLIDESHOW
-  let overlayLinks = document.querySelectorAll(".openOverlay");
+  let overlayLinks = document.querySelectorAll(".openSlideshow");
   overlayLinks.forEach((overlayLink) => {
     overlayLink.addEventListener("click", function (e) {
       e.preventDefault();
+
       let cells = document.querySelectorAll(".cell");
       let clickedCell = e.currentTarget.closest(".cell");
-      let cellIndex = Array.from(cells).indexOf(clickedCell);
+      let cellIndex = clickedCell.getAttribute("data-index");
       let id = overlayLink.getAttribute("data-id");
-      getAjax("/getItem.php?id=" + id, function (data) {
-        overlayInner.innerHTML = data;
-        initializeFlickity(cellIndex);
-      });
+      let catid = overlayLink.getAttribute("data-catid");
+      getAjax(
+        "/getSlideshow.php?id=" + id + "&catid=" + catid,
+        function (data) {
+          overlayInner.innerHTML = data;
+          initLoading();
+          initializeFlickity(cellIndex);
+        }
+      );
 
       let workpage = document.querySelector(".workpage");
-      //  --------- WORKPAGE SLIDESHOW LOGIC
+      //  --------- WORKPAGE SLIDESHOW LOGIC (Series grid) --------------//
 
       if (workpage) {
         let hiddenCells = document.querySelectorAll(".cell.hide");
@@ -587,8 +590,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           parentRow.appendChild(overlay);
         }
-
-        openOverlay(parentRow);
 
         openOverlay();
       }

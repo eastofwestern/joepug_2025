@@ -55,7 +55,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 </head>
 
-<body class="preload archive">
+<body class="preload archive" data-catid="<?= $catID ?>">
 
     <?php include('includes/header.php'); ?>
     <?php include('contact.php'); ?>
@@ -91,7 +91,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                             <div class="row">
 
-                                <?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
+                                <?php for ($count = 0; $item = mysqli_fetch_array($images); ++$count) { ?>
 
                                     <?php
 
@@ -133,8 +133,8 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                                     ?>
                                     <!-- Need to add openOverlay back in -->
-                                    <figure class="cell fadeOn <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
-                                        <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openVideo openOverlay" data-id="<?= $item['id'] ?>">
+                                    <figure class="cell grid_cell fadeOn <?= $cellClass ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
+                                        <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openSlideshow" data-id="<?= $item['id'] ?>" data-catid="<?= $catID ?>">
 
                                             <div class="media_wrap">
                                                 <img class="photo <?php if (!$hasAutoVideo) { ?>loadmeview<?php } ?> <?= $ext ?>" src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" alt="<?= $item['title'] ?>" data-width="<?= $item['width'] ?>" data-height="<?= $item['height'] ?>">
