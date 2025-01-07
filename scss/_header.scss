@@ -112,7 +112,7 @@ header {
         a {
           transition: color 0.3s;
           text-decoration: none;
-          color: $color-gray;
+          color: $color-darkgray;
           &:hover,
           &.pageOn {
             color: $color-foreground;
@@ -304,6 +304,101 @@ header {
           }
           &:last-child {
             background-color: rgba(246, 237, 218, 0.98);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include phone-portrait {
+  .contact_module {
+    z-index: 14;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: $color-gray;
+    .closeBtn {
+      display: none;
+    }
+    table {
+      display: grid;
+      grid-template-columns: 1fr;
+      colgroup {
+        col {
+          width: 100% !important;
+        }
+      }
+      tbody {
+        display: contents;
+        tr {
+          display: contents;
+          h3,
+          p {
+            width: 100% !important;
+          }
+          td {
+            padding: 26px 6% 0 6%;
+            &:first-child {
+              background-color: $color-gray;
+            }
+            &:nth-child(2) {
+              background-color: $color-accent1;
+            }
+            &:last-child {
+              background-color: $color-accent2;
+            }
+          }
+          &:first-child {
+            td {
+              &:first-child {
+                padding-top: 175px;
+                grid-row: 1;
+                grid-column: 1;
+              }
+
+              &:nth-child(2) {
+                grid-row: 4;
+                grid-column: 1;
+              }
+
+              &:nth-child(3) {
+                grid-row: 7;
+                grid-column: 1;
+              }
+            }
+          }
+          &:nth-child(2) {
+            td {
+              &:nth-child(1) {
+                grid-row: 2;
+                grid-column: 1;
+              }
+              &:nth-child(2) {
+                grid-row: 5;
+                grid-column: 1;
+              }
+              &:nth-child(3) {
+                grid-row: 8;
+                grid-column: 1;
+              }
+            }
+          }
+          &:nth-child(3) {
+            td {
+              &:nth-child(1) {
+                grid-row: 3;
+                grid-column: 1;
+              }
+              &:nth-child(2) {
+                grid-row: 6;
+                grid-column: 1;
+                padding-bottom: 0;
+              }
+              &:nth-child(3) {
+                grid-row: 9;
+                grid-column: 1;
+              }
+            }
           }
         }
       }

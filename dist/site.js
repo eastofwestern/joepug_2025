@@ -1018,14 +1018,13 @@ document.addEventListener("DOMContentLoaded", function() {
     let contactModule = document.querySelector(".contact_module");
     let contactBtn = document.querySelector("#contact");
     let contactCloseBtn = contactModule.querySelector(".closeBtn");
-    console.log(contactBtn);
     contactBtn.addEventListener("click", (e)=>{
         e.preventDefault;
-        contactModule.classList.remove("hidden");
+        contactModule.classList.toggle("hidden");
     });
     contactCloseBtn.addEventListener("click", (e)=>{
         e.preventDefault;
-        contactModule.classList.add("hidden");
+        contactModule.classList.toggle("hidden");
     });
     // OPENING OVERLAY AND SLIDESHOW
     let overlayLinks = document.querySelectorAll(".openSlideshow");

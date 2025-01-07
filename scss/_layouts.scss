@@ -164,6 +164,16 @@
   }
 }
 
+@include phone-portrait {
+  .filter {
+    ul {
+      border-top: 1px solid black;
+      margin-top: 0;
+      padding-top: 20px;
+    }
+  }
+}
+
 .grid.flex {
   height: fit-content;
   width: 92%;
@@ -206,6 +216,7 @@
   &.archive {
     padding-top: 75px;
     .row {
+      flex-wrap: wrap;
       border-bottom: none;
       .cell {
         margin-bottom: 40px;
@@ -224,6 +235,21 @@
         margin: 0 6px;
         .media_wrap {
           height: 200px;
+        }
+      }
+    }
+    &.archive {
+      border-top: none;
+      padding-top: 0px;
+      .row {
+        .cell {
+          margin: 7.5px 15px 7.5px 0;
+          .media_wrap {
+            height: 155px;
+          }
+          &:last-child {
+            margin-right: 0;
+          }
         }
       }
     }

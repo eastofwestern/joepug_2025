@@ -392,7 +392,7 @@ header nav ul li {
 }
 
 header nav ul li a {
-  color: #c5c5c5;
+  color: #999898;
   text-decoration: none;
   transition: color .3s;
 }
@@ -589,6 +589,90 @@ header nav.takeover ul li a {
 
 .contact_module table tbody tr td:last-child {
   background-color: #f6eddafa;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .contact_module {
+    z-index: 14;
+    background-color: #c5c4c2;
+    height: 100vh;
+    overflow-y: scroll;
+  }
+
+  .contact_module .closeBtn {
+    display: none;
+  }
+
+  .contact_module table {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .contact_module table colgroup col {
+    width: 100% !important;
+  }
+
+  .contact_module table tbody, .contact_module table tbody tr {
+    display: contents;
+  }
+
+  .contact_module table tbody tr h3, .contact_module table tbody tr p {
+    width: 100% !important;
+  }
+
+  .contact_module table tbody tr td {
+    padding: 26px 6% 0;
+  }
+
+  .contact_module table tbody tr td:first-child {
+    background-color: #c5c4c2;
+  }
+
+  .contact_module table tbody tr td:nth-child(2) {
+    background-color: #f7da70;
+  }
+
+  .contact_module table tbody tr td:last-child {
+    background-color: #f6edda;
+  }
+
+  .contact_module table tbody tr:first-child td:first-child {
+    grid-area: 1 / 1;
+    padding-top: 175px;
+  }
+
+  .contact_module table tbody tr:first-child td:nth-child(2) {
+    grid-area: 4 / 1;
+  }
+
+  .contact_module table tbody tr:first-child td:nth-child(3) {
+    grid-area: 7 / 1;
+  }
+
+  .contact_module table tbody tr:nth-child(2) td:first-child {
+    grid-area: 2 / 1;
+  }
+
+  .contact_module table tbody tr:nth-child(2) td:nth-child(2) {
+    grid-area: 5 / 1;
+  }
+
+  .contact_module table tbody tr:nth-child(2) td:nth-child(3) {
+    grid-area: 8 / 1;
+  }
+
+  .contact_module table tbody tr:nth-child(3) td:first-child {
+    grid-area: 3 / 1;
+  }
+
+  .contact_module table tbody tr:nth-child(3) td:nth-child(2) {
+    grid-area: 6 / 1;
+    padding-bottom: 0;
+  }
+
+  .contact_module table tbody tr:nth-child(3) td:nth-child(3) {
+    grid-area: 9 / 1;
+  }
 }
 
 footer {
@@ -899,6 +983,14 @@ footer .inner .social li svg * {
   text-decoration: underline;
 }
 
+@media (max-width: 767px) and (orientation: portrait) {
+  .filter ul {
+    border-top: 1px solid #000;
+    margin-top: 0;
+    padding-top: 20px;
+  }
+}
+
 .grid.flex {
   border-top: 1px solid #000;
   width: 92%;
@@ -951,6 +1043,7 @@ footer .inner .social li svg * {
 
 .grid.flex.archive .row {
   border-bottom: none;
+  flex-wrap: wrap;
 }
 
 .grid.flex.archive .row .cell {
@@ -970,6 +1063,23 @@ footer .inner .social li svg * {
 
   .grid.flex .row .cell .media_wrap {
     height: 200px;
+  }
+
+  .grid.flex.archive {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .grid.flex.archive .row .cell {
+    margin: 7.5px 15px 7.5px 0;
+  }
+
+  .grid.flex.archive .row .cell .media_wrap {
+    height: 155px;
+  }
+
+  .grid.flex.archive .row .cell:last-child {
+    margin-right: 0;
   }
 }
 
@@ -1334,6 +1444,10 @@ footer .inner .social li svg * {
   #overlay .inner .wrap .slideshow button svg {
     height: 15px;
     display: block;
+  }
+
+  .archive #overlay {
+    margin: 20px 0 10px;
   }
 }
 
