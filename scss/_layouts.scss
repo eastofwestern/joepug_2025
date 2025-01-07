@@ -143,6 +143,17 @@
   }
 }
 
+@include phone-portrait {
+  .grid.loose {
+    grid-template-columns: repeat(6, 1fr);
+    .cell {
+      grid-column: var(--cat-col-start) / var(--cat-col-end) !important;
+      margin-top: var(--cat-top-margin) !important;
+      // margin-left: var(--cat-left-margin);
+    }
+  }
+}
+
 .filter {
   ul {
     display: flex;

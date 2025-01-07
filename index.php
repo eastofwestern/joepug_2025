@@ -94,13 +94,26 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 								$styleStr = "z-index: " . $count . ";";
 								if ($item['catTopMargin'] != "") {
-									$styleStr .= "margin-top: " . $item['catTopMargin'] . "%;";
+									$catTopMargin = $item['catTopMargin'];
+									$mobileCatTopMargin = $catTopMargin / 2;
+									$styleStr .= "margin-top: " . $catTopMargin . "%;";
+									$styleStr .= "--cat-top-margin: " . $mobileCatTopMargin . "%;";
 								}
 								if ($item['catLeftMargin'] != "") {
-									$styleStr .= "margin-left: " . $item['catLeftMargin'] . "%;";
+									$catLeftMargin = $item['catLeftMargin'];
+									$mobileCatLeftMargin = $catLeftMargin / 2;
+									$styleStr .= "margin-left: " . $catLeftMargin . "%;";
+									$styleStr .= "--cat-left-margin: " . $mobileCatLeftMargin . "%;";
 								}
 								if ($item['catColStart'] != "") {
-									$styleStr .= "grid-column: " . $item['catColStart'] . " / " . $item['catColEnd'] . ";";
+									$catColStart = $item['catColStart'];
+									$catColEnd = $item['catColEnd'];
+
+									$mobileCatColStart = ceil($catColStart / 2);
+									$mobileCatColEnd = ceil($catColEnd / 2);
+
+									$styleStr .= "grid-column: " . $catColStart . " / " . $catColEnd . ";";
+									$styleStr .= "--cat-col-start: " . $mobileCatColStart . "; --cat-col-end: " . $mobileCatColEnd . ";";
 								}
 
 								?>
@@ -140,6 +153,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 	<?php include('includes/overlays.php'); ?>
 	<?php include('includes/scripts.php'); ?>
+
 
 </body>
 

@@ -174,6 +174,9 @@ document.addEventListener("DOMContentLoaded", function () {
     resizeImage(resizeImageCells[i]);
   }
 
+  // Handle mobile grid for index.php 
+  
+
   /* ***************************************** */
   /* FUNCTIONS */
   /* ***************************************** */
