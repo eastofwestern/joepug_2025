@@ -65,6 +65,7 @@ $socialText = getPageTextID(720);
 				<p class="title">FOLLOW</p>
 				<p>IG <a href="https://www.instagram.com/joepug" target="__blank">@joepug</a>
 				</p>
+				<p class="mobile"><a href="http://www.eastofwestern.com" target="_blank">&copy; <?= Date("Y") ?> </a></p>
 			</div>
 			<p class="credit"><a href="http://www.eastofwestern.com" target="_blank">&copy; <?= Date("Y") ?> </a></p>
 		</div>

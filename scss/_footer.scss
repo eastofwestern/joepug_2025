@@ -72,6 +72,9 @@ footer {
           position: absolute;
           right: 20px;
         }
+        &.mobile {
+          display: none;
+        }
       }
     }
 
@@ -97,6 +100,45 @@ footer {
             stroke: none;
             fill: #fff;
           }
+        }
+      }
+    }
+  }
+}
+
+@include phone-portrait {
+  footer {
+    .inner {
+      .animated_name {
+        padding-top: 0;
+        img {
+          height: 35px;
+        }
+        svg {
+          height: 35px;
+          &#pug {
+            right: -130px;
+          }
+          &#liese {
+            padding-left: 0px;
+            right: -200px;
+          }
+        }
+      }
+      .bottom {
+        .col {
+          width: 33%;
+          margin: 0;
+        }
+        p {
+          font-size: 0.8rem;
+          &.mobile {
+            display: block;
+          }
+        }
+
+        .credit {
+          display: none;
         }
       }
     }

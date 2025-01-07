@@ -122,6 +122,13 @@ p {
   }
 }
 
+@include phone-portrait {
+  p {
+    line-height: 1.5;
+    font-size: 1.1rem;
+  }
+}
+
 h1,
 h2,
 .headline {

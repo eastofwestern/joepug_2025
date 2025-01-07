@@ -172,6 +172,20 @@ header {
   }
 }
 
+@include phone-portrait {
+  header {
+    .inner {
+      .logo {
+        width: 175px;
+        top: 20px;
+      }
+    }
+    nav {
+      top: 25px;
+      right: 20px;
+    }
+  }
+}
 /* MENU ON */
 
 .menuOn {

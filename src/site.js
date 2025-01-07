@@ -411,6 +411,13 @@ document.addEventListener("DOMContentLoaded", function () {
       scale: 1.08,
     });
 
+    if (innerWidth < 769) {
+      gsap.set(logo, {
+        x: "15",
+        duration: 0.5,
+      });
+    }
+
     Flip.from(state, {
       absolute: true,
       duration: 0.6,
@@ -462,9 +469,21 @@ document.addEventListener("DOMContentLoaded", function () {
       duration: 0.5,
     });
   }
-
-  logo.addEventListener("mouseover", unscramble);
-  logo.addEventListener("mouseleave", scramble);
+  if (innerWidth > 768) {
+    logo.addEventListener("mouseover", unscramble);
+    logo.addEventListener("mouseleave", scramble);
+  } else {
+    function checkScroll() {
+      let header = document.querySelector("header");
+      let headerHeight = header.offsetHeight;
+      if (window.scrollY > headerHeight) {
+        unscramble();
+      } else {
+        scramble();
+      }
+    }
+    window.addEventListener("scroll", checkScroll);
+  }
 
   //Footer animation
   let footer = document.querySelector("footer");
@@ -472,39 +491,73 @@ document.addEventListener("DOMContentLoaded", function () {
   let pug = footer.querySelector("#pug");
   let liese = footer.querySelector("#liese");
 
-  let footerTL = gsap.timeline({
-    scrollTrigger: {
-      trigger: footer,
-      start: "50% bottom",
-      end: "bottom bottom",
-      scrub: 2,
-    },
-  });
-  footerTL
-    .to(joe, {
-      clipPath: "inset(0 10% 0 0)",
-      duration: 2,
-    })
-    .to(pug, {
-      delay: 2,
+  if (window.innerWidth > 768) {
+    let footerTL = gsap.timeline({
+      scrollTrigger: {
+        trigger: footer,
+        start: "50% bottom",
+        end: "bottom bottom",
+        scrub: 2,
+      },
+    });
+    footerTL
+      .to(joe, {
+        clipPath: "inset(0 10% 0 0)",
+        duration: 2,
+      })
+      .to(pug, {
+        delay: 2,
 
-      left: 265,
-    })
-    .to(
-      liese,
-      {
         left: 265,
+      })
+      .to(
+        liese,
+        {
+          left: 265,
+        },
+        "<"
+      )
+      .to(
+        joe,
+        {
+          clipPath: "inset(0 77% 0 0)",
+        },
+        "<"
+      );
+  } else {
+    let footerTL = gsap.timeline({
+      scrollTrigger: {
+        trigger: footer,
+        start: "20% bottom",
+        end: "bottom bottom",
+        scrub: 2,
       },
-      "<"
-    )
-    .to(
-      joe,
-      {
-        clipPath: "inset(0 77% 0 0)",
-      },
-      "<"
-    );
+    });
+    footerTL
+      .to(joe, {
+        clipPath: "inset(0 10% 0 0)",
+        duration: 2,
+      })
+      .to(pug, {
+        delay: 2,
 
+        left: -45,
+      })
+      .to(
+        liese,
+        {
+          left: 55,
+        },
+        "<"
+      )
+      .to(
+        joe,
+        {
+          clipPath: "inset(0 77% 0 0)",
+        },
+        "<"
+      );
+  }
   window.addEventListener("resize", function () {
     footerTL.progress(0).invalidate().restart();
   });
