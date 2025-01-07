@@ -280,6 +280,12 @@ main #content:before {
   background-color: #f7da70;
 }
 
+@media (max-width: 767px) and (orientation: portrait) {
+  main #content:before {
+    height: 150px;
+  }
+}
+
 header {
   z-index: 100;
   width: 100%;
@@ -952,6 +958,21 @@ footer .inner .social li svg * {
   margin-right: 40px;
 }
 
+@media (max-width: 767px) and (orientation: portrait) {
+  .grid.flex .row {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+  }
+
+  .grid.flex .row .cell {
+    margin: 0 6px;
+  }
+
+  .grid.flex .row .cell .media_wrap {
+    height: 200px;
+  }
+}
+
 .justified {
   width: 84%;
   margin: 0 auto;
@@ -1156,6 +1177,7 @@ footer .inner .social li svg * {
   transition: z-index 0s .4s, transform 0s .4s, opacity .3s;
   display: none;
   position: relative;
+  overflow: clip;
   transform: translateX(-100%);
 }
 
@@ -1294,6 +1316,25 @@ footer .inner .social li svg * {
 
 .archive #overlay .number {
   display: none;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  #overlay .inner .wrap .slideshow .flickity-viewport {
+    height: 45vh !important;
+    min-height: 300px !important;
+  }
+
+  #overlay .inner .wrap .slideshow button {
+    bottom: -40px;
+    top: unset;
+    width: 20px;
+    height: 20px;
+  }
+
+  #overlay .inner .wrap .slideshow button svg {
+    height: 15px;
+    display: block;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

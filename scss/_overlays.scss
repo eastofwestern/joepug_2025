@@ -13,6 +13,7 @@
   opacity: 0;
   z-index: -1;
   transform: translateX(-100%);
+  overflow: clip;
 
   transition: z-index 0s 0.4s, transform 0s 0.4s, opacity 0.3s 0s;
 
@@ -152,6 +153,31 @@
     }
     .number {
       display: none;
+    }
+  }
+}
+
+@include phone-portrait {
+  #overlay {
+    .inner {
+      .wrap {
+        .slideshow {
+          .flickity-viewport {
+            min-height: 300px !important;
+            height: 45vh !important;
+          }
+          button {
+            bottom: -40px;
+            top: unset;
+            height: 20px;
+            width: 20px;
+            svg {
+              display: block;
+              height: 15px;
+            }
+          }
+        }
+      }
     }
   }
 }

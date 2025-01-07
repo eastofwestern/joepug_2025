@@ -355,3 +355,13 @@ main {
     }
   }
 }
+
+@include phone-portrait {
+  main {
+    #content {
+      &:before {
+        height: 150px;
+      }
+    }
+  }
+}

@@ -215,6 +215,21 @@
   }
 }
 
+@include phone-portrait {
+  .grid.flex {
+    .row {
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      .cell {
+        margin: 0 6px;
+        .media_wrap {
+          height: 200px;
+        }
+      }
+    }
+  }
+}
+
 .justified {
   width: 84%;
   margin: 0px auto;
