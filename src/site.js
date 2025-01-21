@@ -544,17 +544,16 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: footer,
         start: "50% bottom",
         end: "bottom bottom",
-        scrub: 2,
+        scrub: 1,
       },
     });
     footerTL
       .to(joe, {
         clipPath: "inset(0 10% 0 0)",
-        duration: 2,
+        // duration: 2,
       })
       .to(pug, {
-        delay: 2,
-
+        // delay: 2,
         left: 265,
       })
       .to(

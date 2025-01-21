@@ -231,10 +231,21 @@ header {
   position: fixed;
   width: 100vw;
   height: auto;
+
   transform: translateY(0);
   transition: transform 0.5s;
   &.hidden {
     transform: translateY(-100%);
+    .inner {
+      background-color: transparent;
+      transition: background-color 0s;
+    }
+  }
+  .inner {
+    height: 100vh;
+    background-color: rgba(249, 246, 246, 0.8);
+    transition: background-color 0.3s;
+    transition-delay: 0.4s;
   }
   .closeBtn {
     p {
