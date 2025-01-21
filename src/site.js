@@ -9,7 +9,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
 import Flip from "gsap/Flip";
 gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother);
-
 import zenscroll from "zenscroll";
 
 /* SETUP VARS */
@@ -174,8 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
     resizeImage(resizeImageCells[i]);
   }
 
-  // Handle mobile grid for index.php 
-  
+  // Handle mobile grid for index.php
 
   /* ***************************************** */
   /* FUNCTIONS */
@@ -305,11 +303,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openOverlay() {
     overlay.classList.add("on");
+    setTimeout(function () {
+      zenscroll.center(overlay);
+    }, 50);
   }
 
   function closeOverlay() {
     overlay.classList.remove("on");
     overlayInner.innerHTML = "";
+    let cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.classList.remove("selected");
+    });
   }
 
   function ratioSize(el) {
@@ -374,6 +379,18 @@ document.addEventListener("DOMContentLoaded", function () {
   let P = logo.querySelector("#P");
   let U = logo.querySelector("#U");
   let G = logo.querySelector("#G");
+
+  function mouseOverLogo() {
+    clearTimeout(logoTimeout);
+    unscramble();
+  }
+
+  function mouseLeaveLogo() {
+    scramble();
+    setTimeout(function () {
+      randomLogoAnimation();
+    }, 4000);
+  }
 
   function unscramble() {
     const state = Flip.getState([J, O, E, P, U, G]);
@@ -469,12 +486,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     Flip.from(state, {
       absolute: true,
-      duration: 0.5,
+      duration: 0.7,
     });
   }
   if (innerWidth > 768) {
-    logo.addEventListener("mouseover", unscramble);
-    logo.addEventListener("mouseleave", scramble);
+    logo.addEventListener("mouseover", mouseOverLogo);
+    logo.addEventListener("mouseleave", mouseLeaveLogo);
   } else {
     function checkScroll() {
       let header = document.querySelector("header");
@@ -487,6 +504,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     window.addEventListener("scroll", checkScroll);
   }
+
+  // Random logo animation
+  let logoTimeout;
+  function randomLogoAnimation() {
+    const minInterval = 4000; // 4 seconds
+    const maxInterval = 10000; // 10 seconds
+
+    function animate() {
+      //if (Math.random() > 0.5) {
+      unscramble();
+      setTimeout(scramble, 1500);
+      // }
+
+      const nextInterval =
+        Math.random() * (maxInterval - minInterval) + minInterval;
+      console.log(nextInterval);
+      logoTimeout = setTimeout(animate, nextInterval);
+    }
+
+    if (innerWidth > 768) {
+      animate();
+    }
+  }
+
+  setTimeout(function () {
+    randomLogoAnimation();
+  }, 4000);
 
   //Footer animation
   let footer = document.querySelector("footer");
@@ -581,6 +625,25 @@ document.addEventListener("DOMContentLoaded", function () {
     contactModule.classList.toggle("hidden");
   });
 
+  // OPENING LIGHTBOX SLIDESHOW - HOMEPAGE AND SERIES GRID
+  let lightboxLinks = document.querySelectorAll(".openLightbox");
+  lightboxLinks.forEach((lightboxLink) => {
+    lightboxLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      let index = lightboxLink.getAttribute("data-index");
+      let catid = lightboxLink.getAttribute("data-catid");
+      getAjax(
+        "/getLightboxSlideshow.php?catid=" + catid + "&index=" + index,
+        function (data) {
+          overlayInner.innerHTML = data;
+          initLoading();
+          initializeFlickity(index);
+        }
+      );
+      openOverlay();
+    });
+  });
+
   // OPENING OVERLAY AND SLIDESHOW
   let overlayLinks = document.querySelectorAll(".openSlideshow");
   overlayLinks.forEach((overlayLink) => {
@@ -650,6 +713,59 @@ document.addEventListener("DOMContentLoaded", function () {
         openOverlay();
       }
       // change event
+    });
+  });
+
+  // Get Item (for archive)
+  let overlayItemLinks = document.querySelectorAll(".openItem");
+  overlayItemLinks.forEach((overlayLink) => {
+    overlayLink.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      let parentCell = overlayLink.closest(".cell");
+
+      if (parentCell.classList.contains("selected")) {
+        closeOverlay();
+        zenscroll.center(parentCell);
+      } else {
+        let cells = document.querySelectorAll(".cell");
+        let clickedCell = e.currentTarget.closest(".cell");
+        let id = overlayLink.getAttribute("data-id");
+        getAjax("/getItem.php?id=" + id, function (data) {
+          overlayInner.innerHTML = data;
+          initLoading();
+
+          overlayInner.addEventListener("click", function (e) {
+            closeOverlay();
+            zenscroll.center(parentCell);
+          });
+        });
+
+        /* ----------- ARCHIVE SLIDESHOW LOGIC -----------*/
+        //  For non-workpage, append overlay next to the last cell in current row
+        // closeOverlay();
+        let parentRow = e.currentTarget.closest(".row");
+        let clickedCellRect = clickedCell.getBoundingClientRect();
+        let firstCellInNextRow = null;
+
+        for (let i = 0; i < cells.length; i++) {
+          let cell = cells[i];
+          cell.classList.remove("selected");
+          let cellRect = cell.getBoundingClientRect();
+          if (cellRect.top > clickedCellRect.top) {
+            firstCellInNextRow = cell;
+            break;
+          }
+        }
+        clickedCell.classList.add("selected");
+        if (firstCellInNextRow) {
+          firstCellInNextRow.insertAdjacentElement("beforebegin", overlay);
+        } else {
+          parentRow.appendChild(overlay);
+        }
+
+        openOverlay();
+      }
     });
   });
 

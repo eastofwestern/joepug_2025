@@ -128,7 +128,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                                         <!-- Need to add openOverlay or openSlideshow  -->
 
                                         <figure class="cell fadeOn <?= $cellClass ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
-                                            <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openSlideshow" data-id="<?= $item['id'] ?>" data-catid="<?= $project['id'] ?>">
+                                            <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openItem" data-id="<?= $item['id'] ?>" data-catid="<?= $project['id'] ?>">
 
 
                                                 <div class="media_wrap">
