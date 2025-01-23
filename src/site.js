@@ -589,23 +589,34 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: footer,
         start: "20% bottom",
         end: "bottom bottom",
-        scrub: 2,
+        scrub: 1,
       },
     });
-    gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
+    gsap.set(joe, { clipPath: "inset(0 71% 0 0)" });
     footerTL
       .to(joe, {
-        clipPath: `inset(0 ${pugWidth}px 0 0)`,
+        clipPath: "inset(0 18% 0 0)",
+        // duration: 2,
       })
       .to(pug, {
+        // delay: 2,
+
         left: -45,
       })
-      .to(liese, {
-        left: 55,
-      })
-      .to(joe, {
-        clipPath: `inset(0 ${initialClipPath}px 0 0)`,
-      });
+      .to(
+        liese,
+        {
+          left: 55,
+        },
+        "<"
+      )
+      .to(
+        joe,
+        {
+          clipPath: "inset(0 71% 0 0)",
+        },
+        "<"
+      );
   }
   window.addEventListener("resize", function () {
     footerTL.progress(0).invalidate().restart();

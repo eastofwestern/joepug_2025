@@ -242,6 +242,7 @@
     .row {
       flex-wrap: nowrap;
       overflow-x: scroll;
+      scrollbar-width: none;
       .cell {
         margin: 0 6px;
         .media_wrap {

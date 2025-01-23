@@ -255,6 +255,12 @@
   #overlay {
     .inner {
       .wrap {
+        padding-bottom: 10px;
+        img {
+          max-height: 50vh;
+          width: 100%;
+          object-fit: contain;
+        }
         .slideshow {
           .flickity-viewport {
             min-height: 300px !important;

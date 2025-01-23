@@ -108,7 +108,7 @@ header {
         font-size: 0.8rem;
         font-family: $font-sud;
         font-weight: 600;
-        letter-spacing: 1.5;
+        letter-spacing: 3;
         padding-bottom: 5px;
         &:last-child {
         }
@@ -121,6 +121,7 @@ header {
           &.pageOn {
             color: $color-foreground;
             text-decoration: underline;
+            text-underline-offset: 2px;
           }
         }
         &:hover {

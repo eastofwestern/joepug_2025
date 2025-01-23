@@ -80,7 +80,22 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                             ?>
                             <div class="grid flex">
-                                <p><?= $project["subName"] ?> </p>
+                                <p> <?php
+                                    $subName = $project["subName"];
+                                    if (strpos($subName, '|') !== false) {
+                                        $subNameParts = explode('|', $subName, 2); // Split into two parts only
+                                        $boldText = $subNameParts[0] . '|'; // Include the | in the bold text
+                                        $remainingText = isset($subNameParts[1]) ? $subNameParts[1] : '';
+                                    ?>
+                                        <strong><?= $boldText ?></strong><?= $remainingText ?>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <strong><?= $subName ?></strong>
+                                    <?php
+                                    }
+                                    ?>
+                                </p>
                                 <div class="row">
 
 

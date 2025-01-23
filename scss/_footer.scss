@@ -119,12 +119,20 @@ footer {
         img {
           height: 35px;
         }
+        overflow: visible;
         svg {
           height: 35px;
+          overflow: visible;
+          &#joe {
+            width: 400px !important;
+            left: -44px;
+          }
           &#pug {
             right: -130px;
+            bottom: 0;
           }
           &#liese {
+            bottom: 0;
             padding-left: 0px;
             right: -200px;
           }
