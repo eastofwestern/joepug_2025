@@ -37,7 +37,12 @@ footer {
         position: absolute;
         overflow: hidden;
         bottom: 0;
+        &#joe {
+          left: -435px;
+        }
         &#pug {
+          transform: scale(1.01);
+          bottom: -0.5px;
           right: -35px;
         }
         &#liese {

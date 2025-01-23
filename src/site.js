@@ -519,7 +519,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const nextInterval =
         Math.random() * (maxInterval - minInterval) + minInterval;
-      console.log(nextInterval);
+
       logoTimeout = setTimeout(animate, nextInterval);
     }
 
@@ -533,10 +533,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 4000);
 
   //Footer animation
+
   let footer = document.querySelector("footer");
-  let joe = footer.querySelector(".animated_name img");
+  let joe = footer.querySelector("#joe");
   let pug = footer.querySelector("#pug");
   let liese = footer.querySelector("#liese");
+
+  let viewportWidth = window.innerWidth;
+  let k = 1000000;
+  let pugBBox = pug.getBoundingClientRect();
+  let joeBBox = joe.getBoundingClientRect();
+  let pugWidth = k / Math.pow(viewportWidth, 1.02);
+  let joeWidth = joeBBox.width; // Get the width of the #joe element
+  let initialClipPath = joeWidth * 0.65; // Calculate 65% of joe's width in pixels
+  console.log("pugwidth", pugWidth);
+  console.log("joewidth", joeWidth);
+  console.log("initialclippath", initialClipPath);
 
   if (window.innerWidth > 768) {
     let footerTL = gsap.timeline({
@@ -547,9 +559,10 @@ document.addEventListener("DOMContentLoaded", function () {
         scrub: 1,
       },
     });
+    gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
     footerTL
       .to(joe, {
-        clipPath: "inset(0 10% 0 0)",
+        clipPath: `inset(0 ${pugWidth}px 0 0)`,
         // duration: 2,
       })
       .to(pug, {
@@ -566,7 +579,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .to(
         joe,
         {
-          clipPath: "inset(0 77% 0 0)",
+          clipPath: `inset(0 ${initialClipPath}px 0 0)`,
         },
         "<"
       );
@@ -579,30 +592,20 @@ document.addEventListener("DOMContentLoaded", function () {
         scrub: 2,
       },
     });
+    gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
     footerTL
       .to(joe, {
-        clipPath: "inset(0 10% 0 0)",
-        duration: 2,
+        clipPath: `inset(0 ${pugWidth}px 0 0)`,
       })
       .to(pug, {
-        delay: 2,
-
         left: -45,
       })
-      .to(
-        liese,
-        {
-          left: 55,
-        },
-        "<"
-      )
-      .to(
-        joe,
-        {
-          clipPath: "inset(0 77% 0 0)",
-        },
-        "<"
-      );
+      .to(liese, {
+        left: 55,
+      })
+      .to(joe, {
+        clipPath: `inset(0 ${initialClipPath}px 0 0)`,
+      });
   }
   window.addEventListener("resize", function () {
     footerTL.progress(0).invalidate().restart();
