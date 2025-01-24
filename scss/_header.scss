@@ -39,8 +39,6 @@ header {
       svg:first-child {
         display: none;
       }
-      .flipped {
-      }
     }
 
     .menuBtn {
@@ -96,6 +94,8 @@ header {
     text-align: right;
     color: $color-accent1;
     pointer-events: all;
+    opacity: 1;
+    transition: opacity .3s;
 
     ul {
       list-style-type: none;
@@ -110,8 +110,6 @@ header {
         font-weight: 600;
         letter-spacing: 3;
         padding-bottom: 5px;
-        &:last-child {
-        }
 
         a {
           transition: color 0.3s;
@@ -122,11 +120,6 @@ header {
             color: $color-foreground;
             text-decoration: underline;
             text-underline-offset: 2px;
-          }
-        }
-        &:hover {
-          ul.subs {
-            // display: block;
           }
         }
         &:last-child {
@@ -192,6 +185,20 @@ header {
   }
 }
 /* MENU ON */
+
+.lightboxOpen {
+  header {
+    .inner {
+      .logo {
+        pointer-events: none;
+      }
+    }
+    nav {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
 
 .menuOn {
   header {

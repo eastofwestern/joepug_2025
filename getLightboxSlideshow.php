@@ -4,14 +4,6 @@ session_start();
 include('includes/connect.php');
 include('includes/functions.php');
 
-$catID = $_GET['catid'];
-exho $catID;
-exit;
-
-// individual image information
-$itemID = $_GET['id'];
-$item = getMainImage($itemID);
-$itemVideo = getImageVideo($itemID);
 
 // category information
 $catID = $_GET['catid'];
@@ -38,32 +30,32 @@ $images = getImages($catID, $catDetails['sorter']);
 
             $cellClass = "";
 
-            // $hasAutoVideo = false;
-            // if ($itemVideo['hoverFile'] != "") {
-            //     $hasAutoVideo = true;
-            //     $cellClass .= " autovideo";
-            // }
+            $hasAutoVideo = false;
+            if ($itemVideo['hoverFile'] != "") {
+                $hasAutoVideo = true;
+                $cellClass .= " autovideo";
+            }
 
-            // $hasFullVideo = false;
-            // $fullVideoType = "";
-            // $videoStr = "";
-            // if ($itemVideo['embed'] != "") {
-            //     $hasFullVideo = true;
-            //     $cellClass .= " fullvideo";
-            //     $fullVideoType = "embed";
-            // }
-            // if ($itemVideo['file'] != "") {
-            //     $hasFullVideo = true;
-            //     $cellClass .= " fullvideo";
-            //     $fullVideoType = "file";
-            //     $videoStr = '<video playsinline><source src="/videos/' . $itemVideo['file'] . '" type="video/mp4"></video>';
-            // }
-            // if ($itemVideo['url_desktop'] != "") {
-            //     $hasFullVideo = true;
-            //     $cellClass .= " fullvideo";
-            //     $fullVideoType = "url";
-            //     $videoStr = '<video playsinline class="sizeload" data-hd="' . $itemVideo['url_desktop'] . '" data-sd="' . $itemVideo['url_mobile'] . '"><source src="" type="video/mp4"></video>';
-            // }
+            $hasFullVideo = false;
+            $fullVideoType = "";
+            $videoStr = "";
+            if ($itemVideo['embed'] != "") {
+                $hasFullVideo = true;
+                $cellClass .= " fullvideo";
+                $fullVideoType = "embed";
+            }
+            if ($itemVideo['file'] != "") {
+                $hasFullVideo = true;
+                $cellClass .= " fullvideo";
+                $fullVideoType = "file";
+                $videoStr = '<video playsinline><source src="/videos/' . $itemVideo['file'] . '" type="video/mp4"></video>';
+            }
+            if ($itemVideo['url_desktop'] != "") {
+                $hasFullVideo = true;
+                $cellClass .= " fullvideo";
+                $fullVideoType = "url";
+                $videoStr = '<video playsinline class="sizeload" data-hd="' . $itemVideo['url_desktop'] . '" data-sd="' . $itemVideo['url_mobile'] . '"><source src="" type="video/mp4"></video>';
+            }
 
             $hasTitle = false;
             $hasCaption = false;
@@ -91,52 +83,5 @@ $images = getImages($catID, $catDetails['sorter']);
         <?php } ?>
 
     </div>
-
-    <?php /*
-    <!-- PLACEHOLDER CODE: -->
-
-    <div class="slideshow data-flickity">
-        <figure class="cell" data-id="15169">
-            <p class="title"><strong> Project Title | </strong> Client</p>
-            <img src="/images/pics/734_LQuEdA_image-28.jpg" alt="">
-            <div class="number">
-                <p>- 1 -</p>
-            </div>
-        </figure>
-        <figure class="cell" data-id="15166">
-            <p class=" title"><strong> Project Title | </strong> Client</p>
-            <img src="/images/pics/734_0NDOJe_image-29.jpg" alt="">
-            <div class="number">
-                <p>- 2 -</p>
-            </div>
-        </figure>
-        <figure class="cell" data-id="15165">
-            <p class="title"><strong> Project Title | </strong> Client</p>
-            <img src="/images/pics/734_hcr2jo_image-30.jpg" alt="">
-            <div class="number">
-                <p>- 3 -</p>
-            </div>
-        </figure>
-        <figure class="cell" data-id="15164">
-            <p class="title"><strong> Project Title | </strong> Client</p>
-            <img src="/images/pics/734_qikboB_image-31.jpg" alt="">
-            <div class="number">
-                <p>- 4 -</p>
-            </div>
-        </figure>
-        <figure class="cell" data-id="15171">
-            <p class="title"><strong> Project Title | </strong> Client</p>
-            <img src="/images/pics/734_S0HX1J_image-32.jpg" alt="">
-            <div class="number">
-                <p>- 5 -</p>
-            </div>
-        </figure>
-    </div>
-
-    */ ?>
-
-
-
-
 
 </div>

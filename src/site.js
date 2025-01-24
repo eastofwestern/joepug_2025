@@ -20,10 +20,16 @@ let socialEl = document.querySelectorAll(".social");
 let rowsEl = document.querySelectorAll(".ar-rows");
 const nav = document.querySelector("nav");
 const overlay = document.getElementById("overlay");
+const lightboxOverlay = document.getElementById("lightbox");
 let overlayInner, overlayCloser;
 if (typeof overlay != "undefined" && overlay != null) {
   overlayInner = overlay.querySelector(".inner");
   overlayCloser = overlay.querySelector(".closer");
+}
+let overlayLightboxInner, overlayLightboxCloser;
+if (typeof lightboxOverlay != "undefined" && lightboxOverlay != null) {
+  overlayLightboxInner = lightboxOverlay.querySelector(".inner");
+  overlayLightboxCloser = lightboxOverlay.querySelector(".closer");
 }
 
 window.addEventListener("load", function () {
@@ -134,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cellSelector: ".cell",
         draggable: true,
         pageDots: false,
+        prevNextButtons: false,
         selectedAttraction: 0.2,
         friction: 0.8,
         wrapAround: false,
@@ -301,6 +308,26 @@ document.addEventListener("DOMContentLoaded", function () {
     return xhr;
   }
 
+  function openLightbox() {
+    body.classList.add("lightboxOpen");
+    lightboxOverlay.classList.add("on");
+    unscramble();
+    clearTimeout(logoTimeout);
+    clearInterval(nextInterval);
+    logo.classList.add("static");
+  }
+
+  function closeLightbox() {
+    body.classList.remove("lightboxOpen");
+    lightboxOverlay.classList.remove("on");
+    overlayLightboxInner.innerHTML = "";
+    logo.classList.remove("static");
+    scramble();
+    setTimeout(function () {
+      randomLogoAnimation();
+    }, 4000);
+  }
+
   function openOverlay() {
     overlay.classList.add("on");
     setTimeout(function () {
@@ -393,6 +420,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function unscramble() {
+    if (logo.classList.contains("static")) {
+      return;
+    }
+
     const state = Flip.getState([J, O, E, P, U, G]);
     let logoRect = logo.getBoundingClientRect();
 
@@ -445,6 +476,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function scramble() {
+    if (logo.classList.contains("static")) {
+      return;
+    }
+
     const state = Flip.getState([J, O, E, P, U, G]);
 
     gsap.set(J, {
@@ -506,7 +541,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Random logo animation
-  let logoTimeout;
+  let logoTimeout, nextInterval;
   function randomLogoAnimation() {
     const minInterval = 4000; // 4 seconds
     const maxInterval = 10000; // 10 seconds
@@ -517,8 +552,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(scramble, 1500);
       // }
 
-      const nextInterval =
-        Math.random() * (maxInterval - minInterval) + minInterval;
+      nextInterval = Math.random() * (maxInterval - minInterval) + minInterval;
 
       logoTimeout = setTimeout(animate, nextInterval);
     }
@@ -550,8 +584,10 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("joewidth", joeWidth);
   console.log("initialclippath", initialClipPath);
 
+  let footerTL;
+
   if (window.innerWidth > 768) {
-    let footerTL = gsap.timeline({
+    footerTL = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
         start: "50% bottom",
@@ -648,12 +684,12 @@ document.addEventListener("DOMContentLoaded", function () {
       getAjax(
         "/getLightboxSlideshow.php?catid=" + catid + "&index=" + index,
         function (data) {
-          overlayInner.innerHTML = data;
+          overlayLightboxInner.innerHTML = data;
           initLoading();
           initializeFlickity(index);
         }
       );
-      openOverlay();
+      openLightbox();
     });
   });
 
@@ -800,6 +836,18 @@ document.addEventListener("DOMContentLoaded", function () {
       function (event) {
         event.preventDefault();
         closeOverlay();
+      },
+      true
+    );
+  }
+
+  // close overlay lightbox
+  if (typeof lightboxOverlay != "undefined" && lightboxOverlay != null) {
+    overlayLightboxCloser.addEventListener(
+      "click",
+      function (event) {
+        event.preventDefault();
+        closeLightbox();
       },
       true
     );

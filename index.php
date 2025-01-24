@@ -63,7 +63,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 						<div class="grid loose">
 
 
-							<?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
+							<?php for ($count = 0; $item = mysqli_fetch_array($images); ++$count) { ?>
 
 								<?php
 
@@ -118,7 +118,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 								?>
 
-								<figure class="cell <?= $cellClass ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?> style="<?= $styleStr ?>">
+								<figure class="cell <?= $cellClass ?>" data-catid="<?= $catID ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?> style="<?= $styleStr ?>">
 									<div class="mediawrap" style="padding-top: <?= $itemPad ?>%;">
 										<img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" alt="<?= $company ?>" />
 										<?php if ($hasAutoVideo) { ?>
