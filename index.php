@@ -73,7 +73,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 								$itemVideo = getImageVideo($item['id']);
 
-								$cellClass = "openLightbox";
+								$cellClass = "openLightbox fadeUp";
 
 								$hasAutoVideo = false;
 								if ($itemVideo['hoverFile'] != "") {

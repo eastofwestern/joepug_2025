@@ -133,7 +133,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                                     ?>
                                     <!-- Need to add openOverlay back in -->
-                                    <figure class="cell grid_cell fadeOn <?= $cellClass ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
+                                    <figure class="cell grid_cell fadeUp <?= $cellClass ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
                                         <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openItem" data-id="<?= $item['id'] ?>" data-catid="<?= $catID ?>">
 
                                             <div class="media_wrap">

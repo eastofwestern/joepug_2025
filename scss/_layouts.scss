@@ -157,7 +157,7 @@
     display: flex;
     list-style-type: none;
     width: 92%;
-    margin: 65px auto 0 auto;
+    margin: 20px auto 0 auto;
     li {
       margin-right: 15px;
       a {
@@ -203,7 +203,6 @@
       align-items: center;
       margin-right: 25px;
       margin-bottom: 20px;
-      transition: 0.3s;
       &.hide {
         display: none;
       }
@@ -223,7 +222,7 @@
     }
   }
   &.archive {
-    padding-top: 75px;
+    padding-top: 25px;
     .row {
       flex-wrap: wrap;
       border-bottom: none;

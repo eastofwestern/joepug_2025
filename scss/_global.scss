@@ -307,6 +307,11 @@ p {
   font-size: 1rem;
 }
 
+strong, b {
+  font-family: $font-primary-bold;
+  font-weight: 400;
+}
+
 /* ************** ANIMATION UTILITIES ***************** */
 
 .fadeOn {
@@ -316,7 +321,7 @@ p {
 .fadeUp,
 .fadeUpDelay {
   opacity: 0;
-  transform: translateY(5rem);
+  transform: translateY(1rem);
 }
 
 /* ************** SITE STRUCTURE ******************* */

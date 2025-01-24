@@ -5,7 +5,6 @@ $contactPageText = getPageTextID($contactID)
 
 ?>
 
-
 <div class="text-block contact_module hidden">
     <div class="closeBtn">
         <p>CLOSE</p>
@@ -14,3 +13,5 @@ $contactPageText = getPageTextID($contactID)
         <?= $contactPageText['content'] ?>
     </div>
 </div>
+
+<div class="contact_cover"></div>

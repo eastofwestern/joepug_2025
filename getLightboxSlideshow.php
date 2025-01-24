@@ -72,15 +72,18 @@ $images = getImages($catID, $catDetails['sorter']);
 
             <figure class="cell <?= $cellClass ?>" data-id="<?= $image['id'] ?>">
                 <img src="<?= $loaderImg ?>" data-img="<?= $image['img'] ?>" class="photo loadmeview <?= $ext ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $image['title'] ?> ?>" <?php } ?> />
-
-
-
-                <div class="number">
-                    <p>- <?= $count + 1 ?> -</p>
-                </div>
             </figure>
 
         <?php } ?>
+
+        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="50" height="44.828" viewBox="0 0 50 44.828">
+            <path id="Icon_akar-arrow-right" data-name="Icon akar-arrow-right" d="M6,28.5H54M33,7.5l21,21-21,21" transform="translate(-5 -6.086)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+        </svg>
+
+        <svg class="close" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+            <path d="M10,10 L40,40 M40,10 L10,40" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
 
     </div>
 

@@ -48,17 +48,27 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // global animation effects
-  ScrollTrigger.batch(".fadeUp", {
-    onEnter: (elements, triggers) => {
-      gsap.to(elements, { opacity: 1, y: 0, stagger: 0.15 });
-    },
-  });
+  setTimeout(function () {
+    ScrollTrigger.batch(".fadeUp", {
+      onEnter: (elements, triggers) => {
+        gsap.to(elements, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "Power2.easeOut",
+          stagger: 0.15,
+        });
+      },
+    });
+  }, 100);
 
-  ScrollTrigger.batch(".fadeOn", {
-    onEnter: (elements, triggers) => {
-      gsap.to(elements, { opacity: 1, stagger: 0.1 });
-    },
-  });
+  setTimeout(function () {
+    ScrollTrigger.batch(".fadeOn", {
+      onEnter: (elements, triggers) => {
+        gsap.to(elements, { opacity: 1, stagger: 0.15 });
+      },
+    });
+  }, 100);
 
   setTimeout(function () {
     ScrollTrigger.batch(".fadeUpDelay", {
@@ -129,6 +139,78 @@ document.addEventListener("DOMContentLoaded", function () {
     msnry.on("layoutComplete", onLayoutComplete);
   });
 
+  const handleMouseMove = (e) => {
+    let slideshowEl = lightboxOverlay.querySelector(".slideshow");
+
+    let arrowIcon = slideshowEl.querySelector(".arrow");
+    let closeIcon = slideshowEl.querySelector(".close");
+    let closerX = lightboxOverlay.querySelector(".closer .closeIcon");
+
+    body.style.cursor = "none";
+    arrowIcon.style.display = "block";
+
+    arrowIcon.style.left = e.pageX - 23 + "px";
+    arrowIcon.style.top = e.pageY - 23 + "px";
+    closeIcon.style.left = e.pageX - 23 + "px";
+    closeIcon.style.top = e.pageY - 23 + "px";
+
+    // handle close icon over selected image
+    let selectedCell = slideshowEl.querySelector(".cell.is-selected img");
+    if (selectedCell && selectedCell.contains(e.target)) {
+      closeIcon.style.display = "block";
+      arrowIcon.style.display = "none";
+    } else {
+      closeIcon.style.display = "none";
+      arrowIcon.style.display = "block";
+    }
+
+    // rotate arrow cursor based on position
+    if (e.pageX < window.innerWidth * 0.5) {
+      arrowIcon.classList.add("left");
+    } else {
+      arrowIcon.classList.remove("left");
+    }
+
+    // if the cursor is over the closeIcon, hide the arrow cursor and use the browser default cursor
+    if (closerX.contains(e.target)) {
+      arrowIcon.style.display = "none";
+    }
+  };
+
+  const handleSlideshowClick = (e) => {
+    let slideshowEl = lightboxOverlay.querySelector(".slideshow");
+    let arrowIcon = slideshowEl.querySelector(".arrow");
+    let closeIcon = slideshowEl.querySelector(".close");
+    // Get Flickity instance from the element
+    let flkty = Flickity.data(slideshowEl);
+
+    // handle esc key
+    if (lightboxOverlay.classList.contains("on")) {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          arrowIcon.style.display = "none";
+          closeIcon.style.display = "none";
+          closeLightbox();
+        }
+      });
+    }
+
+    if (
+      e.target.classList.contains("photo") ||
+      e.target.classList.contains("closeIcon")
+    ) {
+      arrowIcon.style.display = "none";
+      closeIcon.style.display = "none";
+      closeLightbox();
+    } else {
+      if (e.pageX < window.innerWidth * 0.5) {
+        flkty.previous();
+      } else {
+        flkty.next();
+      }
+    }
+  };
+
   //initialize flickity for slideshows - called in AJAX call
   let archive = document.querySelector(".archive");
   function initializeFlickity(cellIndex) {
@@ -138,12 +220,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // options
         fade: true,
         cellSelector: ".cell",
-        draggable: true,
+        draggable: false,
         pageDots: false,
         prevNextButtons: false,
         selectedAttraction: 0.2,
         friction: 0.8,
-        wrapAround: false,
+        wrapAround: true,
         freeScroll: false,
         cellAlign: "center",
         initialIndex: cellIndex,
@@ -165,6 +247,10 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
       });
+
+      // change cursor to arrow icon when hovering over slideshow
+      document.addEventListener("click", handleSlideshowClick);
+      document.addEventListener("mousemove", handleMouseMove);
     }
   }
 
@@ -318,6 +404,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function closeLightbox() {
+    body.style.cursor = "default";
+    document.removeEventListener("click", handleSlideshowClick);
+    document.removeEventListener("mousemove", handleMouseMove);
     body.classList.remove("lightboxOpen");
     lightboxOverlay.classList.remove("on");
     overlayLightboxInner.innerHTML = "";
@@ -410,13 +499,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function mouseOverLogo() {
     clearTimeout(logoTimeout);
     unscramble();
+    logo.classList.add("static");
   }
 
   function mouseLeaveLogo() {
+    logo.classList.remove("static");
     scramble();
-    setTimeout(function () {
-      randomLogoAnimation();
-    }, 4000);
   }
 
   function unscramble() {
@@ -553,7 +641,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // }
 
       nextInterval = Math.random() * (maxInterval - minInterval) + minInterval;
-
       logoTimeout = setTimeout(animate, nextInterval);
     }
 
@@ -666,12 +753,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   contactBtn.addEventListener("click", (e) => {
     e.preventDefault;
-
-    contactModule.classList.toggle("hidden");
+    body.classList.add("contactOpen");
+    contactModule.classList.remove("hidden");
   });
   contactCloseBtn.addEventListener("click", (e) => {
     e.preventDefault;
-    contactModule.classList.toggle("hidden");
+    body.classList.remove("contactOpen");
+    contactModule.classList.add("hidden");
   });
 
   // OPENING LIGHTBOX SLIDESHOW - HOMEPAGE AND SERIES GRID
@@ -836,18 +924,6 @@ document.addEventListener("DOMContentLoaded", function () {
       function (event) {
         event.preventDefault();
         closeOverlay();
-      },
-      true
-    );
-  }
-
-  // close overlay lightbox
-  if (typeof lightboxOverlay != "undefined" && lightboxOverlay != null) {
-    overlayLightboxCloser.addEventListener(
-      "click",
-      function (event) {
-        event.preventDefault();
-        closeLightbox();
       },
       true
     );

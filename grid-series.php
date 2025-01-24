@@ -72,7 +72,6 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                 <section id="content">
 
                     <article class="inner work">
-                        <?php include('includes/overlays.php'); ?>
 
                         <?php for ($projectCount = 1; $project = mysqli_fetch_array($projects); ++$projectCount) { ?>
                             <?php
@@ -98,8 +97,6 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                                 </p>
                                 <div class="row">
 
-
-                                    <!-- ROW VIEW -->
                                     <?php for ($count = 0; $item = mysqli_fetch_array($images); ++$count) { ?>
 
                                         <?php
@@ -140,44 +137,29 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                                         }
 
                                         ?>
-                                        <!-- Need to add openOverlay or openSlideshow  -->
 
-                                        <figure class="cell fadeOn <?= $cellClass ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
-                                            <a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="openItem" data-id="<?= $item['id'] ?>" data-catid="<?= $project['id'] ?>">
+                                        <figure class="cell openLightbox fadeUp <?= $cellClass ?>" data-catid="<?= $project['id'] ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
 
+                                            <div class="media_wrap">
+                                                <img class="photo <?php if (!$hasAutoVideo) { ?>loadmeview<?php } ?> <?= $ext ?>" src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" alt="<?= $item['title'] ?>" data-width="<?= $item['width'] ?>" data-height="<?= $item['height'] ?>">
 
-                                                <div class="media_wrap">
-                                                    <img class="photo <?php if (!$hasAutoVideo) { ?>loadmeview<?php } ?> <?= $ext ?>" src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" alt="<?= $item['title'] ?>" data-width="<?= $item['width'] ?>" data-height="<?= $item['height'] ?>">
+                                                <?php if ($hasAutoVideo) { ?>
+                                                    <div class="vidhold"></div>
+                                                <?php } ?>
+                                            </div>
 
-                                                    <?php if ($hasAutoVideo) { ?>
-                                                        <div class="vidhold"></div>
-                                                    <?php } ?>
-                                                </div>
-
-
-
-                                            </a>
                                             <div class="number">
                                                 <p>- <?= $count + 1 ?> -</p>
                                             </div>
 
                                         </figure>
 
-
-
                                     <?php } ?>
-
-
 
                                 </div>
                             </div>
 
-
-
                         <?php } ?>
-
-
-
 
 
                     </article>
@@ -191,7 +173,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
     </div>
 
 
-
+    <?php include('includes/overlays.php'); ?>
     <?php include('includes/scripts.php'); ?>
 
 </body>
