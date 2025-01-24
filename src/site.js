@@ -149,10 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
     body.style.cursor = "none";
     arrowIcon.style.display = "block";
 
-    arrowIcon.style.left = e.pageX - 23 + "px";
-    arrowIcon.style.top = e.pageY - 23 + "px";
-    closeIcon.style.left = e.pageX - 23 + "px";
-    closeIcon.style.top = e.pageY - 23 + "px";
+    arrowIcon.style.left = e.clientX - 23 + "px";
+    arrowIcon.style.top = e.clientY - 23 + "px";
+    closeIcon.style.left = e.clientX - 23 + "px";
+    closeIcon.style.top = e.clientY - 23 + "px";
 
     // handle close icon over selected image
     let selectedCell = slideshowEl.querySelector(".cell.is-selected img");
