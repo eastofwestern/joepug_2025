@@ -661,10 +661,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let liese = footer.querySelector("#liese");
 
   let viewportWidth = window.innerWidth;
-  let k = 55000000;
+  let k = 29000000000000;
   let pugBBox = pug.getBoundingClientRect();
   let joeBBox = joe.getBoundingClientRect();
-  let pugWidth = k / Math.pow(viewportWidth, 1.59);
+  let pugWidth = k / Math.pow(viewportWidth, 3.5);
   let joeWidth = joeBBox.width; // Get the width of the #joe element
   let initialClipPath = joeWidth * 0.65; // Calculate 65% of joe's width in pixels
   console.log("pugwidth", pugWidth);
