@@ -667,9 +667,11 @@ document.addEventListener("DOMContentLoaded", function () {
   let pugWidth = k / Math.pow(viewportWidth, 3.5);
   let joeWidth = joeBBox.width; // Get the width of the #joe element
   let initialClipPath = joeWidth * 0.65; // Calculate 65% of joe's width in pixels
+  /*
   console.log("pugwidth", pugWidth);
   console.log("joewidth", joeWidth);
   console.log("initialclippath", initialClipPath);
+  */
 
   let footerTL;
 
@@ -871,6 +873,9 @@ document.addEventListener("DOMContentLoaded", function () {
         getAjax("/getItem.php?id=" + id, function (data) {
           overlayInner.innerHTML = data;
           initLoading();
+          setTimeout(function () {
+            zenscroll.center(overlayInner);
+          }, 100);
 
           overlayInner.addEventListener("click", function (e) {
             closeOverlay();
