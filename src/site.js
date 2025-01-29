@@ -681,7 +681,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trigger: footer,
         start: "250px bottom",
         end: "bottom bottom",
-        scrub: 1.25,
+        scrub: 1.75,
         markers: true,
       },
     });
