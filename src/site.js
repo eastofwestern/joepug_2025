@@ -203,10 +203,20 @@ document.addEventListener("DOMContentLoaded", function () {
       closeIcon.style.display = "none";
       closeLightbox();
     } else {
-      if (e.pageX < window.innerWidth * 0.5) {
-        flkty.previous();
+      if (window.innerWidth > 768) {
+        if (e.pageX < window.innerWidth * 0.5) {
+          flkty.previous();
+        } else {
+          flkty.next();
+        }
       } else {
-        flkty.next();
+        let prevBtn = slideshowEl.querySelector(".prev");
+        let nextBtn = slideshowEl.querySelector(".next");
+        if (e.target.classList.contains("prev")) {
+          flkty.previous();
+        } else if (e.target.classList.contains("next")) {
+          flkty.next();
+        }
       }
     }
   };

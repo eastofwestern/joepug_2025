@@ -142,10 +142,10 @@
       this[globalName] = mainExports;
     }
   }
-})({"5VWCL":[function(require,module,exports) {
+})({"6YRU4":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
-var HMR_PORT = 59554;
+var HMR_PORT = 51854;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "69972a5eef2d9f38";
 module.bundle.HMR_BUNDLE_ID = "f93fd84b4c2609cc";
@@ -750,8 +750,15 @@ document.addEventListener("DOMContentLoaded", function() {
             arrowIcon.style.display = "none";
             closeIcon.style.display = "none";
             closeLightbox();
-        } else if (e.pageX < window.innerWidth * 0.5) flkty.previous();
-        else flkty.next();
+        } else if (window.innerWidth > 768) {
+            if (e.pageX < window.innerWidth * 0.5) flkty.previous();
+            else flkty.next();
+        } else {
+            let prevBtn = slideshowEl.querySelector(".prev");
+            let nextBtn = slideshowEl.querySelector(".next");
+            if (e.target.classList.contains("prev")) flkty.previous();
+            else if (e.target.classList.contains("next")) flkty.next();
+        }
     };
     //initialize flickity for slideshows - called in AJAX call
     let archive = document.querySelector(".archive");
@@ -13255,6 +13262,6 @@ function getGlobalMatrix(element, inverse, adjustGOffset, includeScrollInFixed) 
     return zenscroll;
 });
 
-},{}]},["5VWCL","b29kf"], "b29kf", "parcelRequire04be")
+},{}]},["6YRU4","b29kf"], "b29kf", "parcelRequire04be")
 
 //# sourceMappingURL=site.js.map
