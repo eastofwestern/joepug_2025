@@ -679,9 +679,10 @@ document.addEventListener("DOMContentLoaded", function () {
     footerTL = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: "50% bottom",
+        start: "250px bottom",
         end: "bottom bottom",
-        scrub: 1,
+        scrub: 1.25,
+        markers: true,
       },
     });
     gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
