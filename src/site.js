@@ -249,8 +249,10 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // change cursor to arrow icon when hovering over slideshow
+      if (window.innerWidth > 768) {
+        document.addEventListener("mousemove", handleMouseMove);
+      }
       document.addEventListener("click", handleSlideshowClick);
-      document.addEventListener("mousemove", handleMouseMove);
     }
   }
 
