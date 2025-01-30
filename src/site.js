@@ -682,7 +682,6 @@ document.addEventListener("DOMContentLoaded", function () {
         start: "250px bottom",
         end: "bottom bottom",
         scrub: 1.75,
-        markers: true,
       },
     });
     gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
