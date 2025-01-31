@@ -383,7 +383,7 @@ header nav {
   z-index: 16;
   text-align: right;
   color: #f7da70;
-  pointer-events: all;
+  pointer-events: none;
   opacity: 1;
   transition: opacity .3s;
   position: absolute;
@@ -392,8 +392,9 @@ header nav {
 }
 
 header nav ul {
+  pointer-events: all;
   flex-direction: column;
-  padding-right: 30px;
+  margin-right: 30px;
   list-style-type: none;
   display: flex;
 }
@@ -480,6 +481,15 @@ header nav.takeover ul li a {
     top: 25px;
     right: 20px;
   }
+
+  header nav ul li a:hover {
+    text-decoration: none;
+  }
+
+  header nav ul li:last-child {
+    opacity: 1;
+    transition: opacity .2s;
+  }
 }
 
 .lightboxOpen header .inner .logo {
@@ -535,6 +545,12 @@ header nav.takeover ul li a {
   transition: opacity .3s;
 }
 
+@media (max-width: 767px) and (orientation: portrait) {
+  .contact_cover {
+    display: none;
+  }
+}
+
 .contact_module {
   z-index: 101;
   width: 100vw;
@@ -555,6 +571,10 @@ header nav.takeover ul li a {
 
 .contact_module .inner {
   height: 100vh;
+}
+
+.contact_module .closeBtn {
+  z-index: 101;
 }
 
 .contact_module .closeBtn p {
@@ -652,6 +672,7 @@ header nav.takeover ul li a {
 
   .contact_module .closeBtn {
     display: none;
+    transform: translate(30px, -20px);
   }
 
   .contact_module table {
@@ -723,6 +744,15 @@ header nav.takeover ul li a {
 
   .contact_module table tbody tr:nth-child(3) td:nth-child(3) {
     grid-area: 9 / 1;
+  }
+
+  .contactOpen header nav ul li:last-child {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .contactOpen .closeBtn {
+    display: block;
   }
 }
 
@@ -1148,15 +1178,16 @@ footer .inner .social li svg * {
 
   .grid.flex.archive {
     border-top: none;
+    width: 100%;
     padding-top: 0;
   }
 
   .grid.flex.archive .row .cell {
-    margin: 7.5px 15px 7.5px 0;
+    margin: 7.5px 0 7.5px 4%;
   }
 
   .grid.flex.archive .row .cell .media_wrap {
-    height: 155px;
+    height: 37vw;
   }
 
   .grid.flex.archive .row .cell:last-child {

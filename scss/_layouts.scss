@@ -250,11 +250,12 @@
     &.archive {
       border-top: none;
       padding-top: 0px;
+      width: 100%;
       .row {
         .cell {
-          margin: 7.5px 15px 7.5px 0;
+          margin: 7.5px 0 7.5px 4%;
           .media_wrap {
-            height: 155px;
+            height: 37vw;
           }
           &:last-child {
             margin-right: 0;
