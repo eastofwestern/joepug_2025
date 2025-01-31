@@ -724,7 +724,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let footerTL = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: "20% bottom",
+        start: "50% bottom",
         end: "bottom bottom",
         scrub: 1,
       },
@@ -732,7 +732,7 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.set(joe, { clipPath: "inset(0 71% 0 0)" });
     footerTL
       .to(joe, {
-        clipPath: "inset(0 18% 0 0)",
+        clipPath: "inset(0 21% 0 0)",
         // duration: 2,
       })
       .to(pug, {
