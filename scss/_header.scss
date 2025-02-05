@@ -211,6 +211,10 @@ header {
       ul {
         opacity: 0;
         pointer-events: none;
+        #contact {
+          opacity: 0;
+          pointer-events: none;
+        }
       }
     }
   }
