@@ -1,8 +1,7 @@
 <div id="lightbox">
 	<div class="closer closeoverlay">
 		<div class="closeIcon">
-			<span class="line"></span>
-			<span class="line"></span>
+			<p>CLOSE</p>
 		</div>
 	</div>
 	<div class="inner"></div>

@@ -21,7 +21,7 @@
 
   &.on {
     opacity: 1;
-    z-index: 90;
+    z-index: 103;
     transform: translateX(0%);
 
     transition: z-index 0s 0s, transform 0s 0s, opacity 0.3s 0s;
@@ -33,34 +33,28 @@
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 1;
-
+    z-index: -1;
     .closeIcon {
       position: absolute;
-      width: 22px;
-      height: 22px;
       top: 45px;
       right: 4%;
-      z-index: 11;
+      z-index: 104;
+
       cursor: pointer;
       transform: scale(1);
       transition: transform 0.2s;
-      &:hover {
-        transform: scale(1.1);
-      }
-      .line {
+
+      pointer-events: all;
+      p {
         pointer-events: none;
-        display: block;
-        width: 100%;
-        height: 1px;
-        background: #000;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-        &:last-child {
-          transform: translate(-50%, -50%) rotate(-45deg);
-        }
+        font-family: $font-sud;
+        text-decoration: underline;
+        letter-spacing: 1.75px;
+        font-size: 0.8rem;
+        font-weight: 600;
+
+        // writing-mode: vertical-lr;
+        cursor: pointer;
       }
     }
   }
@@ -284,6 +278,15 @@
 
 @include phone-portrait {
   #lightbox {
+    .closer {
+      .closeIcon {
+        top: 30px;
+        right: 5%;
+      }
+    }
+    .inner {
+      width: 90%;
+    }
     .buttons {
       display: flex;
       position: absolute;

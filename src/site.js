@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.target.classList.contains("photo") ||
       e.target.classList.contains("closeIcon")
     ) {
-      arrowIcon.style.display = "none";
+      // arrowIcon.style.display = "none";
       closeIcon.style.display = "none";
       closeLightbox();
     } else {

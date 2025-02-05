@@ -6,7 +6,7 @@ header {
   left: 0;
   width: 100%;
   height: 140px;
-  z-index: 100;
+  z-index: 104;
   pointer-events: none;
 
   .inner {
@@ -24,6 +24,7 @@ header {
       height: 50px;
       width: 150px;
       pointer-events: all;
+      z-index: 104;
 
       img,
       svg {
@@ -175,8 +176,9 @@ header {
   header {
     .inner {
       .logo {
+        left: 5%;
         width: 175px;
-        top: 20px;
+        top: 25px;
       }
     }
     nav {
@@ -206,8 +208,10 @@ header {
       }
     }
     nav {
-      opacity: 0;
-      pointer-events: none;
+      ul {
+        opacity: 0;
+        pointer-events: none;
+      }
     }
   }
 }
