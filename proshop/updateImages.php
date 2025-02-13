@@ -24,6 +24,7 @@ if (isset($_POST["myContent"])) {
 
     if ($data_array !== null) {
         $catID = $data_array["category"];
+        $catorder = $data_array["catorder"];
         if (isset($data_array["parentID"])) {
             $parentID = $data_array["parentID"];
         }
@@ -217,9 +218,14 @@ foreach ($picIDArray as $picID) {
 
         if ($num2a == 0) {
 
-            $query2b = "INSERT INTO cat_pics (catid, picid) VALUES ('$thisCopyCat', '$picID')";
+            $query2b = "INSERT INTO cat_pics (catid, picid, sortBy, rowBreak, topMargin, leftMargin, colStart, colEnd) VALUES ('$thisCopyCat', '$picID', '$listingCounter', '$thisRowBreak', '$thisTopMargin', '$thisLeftMargin', '$thisColStart', '$thisColEnd')";
 
             $result2b = mysqli_query(Database::$conn, $query2b);
+
+            if (!$result2b) {
+                die('Could not query 2b:' . mysqli_error(Database::$conn));
+                exit;
+            }
         }
     }
 

@@ -4,7 +4,7 @@ session_start();
 include('includes/connect.php');
 include('includes/functions.php');
 
-$catID = 717;
+$catID = getFirstCat();
 $catDetails = catDetails($catID);
 $images = getImages($catID, $catDetails['sorter']);
 $firstImage = getFirstImage($catID, $catDetails['sorter']);
@@ -48,7 +48,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 </head>
 
-<body class="preload homepage">
+<body class="preload homepage" style="background-color: <?= $catDetails['bgColor'] ?>;">
 
 	<?php include('includes/header.php'); ?>
 	<?php include('contact.php'); ?>

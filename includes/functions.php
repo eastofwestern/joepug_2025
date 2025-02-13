@@ -1302,10 +1302,10 @@ function getPicIDCustom($slug)
 	return $row['id'];
 }
 
-function getFirstCat()
+function getFirstCat($status = 'live')
 {
 
-	$query = "SELECT id FROM cat_list WHERE parentID = 0 ORDER BY sortBy ASC LIMIT 0,1";
+	$query = "SELECT id FROM cat_list WHERE parentID = 0 AND status = '$status' ORDER BY sortBy ASC LIMIT 0,1";
 
 	$result = mysqli_query(Database::$conn, $query);
 	$row = mysqli_fetch_array($result);

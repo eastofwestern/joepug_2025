@@ -62,7 +62,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 </head>
 
-<body class="preload workpage">
+<body class="preload workpage" style="background-color: <?= $catDetails['bgColor'] ?>;">
 
     <?php include('includes/header.php'); ?>
     <?php include('contact.php'); ?>

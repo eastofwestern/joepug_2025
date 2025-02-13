@@ -268,6 +268,15 @@ header {
 }
 
 .contactOpen {
+  header {
+    nav {
+      opacity: 0;
+      pointer-events: none;
+      ul {
+        pointer-events: none;
+      }
+    }
+  }
   .contact_cover {
     opacity: 1;
     transition: opacity 0.3s;

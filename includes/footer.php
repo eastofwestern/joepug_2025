@@ -1,13 +1,14 @@
 <?php
 
 $socialText = getPageTextID(720);
+$footerLogoDetails = catDetails(740);
 
 ?>
 
-<footer class="addb4">
+<footer>
 
-	<div class="inner ib v-middle">
-		<div class="animated_name">
+	<div class="inner">
+		<div class="animated_name" style="color: <?= $footerLogoDetails['bgColor'] ?>;">
 			<svg id="joe" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1953.16" height="151.386" viewBox="0 0 1353.16 151.386">
 
 				<g id="Group_67" data-name="Group 67">

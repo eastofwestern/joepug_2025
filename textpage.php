@@ -32,14 +32,14 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 </head>
 
-<body class="textpage">
+<body class="textpage" style="background-color: <?= $catDetails['bgColor'] ?>;">
 	<?php include('includes/header.php'); ?>
 	<?php include('contact.php'); ?>
 	<div id="smooth-wrapper">
 		<div id="smooth-content">
 			<main>
 				<section id="content">
-					<article class="inner textpage">
+					<article class="inner textwrap">
 						<div class="two_column">
 							<div class="col_wrap">
 								<div class="col">

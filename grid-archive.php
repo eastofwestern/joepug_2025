@@ -55,7 +55,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 </head>
 
-<body class="preload archive" data-catid="<?= $catID ?>">
+<body class="preload archive" data-catid="<?= $catID ?>" style="background-color: <?= $catDetails['bgColor'] ?>;">
 
     <?php include('includes/header.php'); ?>
     <?php include('contact.php'); ?>

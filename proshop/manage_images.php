@@ -23,12 +23,6 @@ if (isset($_GET['show']) and $_GET['show'] === "all") {
 	$limit = 5000;
 }
 
-/*
-	echo $parentID;
-	echo $theParent['pageType'];
-	exit;
-	*/
-
 $result2 = getImages($catID, $theCat['sorter']);
 
 ?>
@@ -77,6 +71,18 @@ $result2 = getImages($catID, $theCat['sorter']);
 			<input type="hidden" id="parentID" name="parentID" value="<?= $parentID ?>">
 
 			<?php include('metaEditor.php'); ?>
+
+			<div>
+				<form action="updateCatColor.php" method="post">
+					<input type="hidden" name="catID" value="<?= $catID ?>" />
+					<input type="hidden" name="parentID" value="<?= $parentID ?>" />
+					<input type="hidden" name="parentParentID" value="<?= $parentParentID ?>" />
+					<input type="hidden" name="source" value="manage_images.php" />
+					<span class="head">BACKGROUND COLOR:</span><br />
+					<input type="text" id="colorpicker" name="bgColor" value="<?= $theCat['bgColor'] ?>"><br /><br />
+					<input type="submit" id="btn" value="UPDATE COLOR" /><br /><br />
+				</form>
+			</div>
 
 			<?php if ($theCat['pageType'] === "text + media" or $theCat['pageType'] === "text + two media" or $theCat['pageType'] === "grid - six items" or $theCat['pageType'] === "grid - six items (narrow)") { ?>
 				<span class="head">SECTION TEXT</span><br /><br />
@@ -192,6 +198,7 @@ $result2 = getImages($catID, $theCat['sorter']);
 								<input type="hidden" id="category" name="category" value="<?= $catID ?>">
 								<input type="hidden" id="parentID" name="parentID" value="<?= $parentID ?>">
 								<input type="hidden" id="parentParentID" name="parentParentID" value="<?= $parentParentID ?>">
+								<input type="hidden" id="catorder" name="catorder" value="<?= $theCat['sorter'] ?>" />
 
 								<div class="toolbar">
 
@@ -793,6 +800,7 @@ $result2 = getImages($catID, $theCat['sorter']);
 		var category = $("input#category").val();
 		var parentID = $("input#parentID").val();
 		var parentParentID = $("input#parentParentID").val();
+		var catorder = $("input#catorder").val();
 
 		var picIDArray = [];
 		$('.picID').each(function() {
@@ -926,6 +934,7 @@ $result2 = getImages($catID, $theCat['sorter']);
 			"category": category,
 			"parentID": parentID,
 			"parentParentID": parentParentID,
+			"catorder": catorder,
 			"picID": picIDArray,
 			"img": imgArray,
 			"title": titleArray,
@@ -1243,6 +1252,13 @@ $result2 = getImages($catID, $theCat['sorter']);
 			height: "227px",
 			iframe: true,
 			opacity: ".95"
+		});
+
+		$("#colorpicker").spectrum({
+			color: '<?= $theCat['bgColor'] ?>',
+			showInput: true,
+			showAlpha: false,
+			preferredFormat: "name"
 		});
 
 	});

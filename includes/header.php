@@ -108,17 +108,7 @@ $logoMark = getFirstImage(719);
 					<a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="<?php if ($catID == $cat['id'] or $parentID == $cat['id']) { ?>pageOn<?php } ?>"
 						id="<?php if ($cat['id'] == 728) { ?>contact<?php } ?>">
 
-						<?php
-
-						if ($cat['name'] == "HOME") {
-							$navItem = "OVERVIEW";
-						} else {
-							$navItem = $cat['name'];
-						}
-
-						?>
-
-						<?= $navItem ?>
+						<?= $cat['name'] ?>
 					</a>
 
 					<?php if ($hasSubs) { ?>

@@ -57,7 +57,6 @@ if ($slug === "") {
 	if ($projectCheck) {
 
 		include('project.php');
-		
 	} elseif ($slideshowCheck) {
 
 		include('slideshow.php');
@@ -67,6 +66,9 @@ if ($slug === "") {
 	} elseif ($row['pageType'] === "grid") {
 
 		include('gridpage.php');
+	} elseif ($row['pageType'] === "grid - loose") {
+
+		include('gridpage-loose.php');
 	} elseif ($row['pageType'] === "text") {
 
 		include('textpage.php');

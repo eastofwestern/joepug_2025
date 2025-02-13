@@ -37,6 +37,11 @@ footer {
         position: absolute;
         overflow: hidden;
         bottom: 0;
+
+        path, rect {
+          fill: currentColor;
+        }
+
         &#joe {
           left: -435px;
         }

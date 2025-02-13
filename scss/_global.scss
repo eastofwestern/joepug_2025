@@ -356,13 +356,6 @@ main {
 
 .textpage {
   background-color: $color-accent1;
-  main {
-    #content {
-      &:before {
-        background-color: $color-accent1;
-      }
-    }
-  }
 }
 
 @include phone-portrait {
