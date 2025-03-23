@@ -1640,7 +1640,7 @@ function getPicCatID($picID)
 function getImages($catID, $theSort = "drag")
 {
 
-	$sql = "SELECT pics.*, cat_pics.rowBreak as catBreak, cat_pics.imgSize as catSize, cat_pics.topMargin as catTopMargin, cat_pics.leftMargin as catLeftMargin, cat_pics.colStart as catColStart, cat_pics.colEnd as catColEnd, content.content FROM pics JOIN cat_pics ON pics.id = cat_pics.picid LEFT JOIN content ON content.picid = pics.id WHERE cat_pics.catid = '$catID'";
+	$sql = "SELECT pics.*, cat_pics.rowBreak as catBreak, cat_pics.imgSize as catSize, cat_pics.topMargin as catTopMargin, cat_pics.leftMargin as catLeftMargin, cat_pics.colStart as catColStart, cat_pics.colEnd as catColEnd, cat_pics.width as catWidth, cat_pics.pos_top as catTop, cat_pics.pos_left as catLeft, cat_pics.layer as catLayer,  content.content FROM pics JOIN cat_pics ON pics.id = cat_pics.picid LEFT JOIN content ON content.picid = pics.id WHERE cat_pics.catid = '$catID'";
 
 	if ($theSort === "drag") {
 

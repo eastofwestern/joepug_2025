@@ -26,113 +26,78 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
     <meta name="keywords" content="<?= $catDetails['metaKeywords'] ?>" />
 
     <meta property="og:description" name="og:description" content="<?= $catDetails['metaDesc'] ?>" />
-    <?php if ($catDetails['metaImage'] != "") { ?>
-        <meta property="og:image" name="og:image" content="<?= getOption("url") ?><?= getOption("imagePathFront") ?><?= $catDetails['metaImage'] ?>" />
-        <meta property="og:image:width" content="<?= $catDetails['metaImageWidth'] ?>" />
-        <meta property="og:image:height" content="<?= $catDetails['metaImageHeight'] ?>" />
-    <?php } else { ?>
-        <meta property="og:image" name="og:image" content="<?= getOption("url") ?><?= getOption("imagePathFront") ?><?= $firstImage['img'] ?>" />
-        <meta property="og:image:width" content="<?= $firstImage['width'] ?>" />
-        <meta property="og:image:height" content="<?= $firstImage['height'] ?>" />
-    <?php } ?>
-    <meta property="og:url" name="og:url" content="<?= getOption("url") ?>" />
+    <meta property="og:image" name="og:image" content="<?= getOption("url") ?><?= getOption("imagePathFront") ?><?= $firstImage['img'] ?>" />
+    <meta property="og:image:width" content="<?= $firstImage['width'] ?>" />
+    <meta property="og:image:height" content="<?= $firstImage['height'] ?>" />
+    <meta property="og:url" name="og:url" content="<?= getOption("url") ?><?= $slug ?>" />
     <meta property="og:site_name" name="og:site_name" content="<?= getOption("company") ?>" />
 
     <?php include('includes/topScripts.php'); ?>
 
 </head>
 
-<body class="preload homepage" style="background-color: <?= $catDetails['bgColor'] ?>;">
+<body>
 
     <?php include('includes/header.php'); ?>
     <?php include('contact.php'); ?>
     <div id="smooth-wrapper">
         <div id="smooth-content">
+
             <main>
 
                 <section id="content">
 
-                    <article class="inner home">
+                    <article class="inner gridpage">
 
-                        <div class="grid loose">
+                        <div class="grid_loose">
+                            <ul class="canvas">
 
+                                <?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
 
-                            <?php for ($count = 0; $item = mysqli_fetch_array($images); ++$count) { ?>
+                                    <?php
 
-                                <?php
+                                    $ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
+                                    $itemRatio = $item['height'] / $item['width'];
+                                    $itemPad = $itemRatio * 100;
 
-                                $ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
-                                $itemRatio = $item['height'] / $item['width'];
-                                $itemPad = $itemRatio * 100;
+                                    $itemVideo = getImageVideo($item['id']);
 
-                                $itemVideo = getImageVideo($item['id']);
+                                    $cellClass = "";
 
-                                $cellClass = "openLightbox fadeUp";
+                                    $hasAutoVideo = false;
+                                    if ($itemVideo && $itemVideo['hoverFile'] != "") {
+                                        $hasAutoVideo = true;
+                                        $cellClass .= " autovideo";
+                                    }
 
-                                $hasAutoVideo = false;
-                                if ($itemVideo['hoverFile'] != "") {
-                                    $hasAutoVideo = true;
-                                    $cellClass .= " autovideo";
-                                }
+                                    $hasTitle = false;
+                                    $hasCaption = false;
 
-                                $hasTitle = false;
-                                $hasCaption = false;
+                                    if ($item['title'] != "title:" and $item['title'] != "") {
+                                        $hasTitle = true;
+                                    }
 
-                                if ($item['title'] != "title:" and $item['title'] != "") {
-                                    $hasTitle = true;
-                                }
+                                    if ($item['caption'] != "caption:" and $item['caption'] != "") {
+                                        $hasCaption = true;
+                                    }
 
-                                if ($item['caption'] != "caption:" and $item['caption'] != "") {
-                                    $hasCaption = true;
-                                }
+                                    ?>
 
-                                $styleStr = "z-index: " . $count . ";";
-                                if ($item['catTopMargin'] != "") {
-                                    $catTopMargin = $item['catTopMargin'];
-                                    $mobileCatTopMargin = $catTopMargin / 2;
-                                    $styleStr .= "margin-top: " . $catTopMargin . "%;";
-                                    $styleStr .= "--cat-top-margin: " . $mobileCatTopMargin . "%;";
-                                }
-                                if ($item['catLeftMargin'] != "") {
-                                    $catLeftMargin = $item['catLeftMargin'];
-                                    $mobileCatLeftMargin = $catLeftMargin / 2;
-                                    $styleStr .= "margin-left: " . $catLeftMargin . "%;";
-                                    $styleStr .= "--cat-left-margin: " . $mobileCatLeftMargin . "%;";
-                                }
-                                if ($item['catColStart'] != "") {
-                                    $catColStart = $item['catColStart'];
-                                    $catColEnd = $item['catColEnd'];
+                                    <li class="cell item openLightboxSingle" data-id="<?= $item['id'] ?>" data-x="<?= $item['catLeft'] ?>" data-y="<?= $item['catTop'] ?>" data-aspect-ratio="<?= $item['aspectRatio'] ?>" style="top: <?= $item['catTop'] ?>%; left: <?= $item['catLeft'] ?>%; width: <?= $item['catWidth'] ?>%; height: auto; aspect-ratio: <?= $item['aspectRatio'] ?>; z-index: <?= $item['catLayer'] ? $item['catLayer'] : 1 ?>;">
 
-                                    $mobileCatColStart = ceil($catColStart / 2);
-                                    $mobileCatColEnd = ceil($catColEnd / 2);
-
-                                    $styleStr .= "grid-column: " . $catColStart . " / " . $catColEnd . ";";
-                                    $styleStr .= "--cat-col-start: " . $mobileCatColStart . "; --cat-col-end: " . $mobileCatColEnd . ";";
-                                }
-
-                                ?>
-
-                                <figure class="cell <?= $cellClass ?>" data-catid="<?= $catID ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?> style="<?= $styleStr ?>">
-                                    <div class="mediawrap" style="padding-top: <?= $itemPad ?>%;">
-                                        <img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" alt="<?= $company ?>" />
-                                        <?php if ($hasAutoVideo) { ?>
-                                            <div class="vidhold"></div>
-                                        <?php } ?>
-                                    </div>
-                                    <?php if ($hasTitle or $hasCaption) { ?>
-                                        <figcaption class="info">
-                                            <?php if ($hasTitle) { ?>
-                                                <h2><?= $item['title'] ?></h2>
+                                        <div class="mediawrap fadeOn" style="padding-top: <?= $itemPad ?>%;">
+                                            <img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" />
+                                            <?php if ($hasAutoVideo) { ?>
+                                                <div class="vidhold"></div>
                                             <?php } ?>
-                                            <?php if ($hasCaption) { ?>
-                                                <h3><?= $item['caption'] ?></h3>
-                                            <?php } ?>
-                                        </figcaption>
-                                    <?php } ?>
-                                </figure>
+                                        </div>
 
-                            <?php } ?>
 
+                                    </li>
+
+                                <?php } ?>
+
+                            </ul>
                         </div>
 
                     </article>
@@ -140,14 +105,15 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
                 </section>
 
             </main>
+
             <?php include('includes/footer.php'); ?>
+
         </div>
     </div>
 
 
     <?php include('includes/overlays.php'); ?>
     <?php include('includes/scripts.php'); ?>
-
 
 </body>
 

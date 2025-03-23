@@ -34,6 +34,9 @@ if (isset($_REQUEST['modID'])) {
 if (isset($_REQUEST['modType'])) {
 	$modType = $_REQUEST['modType'];
 }
+if (isset($_REQUEST['src'])) {
+	$source = $_REQUEST['src'];
+}
 
 if ($confirm === "yes") {
 
@@ -87,7 +90,13 @@ if ($confirm === "yes") {
 			header("Location: manage_products.php?status=image_has_been_deleted&catID=" . $category);
 		} else {
 
-			header("Location: manage_images.php?status=image_has_been_deleted&category=" . $category . "&parentID=" . $parentID . "&parentParentID=" . $parentParentID);
+			if ($source != "") {
+
+				header("Location: " . $source . "?status=image_has_been_deleted&category=" . $category . "&parentID=" . $parentID . "&parentParentID=" . $parentParentID);
+			} else {
+
+				header("Location: manage_images.php?status=image_has_been_deleted&category=" . $category . "&parentID=" . $parentID . "&parentParentID=" . $parentParentID);
+			}
 		}
 
 		exit;
@@ -123,7 +132,7 @@ if ($confirm === "yes") {
 
 				<div style="margin-top: 20px;">
 					<a href="#" onclick="parent.$.fn.colorbox.close();"><img src="images/cancelBtn.png"></a>
-					<a href="delete_image.php?confirm=yes&id=<?= $id ?>&category=<?= $category ?>&imgName=<?= $imgName ?>&type=<?= $type ?>&parentID=<?= $parentID ?>&parentParentID=<?= $parentParentID ?>&modID=<?= $modID ?>&modType=<?= $modType ?>" target="_parent"><img src="images/yesBtn.png" style="margin-left: 12px;"></a>
+					<a href="delete_image.php?confirm=yes&id=<?= $id ?>&category=<?= $category ?>&imgName=<?= $imgName ?>&type=<?= $type ?>&parentID=<?= $parentID ?>&parentParentID=<?= $parentParentID ?>&modID=<?= $modID ?>&modType=<?= $modType ?>&src=<?= $source ?>" target="_parent"><img src="images/yesBtn.png" style="margin-left: 12px;"></a>
 				</div>
 			</div>
 

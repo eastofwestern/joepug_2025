@@ -60,86 +60,145 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 					<article class="inner home">
 
-						<div class="grid loose">
+						<?php if ($catDetails['pageType'] === "grid - loose") { ?>
+
+							<div class="grid_loose">
+								<ul class="canvas">
+
+									<?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
+
+										<?php
+
+										$ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
+										$itemRatio = $item['height'] / $item['width'];
+										$itemPad = $itemRatio * 100;
+
+										$itemVideo = getImageVideo($item['id']);
+
+										$cellClass = "";
+
+										$hasAutoVideo = false;
+										if ($itemVideo && $itemVideo['hoverFile'] != "") {
+											$hasAutoVideo = true;
+											$cellClass .= " autovideo";
+										}
+
+										$hasTitle = false;
+										$hasCaption = false;
+
+										if ($item['title'] != "title:" and $item['title'] != "") {
+											$hasTitle = true;
+										}
+
+										if ($item['caption'] != "caption:" and $item['caption'] != "") {
+											$hasCaption = true;
+										}
+
+										?>
+
+										<li class="cell item openLightboxSingle" data-id="<?= $item['id'] ?>" data-index="<?= $count ?>" data-x="<?= $item['catLeft'] ?>" data-y="<?= $item['catTop'] ?>" data-aspect-ratio="<?= $item['aspectRatio'] ?>" style="top: <?= $item['catTop'] ?>%; left: <?= $item['catLeft'] ?>%; width: <?= $item['catWidth'] ?>%; height: auto; aspect-ratio: <?= $item['aspectRatio'] ?>; z-index: <?= $item['catLayer'] ? $item['catLayer'] : 1 ?>;">
+
+											<div class="mediawrap fadeOn" style="padding-top: <?= $itemPad ?>%;">
+												<img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" />
+												<?php if ($hasAutoVideo) { ?>
+													<div class="vidhold"></div>
+												<?php } ?>
+											</div>
 
 
-							<?php for ($count = 0; $item = mysqli_fetch_array($images); ++$count) { ?>
+										</li>
 
-								<?php
-
-								$ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
-								$itemRatio = $item['height'] / $item['width'];
-								$itemPad = $itemRatio * 100;
-
-								$itemVideo = getImageVideo($item['id']);
-
-								$cellClass = "openLightbox fadeUp";
-
-								$hasAutoVideo = false;
-								if ($itemVideo['hoverFile'] != "") {
-									$hasAutoVideo = true;
-									$cellClass .= " autovideo";
-								}
-
-								$hasTitle = false;
-								$hasCaption = false;
-
-								if ($item['title'] != "title:" and $item['title'] != "") {
-									$hasTitle = true;
-								}
-
-								if ($item['caption'] != "caption:" and $item['caption'] != "") {
-									$hasCaption = true;
-								}
-
-								$styleStr = "z-index: " . $count . ";";
-								if ($item['catTopMargin'] != "") {
-									$catTopMargin = $item['catTopMargin'];
-									$mobileCatTopMargin = $catTopMargin / 2;
-									$styleStr .= "margin-top: " . $catTopMargin . "%;";
-									$styleStr .= "--cat-top-margin: " . $mobileCatTopMargin . "%;";
-								}
-								if ($item['catLeftMargin'] != "") {
-									$catLeftMargin = $item['catLeftMargin'];
-									$mobileCatLeftMargin = $catLeftMargin / 2;
-									$styleStr .= "margin-left: " . $catLeftMargin . "%;";
-									$styleStr .= "--cat-left-margin: " . $mobileCatLeftMargin . "%;";
-								}
-								if ($item['catColStart'] != "") {
-									$catColStart = $item['catColStart'];
-									$catColEnd = $item['catColEnd'];
-
-									$mobileCatColStart = ceil($catColStart / 2);
-									$mobileCatColEnd = ceil($catColEnd / 2);
-
-									$styleStr .= "grid-column: " . $catColStart . " / " . $catColEnd . ";";
-									$styleStr .= "--cat-col-start: " . $mobileCatColStart . "; --cat-col-end: " . $mobileCatColEnd . ";";
-								}
-
-								?>
-
-								<figure class="cell <?= $cellClass ?>" data-catid="<?= $catID ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?> style="<?= $styleStr ?>">
-									<div class="mediawrap" style="padding-top: <?= $itemPad ?>%;">
-										<img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" alt="<?= $company ?>" />
-										<?php if ($hasAutoVideo) { ?>
-											<div class="vidhold"></div>
-										<?php } ?>
-									</div>
-									<?php if ($hasTitle or $hasCaption) { ?>
-										<figcaption class="info">
-											<?php if ($hasTitle) { ?>
-												<h2><?= $item['title'] ?></h2>
-											<?php } ?>
-											<?php if ($hasCaption) { ?>
-												<h3><?= $item['caption'] ?></h3>
-											<?php } ?>
-										</figcaption>
 									<?php } ?>
-								</figure>
 
-							<?php } ?>
+								</ul>
+							</div>
 
-						</div>
+
+						<?php } elseif ($catDetails['pageType'] === "grid - columns") { ?>
+
+
+							<div class="grid columns">
+
+
+								<?php for ($count = 0; $item = mysqli_fetch_array($images); ++$count) { ?>
+
+									<?php
+
+									$ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
+									$itemRatio = $item['height'] / $item['width'];
+									$itemPad = $itemRatio * 100;
+
+									$itemVideo = getImageVideo($item['id']);
+
+									$cellClass = "openLightbox fadeUp";
+
+									$hasAutoVideo = false;
+									if ($itemVideo['hoverFile'] != "") {
+										$hasAutoVideo = true;
+										$cellClass .= " autovideo";
+									}
+
+									$hasTitle = false;
+									$hasCaption = false;
+
+									if ($item['title'] != "title:" and $item['title'] != "") {
+										$hasTitle = true;
+									}
+
+									if ($item['caption'] != "caption:" and $item['caption'] != "") {
+										$hasCaption = true;
+									}
+
+									$styleStr = "z-index: " . $count . ";";
+									if ($item['catTopMargin'] != "") {
+										$catTopMargin = $item['catTopMargin'];
+										$mobileCatTopMargin = $catTopMargin / 2;
+										$styleStr .= "margin-top: " . $catTopMargin . "%;";
+										$styleStr .= "--cat-top-margin: " . $mobileCatTopMargin . "%;";
+									}
+									if ($item['catLeftMargin'] != "") {
+										$catLeftMargin = $item['catLeftMargin'];
+										$mobileCatLeftMargin = $catLeftMargin / 2;
+										$styleStr .= "margin-left: " . $catLeftMargin . "%;";
+										$styleStr .= "--cat-left-margin: " . $mobileCatLeftMargin . "%;";
+									}
+									if ($item['catColStart'] != "") {
+										$catColStart = $item['catColStart'];
+										$catColEnd = $item['catColEnd'];
+
+										$mobileCatColStart = ceil($catColStart / 2);
+										$mobileCatColEnd = ceil($catColEnd / 2);
+
+										$styleStr .= "grid-column: " . $catColStart . " / " . $catColEnd . ";";
+										$styleStr .= "--cat-col-start: " . $mobileCatColStart . "; --cat-col-end: " . $mobileCatColEnd . ";";
+									}
+
+									?>
+
+									<figure class="cell <?= $cellClass ?>" data-catid="<?= $catID ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?> style="<?= $styleStr ?>">
+										<div class="mediawrap" style="padding-top: <?= $itemPad ?>%;">
+											<img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" alt="<?= $company ?>" />
+											<?php if ($hasAutoVideo) { ?>
+												<div class="vidhold"></div>
+											<?php } ?>
+										</div>
+										<?php if ($hasTitle or $hasCaption) { ?>
+											<figcaption class="info">
+												<?php if ($hasTitle) { ?>
+													<h2><?= $item['title'] ?></h2>
+												<?php } ?>
+												<?php if ($hasCaption) { ?>
+													<h3><?= $item['caption'] ?></h3>
+												<?php } ?>
+											</figcaption>
+										<?php } ?>
+									</figure>
+
+								<?php } ?>
+
+							</div>
+
+						<?php } ?>
 
 					</article>
 

@@ -453,7 +453,7 @@ $result2 = getImages($catID, $theCat['sorter']);
 											
 											*/ ?>
 
-												<?php if ($theCat['pageType'] === "grid - loose") { ?>
+												<?php if ($theCat['pageType'] === "grid - columns") { ?>
 
 													<span class="smallGray">top margin:</span>
 													<input type="text" class="topMargin" name="topMargin" value="<?= $pic['catTopMargin'] ?>" style="width: 30px" />%<br />
@@ -931,6 +931,7 @@ $result2 = getImages($catID, $theCat['sorter']);
 		});
 
 		var data = {
+			"source": "manage_images.php",
 			"category": category,
 			"parentID": parentID,
 			"parentParentID": parentParentID,

@@ -15,6 +15,18 @@ $imgName = $headers['X-File-Name'];
 $catID = $headers['X-File-Cat'];
 $picID = $headers['X-File-Picid'];
 $moduleID = $headers['X-File-Moduleid'];
+$fileCount = $headers['X-File-Count'];
+$xStart = $headers['X-File-X'];
+$yStart = $headers['X-File-Y'];
+$posMulti = 1;
+
+if ($xStart == 0 and $yStart == 0) {
+    $posStartX = $fileCount * $posMulti;
+    $posStartY = $fileCount * $posMulti;
+} else {
+    $posStartX = $xStart;
+    $posStartY = $yStart;
+}
 
 if ($moduleID > 0) {
 } else {
@@ -43,6 +55,7 @@ fclose($fh);
 $imgSize = getimagesize($save_path . $filename);
 $imgWidth = $imgSize[0];
 $imgHeight = $imgSize[1];
+$imgRatio = $imgWidth / $imgHeight;
 
 if ($imgWidth > $imgHeight) {
     $orientation = "landscape";
@@ -152,7 +165,7 @@ imagepng($im, "../images/pics/siteGray/" . $strPicName . ".png");
 imagedestroy($im);
 
 // save to database - need to check for module id
-$query = "INSERT INTO pics (catid, picid, moduleid, img, sortBy, width, height, orientation, filename) VALUES ('$catID', '$picID', '$moduleID', '$filename', '0', '$imgWidth', '$imgHeight', '$orientation', '$imgName')";
+$query = "INSERT INTO pics (catid, picid, moduleid, img, sortBy, width, height, orientation, aspectRatio, filename) VALUES ('$catID', '$picID', '$moduleID', '$filename', '0', '$imgWidth', '$imgHeight', '$orientation', '$imgRatio', '$imgName')";
 
 //echo $query;
 
@@ -165,7 +178,7 @@ if (!$result) {
 
 $picID = mysqli_insert_id(Database::$conn);
 
-$query1b = "INSERT INTO cat_pics (picid, catid) VALUES ('$picID', '$catID')";
+$query1b = "INSERT INTO cat_pics (picid, catid, width, pos_top, pos_left) VALUES ('$picID', '$catID', '20', '$posStartY', '$posStartX')";
 
 $result1b = mysqli_query(Database::$conn, $query1b);
 

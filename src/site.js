@@ -112,6 +112,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
   initLoading();
 
+  // loose grids
+  let looseGrids = document.querySelectorAll(".grid_loose");
+  looseGrids.forEach((looseGrid) => {
+    let grid = looseGrid.querySelector("ul.canvas");
+    let items = grid.querySelectorAll(".item");
+
+    function updatePositions() {
+      const { width, height } = grid.getBoundingClientRect();
+
+      items.forEach((item) => {
+        let percentX = parseFloat(item.dataset.x);
+        let percentY = parseFloat(item.dataset.y);
+
+        // apply the new positions as pixels
+        item.style.left = `${(percentX / 100) * width}px`;
+        item.style.top = `${(percentY / 100) * width}px`; // Base top on width
+
+        // clear out transforms from draggable
+        gsap.set(item, {
+          x: 0,
+          y: 0,
+          z: 0,
+        });
+      });
+
+      updateContainerHeight();
+    }
+
+    const resizeObserver = new ResizeObserver(updatePositions);
+    resizeObserver.observe(grid);
+
+    function updateContainerHeight() {
+      requestAnimationFrame(() => {
+        let maxBottom = 0;
+
+        items.forEach((item) => {
+          let topPos = gsap.getProperty(item, "top"); // Get the top position in pixels
+          itemBottom = topPos + item.offsetHeight; // Distance from top + height
+          maxBottom = Math.max(maxBottom, itemBottom);
+        });
+
+        grid.style.height = `${Math.ceil(maxBottom)}px`; // Round up & add buffer for admin, on front-end this should be tight to the grid
+        grid.style.minHeight = "auto";
+      });
+    }
+  });
+
   // initialize masonry
 
   let masonGrids = document.querySelectorAll(".masongrid");
@@ -774,6 +821,28 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault;
     body.classList.remove("contactOpen");
     contactModule.classList.add("hidden");
+  });
+
+  // OPENING LIGHTBOX SINGLE - LOOSE GRID
+  let lightboxSingleLinks = document.querySelectorAll(".openLightboxSingle");
+  lightboxSingleLinks.forEach((lightboxLink) => {
+    lightboxLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      let picid = lightboxLink.getAttribute("data-id");
+      getAjax("/getLightboxSingle.php?picid=" + picid, function (data) {
+        overlayLightboxInner.innerHTML = data;
+        initLoading();
+
+        document
+          .querySelector("#lightbox .closeIcon")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            console.log("close lightbox");
+            closeLightbox();
+          });
+      });
+      openLightbox();
+    });
   });
 
   // OPENING LIGHTBOX SLIDESHOW - HOMEPAGE AND SERIES GRID

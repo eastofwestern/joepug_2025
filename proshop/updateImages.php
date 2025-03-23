@@ -23,6 +23,7 @@ if (isset($_POST["myContent"])) {
     $data_array = json_decode($data_json, true);
 
     if ($data_array !== null) {
+        $source = $data_array["source"];
         $catID = $data_array["category"];
         $catorder = $data_array["catorder"];
         if (isset($data_array["parentID"])) {
@@ -95,6 +96,8 @@ if (!isset($catID)) {
 }
 
 $save_path = getOption("imagePathSave");
+
+$posMulti = 5;
 
 $myCount = 0;
 $listingCounter = 1;
@@ -218,7 +221,10 @@ foreach ($picIDArray as $picID) {
 
         if ($num2a == 0) {
 
-            $query2b = "INSERT INTO cat_pics (catid, picid, sortBy, rowBreak, topMargin, leftMargin, colStart, colEnd) VALUES ('$thisCopyCat', '$picID', '$listingCounter', '$thisRowBreak', '$thisTopMargin', '$thisLeftMargin', '$thisColStart', '$thisColEnd')";
+            $posStartX = $myCount * $posMulti;
+            $posStartY = $myCount * $posMulti;
+
+            $query2b = "INSERT INTO cat_pics (catid, picid, sortBy, rowBreak, topMargin, leftMargin, colStart, colEnd, width, pos_top, pos_left) VALUES ('$thisCopyCat', '$picID', '$listingCounter', '$thisRowBreak', '$thisTopMargin', '$thisLeftMargin', '$thisColStart', '$thisColEnd', '20', '$posStartY', '$posStartX')";
 
             $result2b = mysqli_query(Database::$conn, $query2b);
 
@@ -254,5 +260,5 @@ if ($module === "yes") {
     echo "manage_products.php?catID=" . $catID;
 } else {
 
-    echo "manage_images.php?category=" . $catID . "&parentID=" . $parentID . "&parentParentID=" . $parentParentID;
+    echo $source . "?category=" . $catID . "&parentID=" . $parentID . "&parentParentID=" . $parentParentID;
 }

@@ -28,6 +28,10 @@
 <script type="text/javascript" src="js/jquery.flot.min.js"></script>
 <script type="text/javascript" src="js/jquery.flot.time.min.js"></script>
 
+<!-- GSAP FILES FOR LOOSE GRID -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/Draggable.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 

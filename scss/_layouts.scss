@@ -127,7 +127,7 @@
 
 /* BEGIN GRID LAYOUTS */
 
-.grid.loose {
+.grid.columns {
   position: relative;
   width: 88%;
   margin: 0 auto;
@@ -142,7 +142,7 @@
 }
 
 @include phone-portrait {
-  .grid.loose {
+  .grid.columns {
     grid-template-columns: repeat(6, 1fr);
     .cell {
       grid-column: var(--cat-col-start) / var(--cat-col-end) !important;
@@ -296,6 +296,23 @@
       p {
         font-size: 1rem;
       }
+    }
+  }
+}
+
+.grid_loose {
+  position: relative;
+  width: 100%;
+  ul.canvas {
+    list-style-type: none;
+    position: relative;
+    width: 100%;
+    li {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 2px solid transparent;
+      z-index: 1;
     }
   }
 }
