@@ -82,7 +82,7 @@ if (!file_exists($save_path . "500/" . $filename)) {
 
         $image = new Imagick($save_path . $filename);
         $image->transformImageColorspace(Imagick::COLORSPACE_SRGB);
-        $newH = 500 * $imgRatio;
+        $newH = 500 / $imgRatio;
         $image->resizeImage(500, $newH, Imagick::FILTER_LANCZOS, 1);
         $image->writeImage($save_path . "500/" . $filename);
         $image->destroy();
@@ -97,7 +97,7 @@ if (!file_exists($save_path . "750/" . $filename)) {
 
         $image = new Imagick($save_path . $filename);
         $image->transformImageColorspace(Imagick::COLORSPACE_SRGB);
-        $newH = 750 * $imgRatio;
+        $newH = 750 / $imgRatio;
         $image->resizeImage(750, $newH, Imagick::FILTER_LANCZOS, 1);
         $image->writeImage($save_path . "750/" . $filename);
         $image->destroy();
@@ -111,7 +111,7 @@ if (!file_exists($save_path . "1000/" . $filename)) {
     if ($imgWidth > 1000) {
         $image = new Imagick($save_path . $filename);
         $image->transformImageColorspace(Imagick::COLORSPACE_SRGB);
-        $newH = 1000 * $imgRatio;
+        $newH = 1000 / $imgRatio;
         $image->resizeImage(1000, $newH, Imagick::FILTER_LANCZOS, 1);
         $image->writeImage($save_path . "1000/" . $filename);
         $image->destroy();
@@ -125,7 +125,7 @@ if (!file_exists($save_path . "1536/" . $filename)) {
     if ($imgWidth > 1536) {
         $image = new Imagick($save_path . $filename);
         $image->transformImageColorspace(Imagick::COLORSPACE_SRGB);
-        $newH = 1536 * $imgRatio;
+        $newH = 1536 / $imgRatio;
         $image->resizeImage(1536, $newH, Imagick::FILTER_LANCZOS, 1);
         $image->writeImage($save_path . "1536/" . $filename);
         $image->destroy();
@@ -139,7 +139,7 @@ if (!file_exists($save_path . "1920/" . $filename)) {
     if ($imgWidth > 1920) {
         $image = new Imagick($save_path . $filename);
         $image->transformImageColorspace(Imagick::COLORSPACE_SRGB);
-        $newH = 1920 * $imgRatio;
+        $newH = 1920 / $imgRatio;
         $image->resizeImage(1920, $newH, Imagick::FILTER_LANCZOS, 1);
         $image->writeImage($save_path . "1920/" . $filename);
         $image->destroy();

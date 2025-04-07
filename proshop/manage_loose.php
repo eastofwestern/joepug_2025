@@ -96,11 +96,11 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
 
                 <div class="buttons">
                     <div class="button_group">
-                        <button class="style_icon active"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="22" viewBox="0 0 27 22">
+                        <button id="view_desktop" class="style_icon active"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="22" viewBox="0 0 27 22">
                                 <path id="Icon_akar-desktop-device" data-name="Icon akar-desktop-device" d="M3,8.5A2.5,2.5,0,0,1,5.5,6h20A2.5,2.5,0,0,1,28,8.5V19.75a2.5,2.5,0,0,1-2.5,2.5H5.5A2.5,2.5,0,0,1,3,19.75ZM10.5,26h10" transform="translate(-2 -5)" fill="none" stroke="#3f4f6a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                             </svg>
                         </button>
-                        <button class="style_icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="22" viewBox="0 0 14 22">
+                        <button id="view_mobile" class="style_icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="22" viewBox="0 0 14 22">
                                 <g id="Icon_akar-mobile-device" data-name="Icon akar-mobile-device" transform="translate(-8 -2)">
                                     <path id="Path_24" data-name="Path 24" d="M11,3h8a2,2,0,0,1,2,2V21a2,2,0,0,1-2,2H11a2,2,0,0,1-2-2V5a2,2,0,0,1,2-2Z" transform="translate(0 0)" fill="none" stroke="#3f4f6a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                     <path id="Path_25" data-name="Path 25" d="M17.925,27h.15" transform="translate(-3 -10)" fill="none" stroke="#3f4f6a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
@@ -344,7 +344,7 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                             <input type="hidden" id="parentID" name="parentID" value="<?= $parentID ?>">
                             <input type="hidden" id="parentParentID" name="parentParentID" value="<?= $parentParentID ?>">
 
-                            <div id="looseGrid" class="looseGrid">
+                            <div id="looseGrid" class="looseGrid" data-catid="<?= $catID ?>" data-view="desktop">
 
 
 
@@ -405,11 +405,7 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
 
                                             $ext = pathinfo(getOption("physicalPath") . $pic['img'], PATHINFO_EXTENSION);
 
-                                            if (file_exists(getOption("physicalPath") . "/500/" . $pic['img'])) {
-                                                $theImg = getOption("imagePath") . "500/" . $pic['img'];
-                                            } else {
-                                                $theImg = getOption("imagePath") . $pic['img'];
-                                            }
+                                            $theImg = getOption("imagePath") . "1000/" . $pic['img'];
 
                                             if ($ext === "gif") {
                                                 $theImg = getOption("imagePath") . $pic['img'];
@@ -440,8 +436,8 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                                                             <button class="layer_update" data-direction="forward">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                                                                     <g id="Group_189" data-name="Group 189" transform="translate(-1376 -632)">
-                                                                        <rect id="Rectangle_1614" data-name="Rectangle 1614" width="11" height="11" transform="translate(1379 635)" fill="#3f4f6a" />
-                                                                        <g id="Rectangle_1615" data-name="Rectangle 1615" transform="translate(1376 632)" fill="#fff" stroke="#3f4f6a" stroke-width="1">
+                                                                        <rect id="solid" data-name="Rectangle 1614" width="11" height="11" transform="translate(1379 635)" fill="#3f4f6a" />
+                                                                        <g id="border" data-name="Rectangle 1615" transform="translate(1376 632)" fill="#fff" stroke="#3f4f6a" stroke-width="1">
                                                                             <rect width="11" height="11" stroke="none" />
                                                                             <rect x="0.5" y="0.5" width="10" height="10" fill="none" />
                                                                         </g>
@@ -455,11 +451,11 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                                                             <button class="layer_update" data-direction="back">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
                                                                     <g id="Group_190" data-name="Group 190" transform="translate(-1376 -659)">
-                                                                        <g id="Rectangle_1613" data-name="Rectangle 1613" transform="translate(1379 662)" fill="#fff" stroke="#3f4f6a" stroke-width="1">
+                                                                        <g id="border" data-name="Rectangle 1613" transform="translate(1379 662)" fill="#fff" stroke="#3f4f6a" stroke-width="1">
                                                                             <rect width="11" height="11" stroke="none" />
                                                                             <rect x="0.5" y="0.5" width="10" height="10" fill="none" />
                                                                         </g>
-                                                                        <rect id="Rectangle_1612" data-name="Rectangle 1612" width="11" height="11" transform="translate(1376 659)" fill="#3f4f6a" />
+                                                                        <rect id="solid" data-name="Rectangle 1612" width="11" height="11" transform="translate(1376 659)" fill="#3f4f6a" />
                                                                     </g>
                                                                 </svg>
 
@@ -481,6 +477,9 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                                                 </div>
 
                                                 <button class="resize-handle bottom-right"></button>
+                                                <button class="resize-handle bottom-left"></button>
+                                                <button class="resize-handle top-left"></button>
+                                                <button class="resize-handle top-right"></button>
 
                                                 <?php if ($pic['img'] != "no-image.jpg") { ?>
 
@@ -599,6 +598,11 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
 <script type="text/javascript">
     /* 2025 ADDITION OF LOOSE GRID FUNCTIONS */
 
+    let looseGrid = document.querySelector("#looseGrid");
+    let dropArea = document.querySelector("#drop-area");
+    let desktopViewBtn = document.getElementById("view_desktop");
+    let mobileViewBtn = document.getElementById("view_mobile");
+
     // custom browse button to open file upload dialog
     let fileUploadTriger = document.getElementById('fileUploadTrigger');
     if (typeof fileUploadTriger !== 'undefined' && fileUploadTriger !== null) {
@@ -608,304 +612,527 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
         });
     }
 
-    let draggables = [];
-    let grid = document.querySelector("#looseGrid ul.canvas");
-    let items = grid.querySelectorAll(".item");
-    let isResizing = false;
-    let startX, startY, startWidth, startHeight, aspectRatio;
-    let resizeBtns = grid.querySelectorAll(".item .resize-handle.bottom-right");
-    let layerBtns = grid.querySelectorAll(".item button.layer_update");
-    let selectBoxes = grid.querySelectorAll(".item input[name='select']");
-    let checkAllBtn = document.getElementById('checkAll');
-    let deleteAllBtn = document.querySelector('.deleteAll');
-    let saveBtn = document.getElementById("save_changes");
-    let viewsBoxes = document.querySelectorAll(".media_tools .views input[type='checkbox'");
+    // handle changing the canvas from desktop to mobile view
+    mobileViewBtn.addEventListener("click", function() {
 
-    function killDraggable() {
-        draggables.forEach(d => d.kill());
-    }
+        // we need to get the updated mobile values from the database
+        const catid = looseGrid.getAttribute("data-catid");
 
-    // handle viewsBoxes toggle
-    viewsBoxes.forEach(viewBox => {
-        viewBox.addEventListener("click", function() {
+        fetch('getCanvas.php?catid=' + catid + "&view=mobile")
+            .then(response => response.text()) // Change to text() instead of json()
+            .then(html => {
+                dropArea.innerHTML = html; // Insert the returned HTML directly
+                looseGridInit(); // Reinitialize the grid functionality
+            })
+            .catch(error => console.error('Error:', error));
 
-            // uncheck all other view boxes
-            viewsBoxes.forEach(otherBox => {
-                if (otherBox !== viewBox) {
-                    otherBox.checked = false;
+        desktopViewBtn.classList.remove("active");
+        mobileViewBtn.classList.add("active");
+        dropArea.style.width = '440px';
+        dropArea.style.marginTop = '3rem';
+        looseGrid.setAttribute("data-view", "mobile");
+    });
+
+    desktopViewBtn.addEventListener("click", function() {
+
+        // we need to get the updated desktop values from the database
+        const catid = looseGrid.getAttribute("data-catid");
+
+        fetch('getCanvas.php?catid=' + catid + "&view=desktop")
+            .then(response => response.text()) // Change to text() instead of json()
+            .then(html => {
+                dropArea.innerHTML = html; // Insert the returned HTML directly
+                looseGridInit(); // Reinitialize the grid functionality
+            })
+            .catch(error => console.error('Error:', error));
+
+        desktopViewBtn.classList.add("active");
+        mobileViewBtn.classList.remove("active");
+        dropArea.style.width = '100%';
+        dropArea.style.marginTop = '0';
+        looseGrid.setAttribute("data-view", "desktop");
+    });
+
+    function looseGridInit() {
+
+        let draggables = [];
+        let grid = document.querySelector("#looseGrid ul.canvas");
+        let items = grid.querySelectorAll(".item");
+        let isResizing = false;
+        let startX, startY, startWidth, startHeight, aspectRatio;
+        let resizeBtnBottomRight = grid.querySelectorAll(".item .resize-handle.bottom-right");
+        let resizeBtnBottomLeft = grid.querySelectorAll(".item .resize-handle.bottom-left");
+        let resizeBtnTopLeft = grid.querySelectorAll(".item .resize-handle.top-left");
+        let resizeBtnTopRight = grid.querySelectorAll(".item .resize-handle.top-right");
+        let resizeBtns = grid.querySelectorAll(".item .resize-handle");
+        let layerBtns = grid.querySelectorAll(".item button.layer_update");
+        let selectBoxes = grid.querySelectorAll(".item input[name='select']");
+        let checkAllBtn = document.getElementById('checkAll');
+        let deleteAllBtn = document.querySelector('.deleteAll');
+        let saveBtn = document.getElementById("save_changes");
+        let viewsBoxes = document.querySelectorAll(".media_tools .views input[type='checkbox'");
+
+        function killDraggable() {
+            draggables.forEach(d => d.kill());
+        }
+
+        // handle viewsBoxes toggle
+        viewsBoxes.forEach(viewBox => {
+            viewBox.addEventListener("click", function() {
+
+                // uncheck all other view boxes
+                viewsBoxes.forEach(otherBox => {
+                    if (otherBox !== viewBox) {
+                        otherBox.checked = false;
+                    }
+                });
+
+                // get the value of the checked box
+                let checkedValue = viewBox.value;
+
+                if (checkedValue === "detail") {
+                    grid.classList.add("detail_view");
+                    killDraggable();
+                } else {
+                    grid.classList.remove("detail_view");
+                    initDraggable();
+                }
+
+
+            });
+        });
+
+        // main save changes button triggers the hidden update button.  Should update this at some point
+        saveBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            document.querySelector('.toolbar #btn').click();
+        });
+
+        // handle copy and move functions
+        document.querySelector('.tools_wrap .copyCatAll').addEventListener('change', function() {
+            const copyid = this.value;
+
+            selectBoxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const picid = checkbox.dataset.id;
+                    document.querySelector(".item[data-picid='" + picid + "'] .copyCat").value = copyid;
                 }
             });
 
-            // get the value of the checked box
-            let checkedValue = viewBox.value;
-
-            if (checkedValue === "detail") {
-                grid.classList.add("detail_view");
-                killDraggable();
-            } else {
-                grid.classList.remove("detail_view");
-                initDraggable();
-            }
-
-
         });
-    });
 
-    // main save changes button triggers the hidden update button.  Should update this at some point
-    saveBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        document.querySelector('.toolbar #btn').click();
-    });
+        document.querySelector('.tools_wrap .moveCatAll').addEventListener('change', function() {
+            const moveid = this.value;
 
-    // handle copy and move functions
-    document.querySelector('.tools_wrap .copyCatAll').addEventListener('change', function() {
-        const copyid = this.value;
+            selectBoxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const picid = checkbox.dataset.id;
+                    document.querySelector(".item[data-picid='" + picid + "'] .moveCat").value = moveid;
+                }
+            });
+        });
 
-        selectBoxes.forEach(checkbox => {
-            if (checkbox.checked) {
+        // handle delete all Btn
+        deleteAllBtn.addEventListener("click", function(e) {
+
+            e.preventDefault();
+
+            selectBoxes.forEach(checkbox => {
                 const picid = checkbox.dataset.id;
-                document.querySelector(".item[data-picid='" + picid + "'] .copyCat").value = copyid;
-            }
+                const deleteCheck = document.querySelector(`.deleteCheck[data-id="${picid}"]`);
+
+                if (checkbox.checked) {
+                    deleteCheck.checked = true;
+                } else {
+                    deleteCheck.checked = false;
+                }
+
+                console.log(deleteCheck);
+            });
+
+            document.querySelector('.toolbar #btn').click();
+
         });
 
-    });
+        // handle select/deselect all items
 
-    document.querySelector('.tools_wrap .moveCatAll').addEventListener('change', function() {
-        const moveid = this.value;
+        checkAllBtn.addEventListener("click", function() {
 
-        selectBoxes.forEach(checkbox => {
-            if (checkbox.checked) {
-                const picid = checkbox.dataset.id;
-                document.querySelector(".item[data-picid='" + picid + "'] .moveCat").value = moveid;
-            }
-        });
-    });
+            let isChecked = this.checked;
+            selectBoxes.forEach(selectBox => {
+                selectBox.checked = isChecked;
+                let item = selectBox.closest('.item');
+                if (isChecked) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
 
-    // handle delete all Btn
-    deleteAllBtn.addEventListener("click", function(e) {
-
-        e.preventDefault();
-
-        selectBoxes.forEach(checkbox => {
-            const picid = checkbox.dataset.id;
-            const deleteCheck = document.querySelector(`.deleteCheck[data-id="${picid}"]`);
-
-            if (checkbox.checked) {
-                deleteCheck.checked = true;
-            } else {
-                deleteCheck.checked = false;
-            }
-
-            console.log(deleteCheck);
-        });
-
-        document.querySelector('.toolbar #btn').click();
-
-    });
-
-    // handle select/deselect all items
-
-    checkAllBtn.addEventListener("click", function() {
-
-        let isChecked = this.checked;
-        selectBoxes.forEach(selectBox => {
-            selectBox.checked = isChecked;
-            let item = selectBox.closest('.item');
-            if (isChecked) {
-                item.classList.add('selected');
-            } else {
-                item.classList.remove('selected');
-            }
-        });
-
-        let count = document.querySelectorAll(".item input[name='select']:checked").length;
-        document.querySelector(".count").textContent = count;
-
-        if (count > 0) {
-            document.querySelector(".toolbar .counter").classList.add("on");
-        } else {
-            document.querySelector(".toolbar .counter").classList.remove("on");
-        }
-
-    });
-
-
-    // handle select of individual items
-    selectBoxes.forEach(selectBox => {
-        selectBox.addEventListener("change", function() {
             let count = document.querySelectorAll(".item input[name='select']:checked").length;
             document.querySelector(".count").textContent = count;
 
-            let item = selectBox.closest('.item');
-            if (this.checked) {
-                item.classList.add('selected');
+            if (count > 0) {
+                document.querySelector(".toolbar .counter").classList.add("on");
             } else {
-                item.classList.remove('selected');
-            }
-        });
-    });
-
-    layerBtns.forEach(layerBtn => {
-        layerBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            let item = this.closest(".item");
-            let direction = this.getAttribute("data-direction");
-
-            if (direction === "forward") {
-                item.style.zIndex++;
-            } else {
-                item.style.zIndex = Math.max(0, item.style.zIndex - 1);
+                document.querySelector(".toolbar .counter").classList.remove("on");
             }
 
-            savePosition(item);
         });
-    });
 
-    resizeBtns.forEach(handle => {
-        handle.addEventListener('mousedown', initResize, false);
-        handle.addEventListener('touchstart', initResize, false);
-        handle.addEventListener('click', function(e) {
+
+        // handle select of individual items
+        selectBoxes.forEach(selectBox => {
+            selectBox.addEventListener("change", function() {
+                let count = document.querySelectorAll(".item input[name='select']:checked").length;
+                document.querySelector(".count").textContent = count;
+
+                let item = selectBox.closest('.item');
+                if (this.checked) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        });
+
+        layerBtns.forEach(layerBtn => {
+            layerBtn.addEventListener("click", function(e) {
+                e.preventDefault();
+                let item = this.closest(".item");
+                let direction = this.getAttribute("data-direction");
+
+                if (direction === "forward") {
+                    item.style.zIndex++;
+                } else {
+                    item.style.zIndex = Math.max(0, item.style.zIndex - 1);
+                }
+
+                savePosition(item);
+            });
+        });
+
+        resizeBtnBottomRight.forEach(handle => {
+            handle.addEventListener('mousedown', initResizeBottomRight, false);
+            handle.addEventListener('touchstart', initResizeBottomRight, false);
+            handle.addEventListener('click', function(e) {
+                e.preventDefault();
+            }, false);
+        });
+
+        resizeBtnBottomLeft.forEach(handle => {
+            handle.addEventListener('mousedown', initResizeBottomLeft, false);
+            handle.addEventListener('touchstart', initResizeBottomLeft, false);
+            handle.addEventListener('click', function(e) {
+                e.preventDefault();
+            }, false);
+        });
+
+        resizeBtnTopLeft.forEach(handle => {
+            handle.addEventListener('mousedown', initResizeTopLeft, false);
+            handle.addEventListener('touchstart', initResizeTopLeft, false);
+            handle.addEventListener('click', function(e) {
+                e.preventDefault();
+            }, false);
+        });
+
+        resizeBtnTopRight.forEach(handle => {
+            handle.addEventListener('mousedown', initResizeTopRight, false);
+            handle.addEventListener('touchstart', initResizeTopRight, false);
+            handle.addEventListener('click', function(e) {
+                e.preventDefault();
+            }, false);
+        });
+
+        function initResizeBottomLeft(e) {
             e.preventDefault();
-        }, false);
-    });
+            const handle = this;
+            const item = this.closest(".item");
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = item.offsetWidth;
+            startHeight = item.offsetHeight;
+            aspectRatio = item.getAttribute("data-aspect-ratio");
 
-    function initResize(e) {
-        e.preventDefault();
-        const item = this.closest(".item");
-        isResizing = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startWidth = item.offsetWidth;
-        startHeight = item.offsetHeight;
-        aspectRatio = item.getAttribute("data-aspect-ratio");
+            const currentLeft = parseFloat(item.style.left);
+            const containerWidth = grid.offsetWidth;
+            const itemWidth = item.offsetWidth;
+            const rightPosition = (containerWidth - (currentLeft + itemWidth)) / containerWidth * 100;
 
-        item.classList.add("resizing");
+            // Save the right position as a percentage
+            item.style.right = `${rightPosition}%`;
+            item.style.left = 'auto';
 
-        document.addEventListener('mousemove', resizeItem, false);
-        document.addEventListener('mouseup', stopResize, false);
+            item.classList.add("resizing");
 
-        function resizeItem(e) {
+            document.addEventListener('mousemove', resizeItem, false);
+            document.addEventListener('mouseup', stopResize, false);
 
-            const newWidth = startWidth + (e.clientX - startX);
-            const newWidthPercent = (newWidth / grid.offsetWidth) * 100;
-            item.style.width = `${newWidthPercent}%`;
+            function resizeItem(e) {
 
-        }
+                // Calculate distance moved
+                const deltaX = startX - e.clientX;
 
-        function stopResize() {
-            document.removeEventListener('mousemove', resizeItem, false);
-            document.removeEventListener('mouseup', stopResize, false);
-            isResizing = false;
-            item.classList.remove("resizing");
-            savePosition(item);
-        }
-    }
+                // Calculate new width while maintaining right edge position
+                const newWidth = startWidth + deltaX;
+                const newWidthPercent = (newWidth / grid.offsetWidth) * 100;
+                item.style.width = `${newWidthPercent}%`;
 
-    async function savePosition(item) {
+            }
 
-        const picid = item.getAttribute("data-picid");
-        const catid = item.getAttribute("data-catid");
-        const containerRect = grid.getBoundingClientRect();
-        const rect = item.getBoundingClientRect();
-        const newWidth = gsap.getProperty(item, "width");
-        const layer = gsap.getProperty(item, "zIndex");
-        const xPercent = ((rect.left - containerRect.left) / containerRect.width) * 100;
-        const translateY = gsap.getProperty(item, "y"); // Get the Y translation in pixels
-        let topY = gsap.getProperty(item, "top", "px"); // Get the top position in pixels
-        topY = parseFloat(topY.replace("px", ""));
-        const newTop = topY + translateY;
-
-        const topPercent = (newTop / containerRect.width) * 100; // Convert top to percentage relative to container width
-
-        item.setAttribute("data-x", xPercent);
-        item.setAttribute("data-y", topPercent);
-
-        fetch('saveItemProperties.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    picid: picid,
-                    catid: catid,
-                    left: xPercent,
-                    top: topPercent,
-                    width: newWidth,
-                    layer: layer
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.message); // Will show the received values
-                updatePositions();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
-    }
-
-    function updatePositions() {
-        const {
-            width,
-            height
-        } = grid.getBoundingClientRect();
-
-        items.forEach(item => {
-            let percentX = parseFloat(item.dataset.x);
-            let percentY = parseFloat(item.dataset.y);
-
-            // apply the new positions as pixels
-            item.style.left = `${(percentX / 100) * width}px`;
-            item.style.top = `${(percentY / 100) * width}px`; // Base top on width
-
-            // clear out transforms from draggable
-            gsap.set(item, {
-                x: 0,
-                y: 0,
-                z: 0
-            });
-        });
-
-        updateContainerHeight();
-    }
-
-    const resizeObserver = new ResizeObserver(updatePositions);
-    resizeObserver.observe(grid);
-
-    function updateContainerHeight() {
-        requestAnimationFrame(() => {
-            let maxBottom = 0;
-
-            items.forEach(item => {
-
-                let topPos = gsap.getProperty(item, "top"); // Get the top position in pixels
-                itemBottom = topPos + item.offsetHeight; // Distance from top + height
-                maxBottom = Math.max(maxBottom, itemBottom);
-            });
-
-            grid.style.height = `${Math.ceil(maxBottom) + 300}px`; // Round up & add buffer for admin, on front-end this should be tight to the grid
-            grid.style.minHeight = "auto";
-        });
-    }
-
-    function initDraggable() {
-        draggables.forEach(d => d.kill()); // Clear previous instances
-        draggables = Draggable.create(items, {
-            type: "x,y",
-            inertia: true,
-            zIndexBoost: false,
-            dragClickables: false,
-            onDragEnd: function() {
-                let item = this.target;
+            function stopResize() {
+                document.removeEventListener('mousemove', resizeItem, false);
+                document.removeEventListener('mouseup', stopResize, false);
+                isResizing = false;
+                item.classList.remove("resizing");
                 savePosition(item);
             }
-        });
+        }
+
+        function initResizeTopLeft(e) {
+            e.preventDefault();
+            const handle = this;
+            const item = this.closest(".item");
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = item.offsetWidth;
+            startHeight = item.offsetHeight;
+            aspectRatio = item.getAttribute("data-aspect-ratio");
+
+            const currentLeft = parseFloat(item.style.left);
+            const containerWidth = grid.offsetWidth;
+            const itemWidth = item.offsetWidth;
+            const rightPosition = (containerWidth - (currentLeft + itemWidth)) / containerWidth * 100;
+
+            // Save the right position as a percentage
+            item.style.right = `${rightPosition}%`;
+            item.style.left = 'auto';
+
+            // Save the bottom position as a percentage
+            const currentTop = parseFloat(item.style.top);
+            const containerHeight = grid.offsetHeight;
+            const itemHeight = item.offsetHeight;
+            const bottomPosition = (containerHeight - (currentTop + itemHeight)) / containerHeight * 100;
+
+            item.style.bottom = `${bottomPosition}%`;
+            item.style.top = 'auto';
+
+            item.classList.add("resizing");
+
+            document.addEventListener('mousemove', resizeItem, false);
+            document.addEventListener('mouseup', stopResize, false);
+
+            function resizeItem(e) {
+
+                // Calculate distance moved
+                const deltaX = startX - e.clientX;
+
+                // Calculate new width while maintaining right edge position
+                const newWidth = startWidth + deltaX;
+                const newWidthPercent = (newWidth / grid.offsetWidth) * 100;
+                item.style.width = `${newWidthPercent}%`;
+
+            }
+
+            function stopResize() {
+                document.removeEventListener('mousemove', resizeItem, false);
+                document.removeEventListener('mouseup', stopResize, false);
+                isResizing = false;
+                item.classList.remove("resizing");
+                savePosition(item);
+            }
+        }
+
+        function initResizeTopRight(e) {
+            e.preventDefault();
+            const handle = this;
+            const item = this.closest(".item");
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = item.offsetWidth;
+            startHeight = item.offsetHeight;
+            aspectRatio = item.getAttribute("data-aspect-ratio");
+
+            // Save the bottom position as a percentage
+            const currentTop = parseFloat(item.style.top);
+            const containerHeight = grid.offsetHeight;
+            const itemHeight = item.offsetHeight;
+            const bottomPosition = (containerHeight - (currentTop + itemHeight)) / containerHeight * 100;
+
+            item.style.bottom = `${bottomPosition}%`;
+            item.style.top = 'auto';
+
+            item.classList.add("resizing");
+
+            document.addEventListener('mousemove', resizeItem, false);
+            document.addEventListener('mouseup', stopResize, false);
+
+            function resizeItem(e) {
+
+                const newWidth = startWidth + (e.clientX - startX);
+                const newWidthPercent = (newWidth / grid.offsetWidth) * 100;
+                item.style.width = `${newWidthPercent}%`;
+
+            }
+
+            function stopResize() {
+                document.removeEventListener('mousemove', resizeItem, false);
+                document.removeEventListener('mouseup', stopResize, false);
+                isResizing = false;
+                item.classList.remove("resizing");
+                savePosition(item);
+            }
+        }
+
+        function initResizeBottomRight(e) {
+            e.preventDefault();
+            const handle = this;
+            const item = this.closest(".item");
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = item.offsetWidth;
+            startHeight = item.offsetHeight;
+            aspectRatio = item.getAttribute("data-aspect-ratio");
+
+            item.classList.add("resizing");
+
+            document.addEventListener('mousemove', resizeItem, false);
+            document.addEventListener('mouseup', stopResize, false);
+
+            function resizeItem(e) {
+
+                const newWidth = startWidth + (e.clientX - startX);
+                const newWidthPercent = (newWidth / grid.offsetWidth) * 100;
+                item.style.width = `${newWidthPercent}%`;
+
+            }
+
+            function stopResize() {
+                document.removeEventListener('mousemove', resizeItem, false);
+                document.removeEventListener('mouseup', stopResize, false);
+                isResizing = false;
+                item.classList.remove("resizing");
+                savePosition(item);
+            }
+        }
+
+        async function savePosition(item) {
+
+            const view = looseGrid.getAttribute("data-view");
+            const picid = item.getAttribute("data-picid");
+            const catid = item.getAttribute("data-catid");
+            const containerRect = grid.getBoundingClientRect();
+            const rect = item.getBoundingClientRect();
+            const newWidth = gsap.getProperty(item, "width");
+            const layer = gsap.getProperty(item, "zIndex");
+            const xPercent = ((rect.left - containerRect.left) / containerRect.width) * 100;
+            const translateY = gsap.getProperty(item, "y"); // Get the Y translation in pixels
+            let topY = gsap.getProperty(item, "top", "px"); // Get the top position in pixels
+            topY = parseFloat(topY.replace("px", ""));
+            const newTop = topY + translateY;
+
+            const topPercent = (newTop / containerRect.width) * 100; // Convert top to percentage relative to container width
+
+            item.setAttribute("data-x", xPercent);
+            item.setAttribute("data-y", topPercent);
+
+            fetch('saveItemProperties.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        view: view,
+                        picid: picid,
+                        catid: catid,
+                        left: xPercent,
+                        top: topPercent,
+                        width: newWidth,
+                        layer: layer
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message); // Will show the received values
+                    updatePositions();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        }
+
+        function updatePositions() {
+            const {
+                width,
+                height
+            } = grid.getBoundingClientRect();
+
+            items.forEach(item => {
+                let percentX = parseFloat(item.dataset.x);
+                let percentY = parseFloat(item.dataset.y);
+
+                // apply the new positions as pixels
+                item.style.left = `${(percentX / 100) * width}px`;
+                item.style.top = `${(percentY / 100) * width}px`; // Base top on width
+                item.style.right = 'auto';
+                item.style.bottom = 'auto';
+
+                // clear out transforms from draggable
+                gsap.set(item, {
+                    x: 0,
+                    y: 0,
+                    z: 0
+                });
+            });
+
+            updateContainerHeight();
+        }
+
+        const resizeObserver = new ResizeObserver(updatePositions);
+        resizeObserver.observe(grid);
+
+        function updateContainerHeight() {
+            requestAnimationFrame(() => {
+                let maxBottom = 0;
+
+                items.forEach(item => {
+
+                    let topPos = gsap.getProperty(item, "top"); // Get the top position in pixels
+                    itemBottom = topPos + item.offsetHeight; // Distance from top + height
+                    maxBottom = Math.max(maxBottom, itemBottom);
+                });
+
+                grid.style.height = `${Math.ceil(maxBottom) + 300}px`; // Round up & add buffer for admin, on front-end this should be tight to the grid
+                grid.style.minHeight = "auto";
+            });
+        }
+
+        function initDraggable() {
+            draggables.forEach(d => d.kill()); // Clear previous instances
+            draggables = Draggable.create(items, {
+                type: "x,y",
+                inertia: true,
+                zIndexBoost: false,
+                dragClickables: false,
+                onDragEnd: function() {
+                    let item = this.target;
+                    savePosition(item);
+                }
+            });
+
+        }
+
+        // Initial Draggable on page load
+        initDraggable();
 
     }
 
-    // Initial Draggable on page load
-    initDraggable();
+    looseGridInit();
 
 
     tinymce.init({
