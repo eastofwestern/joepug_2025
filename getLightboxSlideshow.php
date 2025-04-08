@@ -8,7 +8,11 @@ include('includes/functions.php');
 // category information
 $catID = $_GET['catid'];
 $catDetails = catDetails($catID);
-$images = getImages($catID, $catDetails['sorter']);
+$theSort = "drag";
+if ($catDetails['pageType'] === "grid - loose") {
+    $theSort = "loose";
+}
+$images = getImages($catID, $theSort);
 
 
 ?>

@@ -1090,6 +1090,48 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                 });
             });
 
+            // create the visual order based on screen placement
+
+            const gridItems = Array.from(document.querySelectorAll('ul.canvas .item'));
+            const visualOrderArray = gridItems
+                .map(el => {
+                    const rect = el.getBoundingClientRect();
+                    return {
+                        id: el.dataset.picid,
+                        top: rect.top,
+                        left: rect.left
+                    };
+                })
+                .sort((a, b) => {
+                    if (Math.abs(a.top - b.top) > 5) {
+                        return a.top - b.top;
+                    } else {
+                        return a.left - b.left;
+                    }
+                })
+                .map((item, index) => ({
+                    id: item.id,
+                    catid: document.querySelector("#looseGrid").getAttribute("data-catid"),
+                    visualOrder: index
+                }));
+
+            fetch('saveGridOrder.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        order: visualOrderArray,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message); // Will show the received values
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
             updateContainerHeight();
         }
 

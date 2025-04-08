@@ -83,7 +83,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                                     ?>
 
-                                    <li class="cell item openLightboxSingle" data-id="<?= $item['id'] ?>" data-x="<?= $item['catLeft'] ?>" data-y="<?= $item['catTop'] ?>" data-aspect-ratio="<?= $item['aspectRatio'] ?>" style="top: <?= $item['catTop'] ?>%; left: <?= $item['catLeft'] ?>%; width: <?= $item['catWidth'] ?>%; height: auto; aspect-ratio: <?= $item['aspectRatio'] ?>; z-index: <?= $item['catLayer'] ? $item['catLayer'] : 1 ?>;">
+                                    <li class="cell item openLightbox" data-catid="<?= $catID ?>" data-index="<?= $item['vo_desktop'] ?>" data-id="<?= $item['id'] ?>" data-x="<?= $item['catLeft'] ?>" data-y="<?= $item['catTop'] ?>" data-aspect-ratio="<?= $item['aspectRatio'] ?>" style="top: <?= $item['catTop'] ?>%; left: <?= $item['catLeft'] ?>%; width: <?= $item['catWidth'] ?>%; height: auto; aspect-ratio: <?= $item['aspectRatio'] ?>; z-index: <?= $item['catLayer'] ? $item['catLayer'] : 1 ?>;">
 
                                         <div class="mediawrap fadeOn" style="padding-top: <?= $itemPad ?>%;">
                                             <img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" />
