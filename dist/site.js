@@ -1151,9 +1151,12 @@ document.addEventListener("DOMContentLoaded", function() {
         footerTL = (0, _gsapDefault.default).timeline({
             scrollTrigger: {
                 trigger: footer,
-                start: "250px bottom",
+                start: "450px bottom",
                 end: "bottom bottom",
-                scrub: 1.75
+                markers: false,
+                scrub: 1.5,
+                pin: true,
+                pinSpacing: false
             }
         });
         (0, _gsapDefault.default).set(joe, {
@@ -1173,9 +1176,12 @@ document.addEventListener("DOMContentLoaded", function() {
         let footerTL = (0, _gsapDefault.default).timeline({
             scrollTrigger: {
                 trigger: footer,
-                start: "50% bottom",
+                start: "250px bottom",
                 end: "bottom bottom",
-                scrub: 1
+                // markers: true,
+                scrub: 1.5,
+                pin: true,
+                pinSpacing: false
             }
         });
         (0, _gsapDefault.default).set(joe, {

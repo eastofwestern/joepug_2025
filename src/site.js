@@ -738,9 +738,12 @@ document.addEventListener("DOMContentLoaded", function () {
     footerTL = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: "250px bottom",
+        start: "450px bottom",
         end: "bottom bottom",
-        scrub: 1.75,
+        markers: false,
+        scrub: 1.5,
+        pin: true,
+        pinSpacing: false,
       },
     });
     gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
@@ -771,9 +774,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let footerTL = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: "50% bottom",
+        start: "250px bottom",
         end: "bottom bottom",
-        scrub: 1,
+        // markers: true,
+        scrub: 1.5,
+        pin: true,
+        pinSpacing: false,
       },
     });
     gsap.set(joe, { clipPath: "inset(0 71% 0 0)" });

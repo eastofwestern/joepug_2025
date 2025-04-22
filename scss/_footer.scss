@@ -6,6 +6,7 @@ footer {
   text-align: center;
   // background: #151515;
   color: black;
+  padding-bottom: 600px;
 
   .inner {
     width: 92%;
@@ -38,7 +39,8 @@ footer {
         overflow: hidden;
         bottom: 0;
 
-        path, rect {
+        path,
+        rect {
           fill: currentColor;
         }
 
