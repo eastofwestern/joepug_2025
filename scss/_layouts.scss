@@ -178,7 +178,9 @@
     ul {
       border-top: 1px solid black;
       margin-top: 0;
-      padding-top: 20px;
+      padding-top: 15px;
+      flex-wrap: wrap;
+      row-gap: 10px;
     }
   }
 }

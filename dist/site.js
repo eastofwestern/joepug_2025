@@ -1142,6 +1142,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let pugWidth = k / Math.pow(viewportWidth, 3.5);
     let joeWidth = joeBBox.width; // Get the width of the #joe element
     let initialClipPath = joeWidth * 0.65; // Calculate 65% of joe's width in pixels
+    let mask = footer.querySelector(".mask");
     /*
   console.log("pugwidth", pugWidth);
   console.log("joewidth", joeWidth);
@@ -1159,20 +1160,32 @@ document.addEventListener("DOMContentLoaded", function() {
                 pinSpacing: false
             }
         });
-        (0, _gsapDefault.default).set(joe, {
-            clipPath: `inset(0 ${initialClipPath}px 0 0)`
-        });
-        footerTL.to(joe, {
-            clipPath: `inset(0 ${pugWidth}px 0 0)`
+        // gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
+        footerTL// .to(joe, {
+        //   clipPath: `inset(0 ${pugWidth}px 0 0)`,
+        //   // duration: 2,
+        // })
+        .to(mask, {
+            x: "60%"
         }).to(pug, {
             // delay: 2,
             left: 265
         }).to(liese, {
             left: 265
-        }, "<").to(joe, {
-            clipPath: `inset(0 ${initialClipPath}px 0 0)`
+        }, "<").to(mask, {
+            x: 0
         }, "<");
+    // .to(
+    //   joe,
+    //   {
+    //     clipPath: `inset(0 ${initialClipPath}px 0 0)`,
+    //   },
+    //   "<"
+    // );
     } else {
+        (0, _gsapDefault.default).set(joe, {
+            clipPath: `inset(0 ${initialClipPath}px 0 0)`
+        });
         let footerTL = (0, _gsapDefault.default).timeline({
             scrollTrigger: {
                 trigger: footer,

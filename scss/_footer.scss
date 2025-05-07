@@ -25,7 +25,15 @@ footer {
       margin: auto;
       position: relative;
       margin-bottom: 25px;
-
+      .mask {
+        width: 100vw;
+        height: 125px;
+        background-color: white;
+        position: absolute;
+        left: 250px;
+        bottom: -2.5px;
+        z-index: 2;
+      }
       img {
         position: absolute;
         left: 0;
@@ -46,17 +54,21 @@ footer {
 
         &#joe {
           left: -435px;
+          z-index: 0;
         }
         &#pug {
           transform: scale(1.01);
           bottom: -0.5px;
           right: -35px;
+          z-index: 3;
         }
         &#liese {
           box-sizing: content-box;
           right: -295px;
           padding-left: 295px;
           opacity: 1;
+          background-color: white;
+          z-index: 2;
         }
       }
     }
@@ -123,10 +135,14 @@ footer {
     .inner {
       .animated_name {
         padding-top: 0;
+        overflow: visible;
+        .mask {
+          display: none;
+        }
         img {
           height: 35px;
         }
-        overflow: visible;
+
         svg {
           height: 35px;
           overflow: visible;
@@ -142,6 +158,7 @@ footer {
             bottom: 0;
             padding-left: 0px;
             right: -200px;
+            background-color: transparent;
           }
         }
       }
