@@ -62,55 +62,8 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 						<?php if ($catDetails['pageType'] === "grid - loose") { ?>
 
-							<div class="grid_loose">
-								<ul class="canvas">
+							<div class="grid_loose" data-catid="<?= $catID ?>">
 
-									<?php for ($count = 1; $item = mysqli_fetch_array($images); ++$count) { ?>
-
-										<?php
-
-										$ext = pathinfo(getOption("physicalPath") . "images/pics/" . $item['img'], PATHINFO_EXTENSION);
-										$itemRatio = $item['height'] / $item['width'];
-										$itemPad = $itemRatio * 100;
-
-										$itemVideo = getImageVideo($item['id']);
-
-										$cellClass = "";
-
-										$hasAutoVideo = false;
-										if ($itemVideo && $itemVideo['hoverFile'] != "") {
-											$hasAutoVideo = true;
-											$cellClass .= " autovideo";
-										}
-
-										$hasTitle = false;
-										$hasCaption = false;
-
-										if ($item['title'] != "title:" and $item['title'] != "") {
-											$hasTitle = true;
-										}
-
-										if ($item['caption'] != "caption:" and $item['caption'] != "") {
-											$hasCaption = true;
-										}
-
-										?>
-
-										<li class="cell item openLightbox" data-catid="<?= $catID ?>" data-index="<?= $item['vo_desktop'] ?>" data-id="<?= $item['id'] ?>" data-index="<?= $count ?>" data-x="<?= $item['catLeft'] ?>" data-y="<?= $item['catTop'] ?>" data-aspect-ratio="<?= $item['aspectRatio'] ?>" style="top: <?= $item['catTop'] ?>%; left: <?= $item['catLeft'] ?>%; width: <?= $item['catWidth'] ?>%; height: auto; aspect-ratio: <?= $item['aspectRatio'] ?>; z-index: <?= $item['catLayer'] ? $item['catLayer'] : 1 ?>;">
-
-											<div class="mediawrap fadeOn" style="padding-top: <?= $itemPad ?>%;">
-												<img src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" class="photo loadmeview" />
-												<?php if ($hasAutoVideo) { ?>
-													<div class="vidhold"></div>
-												<?php } ?>
-											</div>
-
-
-										</li>
-
-									<?php } ?>
-
-								</ul>
 							</div>
 
 

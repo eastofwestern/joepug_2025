@@ -11,6 +11,7 @@ $data = json_decode($json, true);
 
 // Extract values
 $order = $data['order'];
+$view = $data['view'];
 
 $response = [];
 foreach ($order as $item) {
@@ -18,7 +19,11 @@ foreach ($order as $item) {
     $catid = $item['catid'];
     $visualOrder = $item['visualOrder'];
 
-    $sql = "UPDATE cat_pics SET vo_desktop = ? WHERE picid = ? AND catid = ?";
+    if ($view === "desktop") {
+        $sql = "UPDATE cat_pics SET vo_desktop = ? WHERE picid = ? AND catid = ?";
+    } else {
+        $sql = "UPDATE cat_pics SET vo_mobile = ? WHERE picid = ? AND catid = ?";
+    }
     $stmt = Database::$conn->prepare($sql);
     if ($stmt === false) {
         die('Prepare failed: ' . Database::$conn->error);

@@ -7,8 +7,10 @@ include 'includes/functions.php';
 
 $catID = $_GET['category'];
 $theCat = catDetails($catID);
-if (isset($_GET['parentID'])) {
+$pageName = $theCat['name'];
+if (isset($_GET['parentID']) && $_GET['parentID'] > 0) {
     $parentID = $_GET['parentID'];
+    $pageName = $theCat['subName'];
 }
 $theParent = catDetails($parentID);
 if (isset($_GET['parentParentID'])) {
@@ -90,7 +92,7 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                 <div class="breadcrumbs">
                     <ul>
                         <li><a href="main.php">Home</a></li>
-                        <li class="pageOn"><?= $theCat['name'] ?></li>
+                        <li class="pageOn"><?= $pageName ?></li>
                     </ul>
                 </div>
 
@@ -272,6 +274,23 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                             </a>
                         </div>
 
+                        <?php /*
+                        <div class="text_entry_btn">
+                            <button class="style_btn secondary" id="addTextEntry">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 13">
+                                    <g transform="translate(1 1)">
+                                        <line x1="9" transform="translate(1.5 3)" stroke="#3f4f6a" stroke-width="1" />
+                                        <line x1="9" transform="translate(1.5 5)" stroke="#3f4f6a" stroke-width="1" />
+                                        <line x1="9" transform="translate(1.5 7)" stroke="#3f4f6a" stroke-width="1" />
+                                        <line x1="4.5" transform="translate(1.5 9)" stroke="#3f4f6a" stroke-width="1" />
+                                    </g>
+                                </svg>
+
+                                <span class="label">Text Entry</span>
+                            </button>
+                        </div>
+                        */ ?>
+
                     </div>
 
 
@@ -317,20 +336,6 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
 
             </div>
 
-            <?php if (getOption("textEntries") === "yes") { ?>
-                <div style="width: 25%; float: right;">
-                    <b>ADD NEW TEXT ENTRY</b><br /><br />
-
-                    <form name="newEntry">
-                        <input type="text" name="title" id="title" value="title:" onfocus="if (this.value == 'title:') this.value='';" onblur="if (this.value == '') this.value='title:';"><br /><br />
-
-                        <input type="text" name="caption" id="caption" value="caption:" onfocus="if (this.value == 'caption:') this.value='';" onblur="if (this.value == '') this.value='caption:';"><br /><br />
-
-                        <button id="btn" class="addEntry" style="margin-bottom: 15px; float: left; margin-right: 15px;">Add Entry</button>
-
-                    </form>
-                </div>
-            <?php } ?>
 
             */ ?>
 
@@ -344,9 +349,7 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                             <input type="hidden" id="parentID" name="parentID" value="<?= $parentID ?>">
                             <input type="hidden" id="parentParentID" name="parentParentID" value="<?= $parentParentID ?>">
 
-                            <div id="looseGrid" class="looseGrid" data-catid="<?= $catID ?>" data-view="desktop">
-
-
+                            <div id="looseGrid" class="looseGrid" data-catid="<?= $catID ?>" data-parentid="<?= $parentID ?>" data-view="desktop">
 
                                 <div class="toolbar" style="display: none;">
 
@@ -397,175 +400,7 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                                 <div style="clear: both;"></div>
 
                                 <div id="drop-area">
-                                    <ul class="canvas">
 
-                                        <?php
-
-                                        for ($count = 1; $pic = mysqli_fetch_array($result2); ++$count) {
-
-                                            $ext = pathinfo(getOption("physicalPath") . $pic['img'], PATHINFO_EXTENSION);
-
-                                            $theImg = getOption("imagePath") . "1000/" . $pic['img'];
-
-                                            if ($ext === "gif") {
-                                                $theImg = getOption("imagePath") . $pic['img'];
-                                            }
-
-                                        ?>
-
-                                            <li class="item" data-picid="<?= $pic['id'] ?>" data-catid="<?= $catID ?>" data-x="<?= $pic['catLeft'] ?>" data-y="<?= $pic['catTop'] ?>" data-aspect-ratio="<?= $pic['aspectRatio'] ?>" data-filename="<?= $pic['img'] ?>" style="top: <?= $pic['catTop'] ?>%; left: <?= $pic['catLeft'] ?>%; width: <?= $pic['catWidth'] ?>%; height: auto; aspect-ratio: <?= $pic['aspectRatio'] ?>; z-index: <?= $pic['catLayer'] ? $pic['catLayer'] : 1 ?>;">
-
-                                                <div class="item_tools">
-                                                    <ul>
-                                                        <li class="button" title="Select Item">
-                                                            <input data-id="<?= $pic['id'] ?>" type="checkbox" name="select" value="selected">
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li class="button" title="Item Detail">
-                                                            <a href="detail.php?picID=<?= $pic['id'] ?>&category=<?= $catID ?>&imgName=<?= $pic['img'] ?>">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14.24" height="14.239" viewBox="0 0 14.24 14.239">
-                                                                    <g id="Icon_akar-pencil" data-name="Icon akar-pencil" transform="translate(-4 -4.016)">
-                                                                        <path id="Path_34" data-name="Path 34" d="M5.476,14.13l8.959-8.96a1.874,1.874,0,0,1,2.65,2.65l-8.961,8.96a1.464,1.464,0,0,1-.748.4L4.5,17.755l.575-2.877a1.464,1.464,0,0,1,.4-.748Z" fill="none" stroke="#3f4f6a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
-                                                                        <path id="Path_35" data-name="Path 35" d="M21.75,9.75l3.932,3.932" transform="translate(-10.17 -3.007)" fill="none" stroke="#3f4f6a" stroke-width="1" />
-                                                                    </g>
-                                                                </svg>
-                                                            </a>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li class="button" title="Bring Forward">
-                                                            <button class="layer_update" data-direction="forward">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                                                                    <g id="Group_189" data-name="Group 189" transform="translate(-1376 -632)">
-                                                                        <rect id="solid" data-name="Rectangle 1614" width="11" height="11" transform="translate(1379 635)" fill="#3f4f6a" />
-                                                                        <g id="border" data-name="Rectangle 1615" transform="translate(1376 632)" fill="#fff" stroke="#3f4f6a" stroke-width="1">
-                                                                            <rect width="11" height="11" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="10" height="10" fill="none" />
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-
-                                                            </button>
-
-                                                        </li>
-                                                        <li class="button" title="Send Backward">
-                                                            <button class="layer_update" data-direction="back">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                                                                    <g id="Group_190" data-name="Group 190" transform="translate(-1376 -659)">
-                                                                        <g id="border" data-name="Rectangle 1613" transform="translate(1379 662)" fill="#fff" stroke="#3f4f6a" stroke-width="1">
-                                                                            <rect width="11" height="11" stroke="none" />
-                                                                            <rect x="0.5" y="0.5" width="10" height="10" fill="none" />
-                                                                        </g>
-                                                                        <rect id="solid" data-name="Rectangle 1612" width="11" height="11" transform="translate(1376 659)" fill="#3f4f6a" />
-                                                                    </g>
-                                                                </svg>
-
-                                                            </button>
-                                                        </li>
-                                                        <li class="divider"></li>
-                                                        <li class="button" title="Delete Item">
-                                                            <a href="delete_image.php?id=<?= $pic['id'] ?>&category=<?= $catID ?>&imgName=<?= $pic['img'] ?>&parentID=<?= $parentID ?>&parentParentID=<?= $parentParentID ?>&src=manage_loose.php" class="delete">
-                                                                <button>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14.555" viewBox="0 0 14 14.555">
-                                                                        <path id="Icon_feather-trash" data-name="Icon feather-trash" d="M4.5,5.711h13m-1.444,0V15.2a1.4,1.4,0,0,1-1.444,1.356H7.389A1.4,1.4,0,0,1,5.944,15.2V5.711m2.167,0V4.356A1.4,1.4,0,0,1,9.556,3h2.889a1.4,1.4,0,0,1,1.444,1.356V5.711" transform="translate(-4 -2.5)" fill="none" stroke="#d60f0f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
-                                                                    </svg>
-
-                                                                </button>
-                                                            </a>
-
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                <button class="resize-handle bottom-right"></button>
-                                                <button class="resize-handle bottom-left"></button>
-                                                <button class="resize-handle top-left"></button>
-                                                <button class="resize-handle top-right"></button>
-
-                                                <?php if ($pic['img'] != "no-image.jpg") { ?>
-
-                                                    <img src="<?= $theImg ?>" border="0"><br />
-
-                                                <?php } else { ?>
-                                                    <div style="width: 150px; height: 150px; position: absolute; top: 0px; left: 0px; text-align: center; border: 1px solid #ccc;">
-                                                        <div style="padding-top: 44%;"><?= $pic['title'] ?></div>
-                                                    </div>
-                                                <?php } ?>
-                                                <input type="hidden" class="picID" name="picID[]" value="<?= $pic['id'] ?>">
-                                                <input type="hidden" class="img" name="img[]" value="<?= $pic['img'] ?>">
-                                                <input type="hidden" name="copyCat[]" class="copyCat" value="" />
-                                                <input type="hidden" name="moveCat[]" class="moveCat" value="<?= $catID ?>" />
-
-                                                <div class="picCover" style="display: none;"></div>
-
-                                                <div class="picInfo" style="display: none;">
-
-                                                    <?php if (getOption("title") === "yes") { ?>
-                                                        <input type="text" name="title[]" class="titleField" <?php if ($pic['title'] != "") { ?>value="<?= $pic['title'] ?>" <?php } else { ?>value="title:" <?php } ?> onfocus="if (this.value == 'title:') this.value='';" onblur="if (this.value == '') this.value='title:';"><br />
-                                                    <?php } ?>
-
-                                                    <?php if ($catID === "417" or $catID === "420") { ?>
-
-                                                        <?php if (getOption("caption") === "yes") { ?>
-                                                            <input type="text" name="captions[]" class="captions" <?php if ($pic['caption'] != "") { ?>value="<?= $pic['caption'] ?>" <?php } else { ?>value="press date:" <?php } ?> onfocus="if (this.value == 'press date:') this.value='';" onblur="if (this.value == '') this.value='press date:';"><br />
-                                                        <?php } ?>
-
-                                                    <?php } else { ?>
-
-                                                        <?php if (getOption("caption") === "yes") { ?>
-                                                            <input type="text" name="captions[]" class="captions" <?php if ($pic['caption'] != "") { ?>value="<?= $pic['caption'] ?>" <?php } else { ?>value="caption:" <?php } ?> onfocus="if (this.value == 'caption:') this.value='';" onblur="if (this.value == '') this.value='caption:';"><br />
-                                                        <?php } ?>
-
-                                                    <?php } ?>
-
-                                                    <?php if (getOption("picURL") === "yes") { ?>
-                                                        <input type="text" name="picURL[]" class="picURL" <?php if ($pic['picURL'] != "") { ?>value="<?= $pic['picURL'] ?>" <?php } else { ?>value="url:" <?php } ?> onfocus="if (this.value == 'url:') this.value='';" onblur="if (this.value == '') this.value='url:';"><br />
-                                                    <?php } ?>
-
-                                                    <?php if (getOption("shortDesc") === "yes") { ?>
-                                                        <?php if ($catID == 324) { ?>
-                                                            <textarea name="shortDesc[]" class="shortDesc" style="width: 170px; height: 15px; font-size: 11px; font-family: Helvetica, Arial;"><?php if ($pic['shortDesc'] != "") { ?><?= $pic['shortDesc'] ?><?php } else { ?>short description:<?php } ?></textarea><br />
-                                                        <?php } ?>
-                                                    <?php } ?>
-
-                                                    <div class="imagetools">
-                                                        <a href="detail.php?picID=<?= $pic['id'] ?>&category=<?= $catID ?>&imgName=<?= $pic['img'] ?>">
-
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-                                                                <path d="M63.8,18L46.1,0.2l-8.3,8.3L0,46.2V64h17.8l39.1-39l0,0L63.8,18z M58.2,18L54,22.2L41.9,10l4.1-4.2L58.2,18z M4,51.9l8.3,8.1H4V51.9z M17,59.1l-12.3-12l34.3-34.2L51.2,25L17,59.1z" />
-                                                            </svg>
-                                                            <span class="label">edit</span>
-
-                                                        </a>
-                                                        <a href="delete_image.php?id=<?= $pic['id'] ?>&category=<?= $catID ?>&imgName=<?= $pic['img'] ?>&parentID=<?= $parentID ?>&parentParentID=<?= $parentParentID ?>&src=manage_loose.php" class="delete">
-                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-                                                                <g>
-                                                                    <path d="M54,8H42V4c0-2.2-1.8-4-4-4H26c-2.2,0-4,1.8-4,4v4H10c-2.2,0-4,1.8-4,4v8h4.1l2.6,38.4c0.2,3.1,2.8,5.6,6,5.6h26.5c3.1,0,5.8-2.5,6-5.6L53.9,20H58v-8C58,9.8,56.2,8,54,8z M26,4h12v4H26V4z M47.3,58.1c-0.1,1-0.9,1.9-2,1.9H18.7c-1,0-1.9-0.8-2-1.9L14.1,20h35.7L47.3,58.1z M54,16H10v-4h44V16z" />
-                                                                    <rect x="9" y="37" transform="matrix(7.669654e-02 0.9971 -0.9971 7.669654e-02 59.1978 14.0736)" width="26.1" height="4" />
-                                                                    <rect x="30" y="26" width="4" height="26" />
-                                                                    <rect x="40" y="26" transform="matrix(0.9971 7.665917e-02 -7.665917e-02 0.9971 3.1133 -3.1049)" width="4" height="26.1" />
-                                                                </g>
-                                                            </svg>
-                                                            <span class="label">delete</span>
-                                                        </a>
-                                                        <div class="select">
-                                                            <input type="checkbox" name="selectCheck" class="selectCheck" data-id="<?= $pic['id'] ?>" value="yes"></span>
-                                                            <span class="label">select</span>
-                                                            <input type="checkbox" name="deleteCheck" data-id="<?= $pic['id'] ?>" class="deleteCheck" data-id="<?= $pic['id'] ?>" value="yes" style="display: none;">
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-
-                                            </li>
-
-                                        <?php
-
-                                        }
-
-                                        ?>
-
-                                    </ul>
 
                                 </div>
 
@@ -603,12 +438,70 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
     let desktopViewBtn = document.getElementById("view_desktop");
     let mobileViewBtn = document.getElementById("view_mobile");
 
+    // fetch the initial canvas content
+    const catid = looseGrid.getAttribute("data-catid");
+
+    fetch('getCanvas.php?catid=' + catid + "&view=desktop")
+        .then(response => response.text()) // Change to text() instead of json()
+        .then(html => {
+            dropArea.innerHTML = html; // Insert the returned HTML directly
+            looseGridInit();
+        })
+        .catch(error => console.error('Error:', error));
+
     // custom browse button to open file upload dialog
     let fileUploadTriger = document.getElementById('fileUploadTrigger');
     if (typeof fileUploadTriger !== 'undefined' && fileUploadTriger !== null) {
         fileUploadTriger.addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('files-upload').click();
+        });
+    }
+
+    // custom button to add Text Entry to the canvas
+    let addTextEntryBtn = document.getElementById('addTextEntry');
+    if (typeof addTextEntryBtn !== 'undefined' && addTextEntryBtn !== null) {
+        addTextEntryBtn.addEventListener('click', async function(e) {
+            e.preventDefault();
+
+            const catID = looseGrid.getAttribute("data-catid");
+            const parentID = looseGrid.getAttribute("data-parentid");
+            const title = "Text Entry";
+            const caption = "";
+
+            const data = {
+                catID: catID,
+                parentID: parentID,
+                title: title,
+                caption: caption,
+            };
+
+            // Create a FormData object
+            const formData = new FormData();
+            formData.append('myContent', JSON.stringify({
+                catID: catID,
+                parentID: parentID,
+                title: title,
+                caption: caption
+            }));
+
+            try {
+                const response = await fetch('addTextEntry.php', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                console.log('Text entry added successfully');
+                window.location.reload();
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to add text entry');
+            }
         });
     }
 
@@ -664,6 +557,8 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
         let resizeBtnBottomLeft = grid.querySelectorAll(".item .resize-handle.bottom-left");
         let resizeBtnTopLeft = grid.querySelectorAll(".item .resize-handle.top-left");
         let resizeBtnTopRight = grid.querySelectorAll(".item .resize-handle.top-right");
+        let resizeBtnRight = grid.querySelectorAll(".item .resize-handle.right");
+        let resizeBtnLeft = grid.querySelectorAll(".item .resize-handle.left");
         let resizeBtns = grid.querySelectorAll(".item .resize-handle");
         let layerBtns = grid.querySelectorAll(".item button.layer_update");
         let selectBoxes = grid.querySelectorAll(".item input[name='select']");
@@ -671,6 +566,147 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
         let deleteAllBtn = document.querySelector('.deleteAll');
         let saveBtn = document.getElementById("save_changes");
         let viewsBoxes = document.querySelectorAll(".media_tools .views input[type='checkbox'");
+
+        // Add variables for group selection
+        let selectionBox = null;
+        let startPoint = {
+            x: 0,
+            y: 0
+        };
+        let isSelecting = false;
+        let selectedItems = [];
+
+        // Create the selection box element
+        function createSelectionBox() {
+            if (!selectionBox) {
+                selectionBox = document.createElement('div');
+                selectionBox.className = 'selection-box';
+                selectionBox.style.position = 'absolute';
+                selectionBox.style.border = '1px dashed #3f4f6a';
+                selectionBox.style.backgroundColor = 'rgba(63, 79, 106, 0.1)';
+                selectionBox.style.pointerEvents = 'none';
+                selectionBox.style.zIndex = '1000';
+                selectionBox.style.display = 'none';
+                grid.appendChild(selectionBox);
+            }
+            return selectionBox;
+        }
+
+        // Initialize marquee selection
+        function initMarqueeSelection() {
+            selectionBox = createSelectionBox();
+
+            grid.addEventListener('mousedown', function(e) {
+                // Only start selection if not clicking on an item or handle
+                if (e.target === grid || e.target === dropArea) {
+                    isSelecting = true;
+                    startPoint.x = e.clientX;
+                    startPoint.y = e.clientY;
+
+                    // Initialize selection box position
+                    const rect = grid.getBoundingClientRect();
+                    selectionBox.style.left = (e.clientX - rect.left) + 'px';
+                    selectionBox.style.top = (e.clientY - rect.top) + 'px';
+                    selectionBox.style.width = '0px';
+                    selectionBox.style.height = '0px';
+                    selectionBox.style.display = 'block';
+
+                    // Clear previous selection if not holding Shift
+                    if (!e.shiftKey) {
+                        clearSelection();
+                    }
+                }
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isSelecting) return;
+
+                const rect = grid.getBoundingClientRect();
+                const currentX = e.clientX;
+                const currentY = e.clientY;
+
+                // Calculate selection box dimensions
+                const left = Math.min(startPoint.x, currentX) - rect.left;
+                const top = Math.min(startPoint.y, currentY) - rect.top;
+                const width = Math.abs(currentX - startPoint.x);
+                const height = Math.abs(currentY - startPoint.y);
+
+                // Update selection box
+                selectionBox.style.left = left + 'px';
+                selectionBox.style.top = top + 'px';
+                selectionBox.style.width = width + 'px';
+                selectionBox.style.height = height + 'px';
+
+                // Check which items are within the selection box
+                updateSelection(left, top, width, height);
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isSelecting) {
+                    isSelecting = false;
+                    selectionBox.style.display = 'none';
+
+                    // Initialize appropriate draggable based on selection
+                    updateDraggableState();
+                }
+            });
+        }
+
+        function updateSelection(left, top, width, height) {
+            items.forEach(item => {
+                const itemRect = item.getBoundingClientRect();
+                const gridRect = grid.getBoundingClientRect();
+
+                // Calculate item position relative to grid
+                const itemLeft = itemRect.left - gridRect.left;
+                const itemTop = itemRect.top - gridRect.top;
+
+                // Check if item intersects with selection box
+                const intersects = (
+                    itemLeft < left + width &&
+                    itemLeft + itemRect.width > left &&
+                    itemTop < top + height &&
+                    itemTop + itemRect.height > top
+                );
+
+                // Update item selection state
+                if (intersects) {
+                    selectItem(item);
+                }
+            });
+        }
+
+        function selectItem(item) {
+            if (!selectedItems.includes(item)) {
+                selectedItems.push(item);
+                item.classList.add('selected');
+                const checkbox = item.querySelector('input[name="select"]');
+                if (checkbox) checkbox.checked = true;
+            }
+        }
+
+        function clearSelection() {
+            selectedItems.forEach(item => {
+                item.classList.remove('selected');
+                const checkbox = item.querySelector('input[name="select"]');
+                if (checkbox) checkbox.checked = false;
+            });
+            selectedItems = [];
+            document.querySelector(".count").textContent = "0";
+            checkAllBtn.checked = false;
+        }
+
+        // Unselect a specific item
+        function unselectItem(item) {
+            const index = selectedItems.indexOf(item);
+            if (index > -1) {
+                selectedItems.splice(index, 1);
+                item.classList.remove('selected');
+                const checkbox = item.querySelector('input[name="select"]');
+                if (checkbox) checkbox.checked = false;
+                document.querySelector(".count").textContent = selectedItems.length;
+            }
+        }
 
         function killDraggable() {
             draggables.forEach(d => d.kill());
@@ -759,42 +795,48 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
         checkAllBtn.addEventListener("click", function() {
 
             let isChecked = this.checked;
-            selectBoxes.forEach(selectBox => {
-                selectBox.checked = isChecked;
-                let item = selectBox.closest('.item');
-                if (isChecked) {
-                    item.classList.add('selected');
-                } else {
-                    item.classList.remove('selected');
-                }
-            });
+            if (isChecked) {
+                // Select all items
+                items.forEach(item => selectItem(item));
+            } else {
+                // Clear selection
+                clearSelection();
+            }
 
-            let count = document.querySelectorAll(".item input[name='select']:checked").length;
+            let count = selectedItems.length;
             document.querySelector(".count").textContent = count;
 
             if (count > 0) {
                 document.querySelector(".toolbar .counter").classList.add("on");
+                initGroupDraggable();
             } else {
                 document.querySelector(".toolbar .counter").classList.remove("on");
             }
 
         });
 
-
         // handle select of individual items
         selectBoxes.forEach(selectBox => {
             selectBox.addEventListener("change", function() {
-                let count = document.querySelectorAll(".item input[name='select']:checked").length;
-                document.querySelector(".count").textContent = count;
+                const item = selectBox.closest('.item');
 
-                let item = selectBox.closest('.item');
                 if (this.checked) {
-                    item.classList.add('selected');
+                    selectItem(item);
                 } else {
-                    item.classList.remove('selected');
+                    unselectItem(item);
+                }
+
+                // Update count display
+                document.querySelector(".count").textContent = selectedItems.length;
+
+                // if multiple items selected, enable group draggable
+                if (selectedItems.length > 0) {
+                    initGroupDraggable();
                 }
             });
+
         });
+
 
         layerBtns.forEach(layerBtn => {
             layerBtn.addEventListener("click", function(e) {
@@ -839,6 +881,22 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
         resizeBtnTopRight.forEach(handle => {
             handle.addEventListener('mousedown', initResizeTopRight, false);
             handle.addEventListener('touchstart', initResizeTopRight, false);
+            handle.addEventListener('click', function(e) {
+                e.preventDefault();
+            }, false);
+        });
+
+        resizeBtnRight.forEach(handle => {
+            handle.addEventListener('mousedown', initResizeRight, false);
+            handle.addEventListener('touchstart', initResizeRight, false);
+            handle.addEventListener('click', function(e) {
+                e.preventDefault();
+            }, false);
+        });
+
+        resizeBtnLeft.forEach(handle => {
+            handle.addEventListener('mousedown', initResizeLeft, false);
+            handle.addEventListener('touchstart', initResizeLeft, false);
             handle.addEventListener('click', function(e) {
                 e.preventDefault();
             }, false);
@@ -1020,6 +1078,101 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
             }
         }
 
+        function initResizeRight(e) {
+            e.preventDefault();
+            const handle = this;
+            const item = this.closest(".item");
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = item.offsetWidth;
+            startHeight = item.offsetHeight;
+
+            // Save the bottom position as a percentage
+            const currentTop = parseFloat(item.style.top);
+            const containerHeight = grid.offsetHeight;
+            const itemHeight = item.offsetHeight;
+            const bottomPosition = (containerHeight - (currentTop + itemHeight)) / containerHeight * 100;
+
+            item.style.bottom = `${bottomPosition}%`;
+            item.style.top = 'auto';
+
+            item.classList.add("resizing");
+
+            document.addEventListener('mousemove', resizeItem, false);
+            document.addEventListener('mouseup', stopResize, false);
+
+            function resizeItem(e) {
+
+                const newWidth = startWidth + (e.clientX - startX);
+                const newWidthPercent = (newWidth / grid.offsetWidth) * 100;
+                item.style.width = `${newWidthPercent}%`;
+
+            }
+
+            function stopResize() {
+                document.removeEventListener('mousemove', resizeItem, false);
+                document.removeEventListener('mouseup', stopResize, false);
+                isResizing = false;
+                item.classList.remove("resizing");
+                savePosition(item);
+            }
+        }
+
+        function initResizeLeft(e) {
+            e.preventDefault();
+            const handle = this;
+            const item = this.closest(".item");
+            isResizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startWidth = item.offsetWidth;
+            startHeight = item.offsetHeight;
+
+            const currentLeft = parseFloat(item.style.left);
+            const containerWidth = grid.offsetWidth;
+            const itemWidth = item.offsetWidth;
+            const rightPosition = (containerWidth - (currentLeft + itemWidth)) / containerWidth * 100;
+
+            // Save the right position as a percentage
+            item.style.right = `${rightPosition}%`;
+            item.style.left = 'auto';
+
+            // Save the bottom position as a percentage
+            const currentTop = parseFloat(item.style.top);
+            const containerHeight = grid.offsetHeight;
+            const itemHeight = item.offsetHeight;
+            const bottomPosition = (containerHeight - (currentTop + itemHeight)) / containerHeight * 100;
+
+            item.style.bottom = `${bottomPosition}%`;
+            item.style.top = 'auto';
+
+            item.classList.add("resizing");
+
+            document.addEventListener('mousemove', resizeItem, false);
+            document.addEventListener('mouseup', stopResize, false);
+
+            function resizeItem(e) {
+
+                // Calculate distance moved
+                const deltaX = startX - e.clientX;
+
+                // Calculate new width while maintaining right edge position
+                const newWidth = startWidth + deltaX;
+                const newWidthPercent = (newWidth / grid.offsetWidth) * 100;
+                item.style.width = `${newWidthPercent}%`;
+
+            }
+
+            function stopResize() {
+                document.removeEventListener('mousemove', resizeItem, false);
+                document.removeEventListener('mouseup', stopResize, false);
+                isResizing = false;
+                item.classList.remove("resizing");
+                savePosition(item);
+            }
+        }
+
         async function savePosition(item) {
 
             const view = looseGrid.getAttribute("data-view");
@@ -1059,6 +1212,50 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                 .then(data => {
                     console.log(data.message); // Will show the received values
                     updatePositions();
+
+                    // create the visual order based on screen placement
+
+                    const gridItems = Array.from(document.querySelectorAll('ul.canvas .item'));
+                    const visualOrderArray = gridItems
+                        .map(el => {
+                            const rect = el.getBoundingClientRect();
+                            return {
+                                id: el.dataset.picid,
+                                top: rect.top,
+                                left: rect.left
+                            };
+                        })
+                        .sort((a, b) => {
+                            if (Math.abs(a.top - b.top) > 5) {
+                                return a.top - b.top;
+                            } else {
+                                return a.left - b.left;
+                            }
+                        })
+                        .map((item, index) => ({
+                            id: item.id,
+                            catid: document.querySelector("#looseGrid").getAttribute("data-catid"),
+                            visualOrder: index
+                        }));
+
+                    fetch('saveGridOrder.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                view: view,
+                                order: visualOrderArray,
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data.message); // Will show the received values
+                            updateContainerHeight();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -1090,52 +1287,20 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                 });
             });
 
-            // create the visual order based on screen placement
 
-            const gridItems = Array.from(document.querySelectorAll('ul.canvas .item'));
-            const visualOrderArray = gridItems
-                .map(el => {
-                    const rect = el.getBoundingClientRect();
-                    return {
-                        id: el.dataset.picid,
-                        top: rect.top,
-                        left: rect.left
-                    };
-                })
-                .sort((a, b) => {
-                    if (Math.abs(a.top - b.top) > 5) {
-                        return a.top - b.top;
-                    } else {
-                        return a.left - b.left;
-                    }
-                })
-                .map((item, index) => ({
-                    id: item.id,
-                    catid: document.querySelector("#looseGrid").getAttribute("data-catid"),
-                    visualOrder: index
-                }));
-
-            fetch('saveGridOrder.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        order: visualOrderArray,
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message); // Will show the received values
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-
-            updateContainerHeight();
         }
 
-        const resizeObserver = new ResizeObserver(updatePositions);
+        let resizeTimeout;
+        const resizeObserver = new ResizeObserver((entries) => {
+            // Clear the existing timeout
+            clearTimeout(resizeTimeout);
+
+            // Set a new timeout
+            resizeTimeout = setTimeout(() => {
+                updatePositions();
+                updateContainerHeight();
+            }, 250); // Wait 250ms after resize ends before updating
+        });
         resizeObserver.observe(grid);
 
         function updateContainerHeight() {
@@ -1149,11 +1314,26 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
                     maxBottom = Math.max(maxBottom, itemBottom);
                 });
 
-                grid.style.height = `${Math.ceil(maxBottom) + 300}px`; // Round up & add buffer for admin, on front-end this should be tight to the grid
+                grid.style.height = `${Math.ceil(maxBottom) + innerHeight - 300}px`; // Round up & add buffer for admin, on front-end this should be tight to the grid
                 grid.style.minHeight = "auto";
+                dropArea.style.opacity = 1;
             });
         }
 
+        function updateDraggableState() {
+            console.log("Selection count:", selectedItems.length);
+
+            // Prevent reinitializing draggables during a click event
+            if (isHandlingClick) return;
+
+            if (selectedItems.length > 1) {
+                initGroupDraggable();
+            } else {
+                initDraggable();
+            }
+        }
+
+        // draggable for individual items
         function initDraggable() {
             draggables.forEach(d => d.kill()); // Clear previous instances
             draggables = Draggable.create(items, {
@@ -1169,12 +1349,162 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
 
         }
 
+        // Function to modify initMarqueeSelection function
+        function initMarqueeSelection() {
+            selectionBox = createSelectionBox();
+
+            grid.addEventListener('mousedown', function(e) {
+                // Only start selection if not clicking on an item or handle
+                if (e.target === grid || e.target === dropArea) {
+                    isSelecting = true;
+                    startPoint.x = e.clientX;
+                    startPoint.y = e.clientY;
+
+                    // Initialize selection box position
+                    const rect = grid.getBoundingClientRect();
+                    selectionBox.style.left = (e.clientX - rect.left) + 'px';
+                    selectionBox.style.top = (e.clientY - rect.top) + 'px';
+                    selectionBox.style.width = '0px';
+                    selectionBox.style.height = '0px';
+                    selectionBox.style.display = 'block';
+
+                    // Clear previous selection if not holding Shift
+                    if (!e.shiftKey) {
+                        clearSelection();
+                    }
+                }
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isSelecting) return;
+
+                const rect = grid.getBoundingClientRect();
+                const currentX = e.clientX;
+                const currentY = e.clientY;
+
+                // Calculate selection box dimensions
+                const left = Math.min(startPoint.x, currentX) - rect.left;
+                const top = Math.min(startPoint.y, currentY) - rect.top;
+                const width = Math.abs(currentX - startPoint.x);
+                const height = Math.abs(currentY - startPoint.y);
+
+                // Update selection box
+                selectionBox.style.left = left + 'px';
+                selectionBox.style.top = top + 'px';
+                selectionBox.style.width = width + 'px';
+                selectionBox.style.height = height + 'px';
+
+                // Check which items are within the selection box
+                updateSelection(left, top, width, height);
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isSelecting) {
+                    isSelecting = false;
+                    selectionBox.style.display = 'none';
+
+                    // Initialize appropriate draggable based on selection
+                    updateDraggableState();
+                }
+            });
+        }
+
+        // Add a new function to determine which draggable to initialize
+        function updateDraggableState() {
+            if (selectedItems.length > 1) {
+                initGroupDraggable();
+            } else {
+                initDraggable();
+            }
+        }
+
+        // Update draggable for grouped items
+        function initGroupDraggable() {
+            // Kill any existing draggables
+            draggables.forEach(d => d.kill());
+
+            draggables = Draggable.create(items, {
+                type: "x,y",
+                inertia: true,
+                zIndexBoost: false,
+                dragClickables: false,
+                onClick: function(e) {
+                    console.log("Group item click");
+
+                    // Handle Ctrl+click in group mode
+                    if (e.ctrlKey || e.metaKey) { // metaKey for Mac support
+                        e.stopPropagation();
+                        e.preventDefault();
+
+                        const item = this.target;
+
+                        // Toggle selection state
+                        if (item.classList.contains('selected')) {
+                            unselectItem(item);
+                        } else {
+                            selectItem(item);
+                        }
+
+                        // Update draggable based on new selection state
+                        //updateDraggableState();
+                        return false;
+                    }
+                },
+                onPress: function() {
+                    const item = this.target;
+
+                    // If clicking on a selected item, prepare all selected items for group movement
+                    if (item.classList.contains('selected')) {
+                        // Store initial positions of all selected items
+                        selectedItems.forEach(selectedItem => {
+                            selectedItem._initialX = gsap.getProperty(selectedItem, "x");
+                            selectedItem._initialY = gsap.getProperty(selectedItem, "y");
+                        });
+                    }
+                },
+                onDrag: function() {
+                    // Only move other items if the dragged item is selected
+                    if (this.target.classList.contains('selected')) {
+                        // Calculate delta movement
+                        const deltaX = gsap.getProperty(this.target, "x") - this.target._initialX;
+                        const deltaY = gsap.getProperty(this.target, "y") - this.target._initialY;
+
+                        // Move all other selected items by the same delta
+                        selectedItems.forEach(item => {
+                            if (item !== this.target) {
+                                gsap.set(item, {
+                                    x: item._initialX + deltaX,
+                                    y: item._initialY + deltaY
+                                });
+                            }
+                        });
+                    }
+                },
+                onDragEnd: function() {
+                    const item = this.target;
+
+                    // Save position for the dragged item
+                    savePosition(item);
+
+                    // Save positions for all other selected items
+                    if (item.classList.contains('selected')) {
+                        selectedItems.forEach(selectedItem => {
+                            if (selectedItem !== item) {
+                                savePosition(selectedItem);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        // Initialize the marquee selection
+        initMarqueeSelection();
+
         // Initial Draggable on page load
         initDraggable();
 
     }
-
-    looseGridInit();
 
 
     tinymce.init({
@@ -1771,11 +2101,16 @@ for ($catCount = 1; $cat = mysqli_fetch_array($myCats); ++$catCount) {
 
         });
 
-        $(".delete").colorbox({
-            width: "402px",
-            height: "227px",
-            iframe: true,
-            opacity: ".95"
+        // Handle delete colorbox with event delegation for dynamic content
+        $(document).on('click', '.delete', function(e) {
+            e.preventDefault();
+            $.colorbox({
+                width: "402px",
+                height: "227px",
+                iframe: true,
+                opacity: ".95",
+                href: $(this).attr('href')
+            });
         });
 
         $("#colorpicker").spectrum({

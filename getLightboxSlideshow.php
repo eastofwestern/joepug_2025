@@ -4,14 +4,18 @@ session_start();
 include('includes/connect.php');
 include('includes/functions.php');
 
-
 // category information
 $catID = $_GET['catid'];
 $catDetails = catDetails($catID);
-$theSort = "drag";
 if ($catDetails['pageType'] === "grid - loose") {
-    $theSort = "loose";
+    $theSort = "visual order";
+    if ($view === "mobile") {
+        $theSort = "visual order mobile";
+    }
+} else {
+    $theSort = "drag";
 }
+
 $images = getImages($catID, $theSort);
 
 

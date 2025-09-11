@@ -22,6 +22,8 @@ if (isset($_REQUEST['parentID'])) {
 $_SESSION['catID'] = $catID;
 $_SESSION['picID'] = $picID;
 
+$loaderImg = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
 function getLnt($zip)
 {
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=

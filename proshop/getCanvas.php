@@ -30,10 +30,15 @@ $result2 = getImages($catID, $theCat['sorter']);
             $theImg = getOption("imagePath") . $pic['img'];
         }
 
-        $topPos = $pic['catTop'];
-        $leftPos = $pic['catLeft'];
-        $width = $pic['catWidth'];
-        $layerPos = $pic['catLayer'];
+        $isText = false;
+        if ($pic['img'] === "no-image.jpg") {
+            $isText = true;
+        }
+
+        $topPos = $pic['catTop'] ?? 0;
+        $leftPos = $pic['catLeft'] ?? 0;
+        $width = $pic['catWidth'] ?? 20;
+        $layerPos = $pic['catLayer'] ?? 1;
 
         if ($view === "mobile") {
             $topPos = $pic['catTopMobile'] ? $pic['catTopMobile'] : $pic['catTop'];
@@ -44,7 +49,7 @@ $result2 = getImages($catID, $theCat['sorter']);
 
     ?>
 
-        <li class="item" data-picid="<?= $pic['id'] ?>" data-catid="<?= $catID ?>" data-x="<?= $leftPos ?>" data-y="<?= $topPos ?>" data-aspect-ratio="<?= $pic['aspectRatio'] ?>" data-filename="<?= $pic['img'] ?>" style="top: <?= $topPos ?>%; left: <?= $leftPos ?>%; width: <?= $width ?>%; height: auto; aspect-ratio: <?= $pic['aspectRatio'] ?>; z-index: <?= $layer ? $layer : 1 ?>;">
+        <li class="item" data-picid="<?= $pic['id'] ?>" data-catid="<?= $catID ?>" data-x="<?= $leftPos ?>" data-y="<?= $topPos ?>" data-aspect-ratio="<?= $pic['aspectRatio'] ?>" data-filename="<?= $pic['img'] ?>" style="top: <?= $topPos ?>%; left: <?= $leftPos ?>%; width: <?= $width ?>%; height: auto; <?php if (!$isText) { ?>aspect-ratio: <?= $pic['aspectRatio'] ?>;<?php } ?> z-index: <?= $layer ? $layer : 1 ?>;">
 
             <div class="item_tools">
                 <ul>
@@ -107,18 +112,27 @@ $result2 = getImages($catID, $theCat['sorter']);
                 </ul>
             </div>
 
-            <button class="resize-handle bottom-right"></button>
-            <button class="resize-handle bottom-left"></button>
-            <button class="resize-handle top-left"></button>
-            <button class="resize-handle top-right"></button>
+            <?php if (!$isText) { ?>
+                <button class="resize-handle bottom-right"></button>
+                <button class="resize-handle bottom-left"></button>
+                <button class="resize-handle top-left"></button>
+                <button class="resize-handle top-right"></button>
+            <?php } else { ?>
+                <button class="resize-handle right"></button>
+                <button class="resize-handle left"></button>
+            <?php } ?>
 
-            <?php if ($pic['img'] != "no-image.jpg") { ?>
+            <?php if (!$isText) { ?>
 
                 <img src="<?= $theImg ?>" border="0"><br />
 
             <?php } else { ?>
-                <div style="width: 150px; height: 150px; position: absolute; top: 0px; left: 0px; text-align: center; border: 1px solid #ccc;">
-                    <div style="padding-top: 44%;"><?= $pic['title'] ?></div>
+                <div class="textEntry">
+                    <?php if ($pic['content'] != "") { ?>
+                        <?= $pic['content'] ?>
+                    <?php } else { ?>
+                        <?= $pic['title'] ?>
+                    <?php } ?>
                 </div>
             <?php } ?>
             <input type="hidden" class="picID" name="picID[]" value="<?= $pic['id'] ?>">

@@ -1640,13 +1640,15 @@ function getPicCatID($picID)
 function getImages($catID, $theSort = "drag")
 {
 
-	$sql = "SELECT pics.*, cat_pics.rowBreak as catBreak, cat_pics.imgSize as catSize, cat_pics.topMargin as catTopMargin, cat_pics.leftMargin as catLeftMargin, cat_pics.colStart as catColStart, cat_pics.colEnd as catColEnd, cat_pics.width as catWidth, cat_pics.pos_top as catTop, cat_pics.pos_left as catLeft, cat_pics.layer as catLayer, cat_pics.vo_desktop, cat_pics.vo_mobile, content.content FROM pics JOIN cat_pics ON pics.id = cat_pics.picid LEFT JOIN content ON content.picid = pics.id WHERE cat_pics.catid = '$catID'";
+	$sql = "SELECT pics.*, cat_pics.rowBreak as catBreak, cat_pics.imgSize as catSize, cat_pics.width as catWidth, cat_pics.pos_top as catTop, cat_pics.pos_left as catLeft, cat_pics.layer as catLayer, cat_pics.width_mobile as catWidthMobile, cat_pics.pos_top_mobile as catTopMobile, cat_pics.pos_left_mobile as catLeftMobile, cat_pics.layer_mobile as catLayerMobile, cat_pics.vo_desktop, cat_pics.vo_mobile, content.content FROM pics JOIN cat_pics ON pics.id = cat_pics.picid LEFT JOIN content ON content.picid = pics.id WHERE cat_pics.catid = '$catID'";
 
 	if ($theSort === "drag") {
 
 		$sql .= " ORDER BY cat_pics.sortBy ASC";
-	} elseif ($theSort === "loose") {
+	} elseif ($theSort === "visual order") {
 		$sql .= " ORDER BY cat_pics.vo_desktop ASC";
+	} elseif ($theSort === "visual order mobile") {
+		$sql .= " ORDER BY cat_pics.vo_mobile ASC";
 	} else {
 
 		$sql .= " ORDER BY LENGTH(pics.filename), pics.filename";
