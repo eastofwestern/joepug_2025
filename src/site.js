@@ -8,7 +8,8 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
 import Flip from "gsap/Flip";
-gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother);
+import Observer from "gsap/Observer";
+gsap.registerPlugin(Flip, ScrollTrigger, ScrollSmoother, Observer);
 import zenscroll from "zenscroll";
 
 /* SETUP VARS */
@@ -261,11 +262,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // handle close icon over selected image
     let selectedCell = slideshowEl.querySelector(".cell.is-selected img");
     if (selectedCell && selectedCell.contains(e.target)) {
-      closeIcon.style.display = "block";
-      arrowIcon.style.display = "none";
-    } else {
       closeIcon.style.display = "none";
       arrowIcon.style.display = "block";
+    } else {
+      closeIcon.style.display = "block";
+      arrowIcon.style.display = "none";
     }
 
     // rotate arrow cursor based on position
@@ -283,33 +284,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const handleSlideshowClick = (e) => {
     let slideshowEl = lightboxOverlay.querySelector(".slideshow");
-    let arrowIcon = slideshowEl.querySelector(".arrow");
     let closeIcon = slideshowEl.querySelector(".close");
-    // Get Flickity instance from the element
     let flkty = Flickity.data(slideshowEl);
 
-    if (
-      e.target.classList.contains("photo") ||
-      e.target.classList.contains("closeIcon")
-    ) {
-      // arrowIcon.style.display = "none";
+    // Find the image element in the selected cell
+    let selectedCell = slideshowEl.querySelector(".cell.is-selected img");
+
+    // If click is outside the image, close the lightbox
+    if (!selectedCell || !selectedCell.contains(e.target)) {
       closeIcon.style.display = "none";
       closeLightbox();
-    } else {
-      if (window.innerWidth > 768) {
-        if (e.pageX < window.innerWidth * 0.5) {
-          flkty.previous();
-        } else {
-          flkty.next();
-        }
+      return;
+    }
+
+    // If click is on the image, determine left/right
+    const rect = selectedCell.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+
+    if (clickX < rect.width / 2) {
+      // check if this is the first item, if so close the lightbox
+      if (flkty.selectedIndex === 0) {
+        closeIcon.style.display = "none";
+        closeLightbox();
       } else {
-        let prevBtn = slideshowEl.querySelector(".prev");
-        let nextBtn = slideshowEl.querySelector(".next");
-        if (e.target.classList.contains("prev")) {
-          flkty.previous();
-        } else if (e.target.classList.contains("next")) {
-          flkty.next();
-        }
+        flkty.previous();
+      }
+
+    } else {
+      // check if this is the last image in slideshow, if it is last, close lightbox
+      if (flkty.selectedIndex === flkty.cells.length - 1) {
+        closeIcon.style.display = "none";
+        closeLightbox();
+      } else {
+        flkty.next();
       }
     }
   };
@@ -523,11 +530,28 @@ document.addEventListener("DOMContentLoaded", function () {
         closeIcon.style.display = "none";
         closeLightbox();
       } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-        if (flkty) flkty.previous();
+        if (flkty) {
+          if (flkty.selectedIndex === 0) {
+            arrowIcon.style.display = "none";
+            closeIcon.style.display = "none";
+            closeLightbox();
+          } else {
+            flkty.previous();
+          }
+        }
       } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        if (flkty) flkty.next();
+        if (flkty) {
+          if (flkty.selectedIndex === flkty.cells.length - 1) {
+            arrowIcon.style.display = "none";
+            closeIcon.style.display = "none";
+            closeLightbox();
+          } else {
+            flkty.next();
+          }
+        }
       }
     };
+
     document.addEventListener("keydown", lightboxKeyHandler);
 
   }
@@ -795,6 +819,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let joe = footer.querySelector("#joe");
   let pug = footer.querySelector("#pug");
   let liese = footer.querySelector("#liese");
+  let lastName = footer.querySelector(".last_name");
 
   let viewportWidth = window.innerWidth;
   let k = 29000000000000;
@@ -804,101 +829,46 @@ document.addEventListener("DOMContentLoaded", function () {
   let joeWidth = joeBBox.width; // Get the width of the #joe element
   let initialClipPath = joeWidth * 0.65; // Calculate 65% of joe's width in pixels
   let mask = footer.querySelector(".mask");
-  /*
-  console.log("pugwidth", pugWidth);
-  console.log("joewidth", joeWidth);
-  console.log("initialclippath", initialClipPath);
-  */
 
-  let footerTL;
+  function footerSetup() {
+    // we need to position the last_name element based on screen width
+    lastName.style.left = innerWidth * .92 - 289 + 'px';
+    //mask.style.left = joeWidth + 'px';
+  }
+
+  footerSetup();
+
+  // redraw on resize
+  window.addEventListener("resize", () => {
+    footerSetup();
+  });
+
+  let footerTL = gsap.timeline({ ease: "power2.out" });
 
   if (window.innerWidth > 768) {
-    footerTL = gsap.timeline({
-      scrollTrigger: {
-        trigger: footer,
-        start: "450px bottom",
-        end: "bottom bottom",
-        markers: false,
-        scrub: 1.5,
-        pin: true,
-        pinSpacing: false,
-      },
-    });
-    // gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
-    footerTL
-      // .to(joe, {
-      //   clipPath: `inset(0 ${pugWidth}px 0 0)`,
-      //   // duration: 2,
-      // })
+    footerTL.to(mask, {
+      clipPath: `inset(0 0 0 95%)`,
+      duration: 1,
+    })
       .to(mask, {
-        x: "60%",
+        clipPath: `inset(0 0 0 0)`,
+        duration: 1,
       })
-      .to(pug, {
-        // delay: 2,
-        left: 265,
-      })
-      .to(
-        liese,
-        {
-          left: 265,
-        },
-        "<"
-      )
-      .to(
-        mask,
-        {
-          x: 0,
-        },
-        "<"
-      );
-    // .to(
-    //   joe,
-    //   {
-    //     clipPath: `inset(0 ${initialClipPath}px 0 0)`,
-    //   },
-    //   "<"
-    // );
-  } else {
-    gsap.set(joe, { clipPath: `inset(0 ${initialClipPath}px 0 0)` });
-    let footerTL = gsap.timeline({
-      scrollTrigger: {
-        trigger: footer,
-        start: "250px bottom",
-        end: "bottom bottom",
-        // markers: true,
-        scrub: 1.5,
-        pin: true,
-        pinSpacing: false,
-      },
-    });
-    gsap.set(joe, { clipPath: "inset(0 71% 0 0)" });
-    footerTL
-      .to(joe, {
-        clipPath: "inset(0 21% 0 0)",
-        // duration: 2,
-      })
-      .to(pug, {
-        // delay: 2,
-
-        left: -45,
-      })
-      .to(
-        liese,
-        {
-          left: 55,
-        },
-        "<"
-      )
-      .to(
-        joe,
-        {
-          clipPath: "inset(0 71% 0 0)",
-        },
-        "<"
-      );
+      .to(lastName, {
+        left: 304,
+        duration: 1,
+      }, '<');
   }
-  window.addEventListener("resize", function () {
-    footerTL.progress(0).invalidate().restart();
+
+  // Use ScrollTrigger to scrub the timeline over a longer distance
+  ScrollTrigger.create({
+    trigger: footer,
+    start: "top+=300 bottom",           // when footer enters viewport
+    end: "bottom bottom",     // 400px after footer bottom hits bottom of viewport
+    scrub: false,
+    animation: footerTL,
+    toggleActions: "play none reverse none",
+    markers: false, // Uncomment for debugging
   });
 
   // Contact toggle
