@@ -2,6 +2,7 @@
 
 $cats = catList();
 $logoMark = getFirstImage(719);
+$homeCatID = getFirstCat();
 
 ?>
 
@@ -76,15 +77,8 @@ $logoMark = getFirstImage(719);
 					$theTarget = "_parent";
 				}
 
-				$hasSubs = false;
-				$parentClass = "";
-				$catSubs = subcatList($cat['id']);
-				if (mysqli_num_rows($catSubs) > 0) {
-					$hasSubs = true;
-					$parentClass = "hassubs";
-				}
 
-				if ($cat['id'] == 717) {
+				if ($cat['id'] == $homeCatID) {
 					$theLink = "/";
 				}
 
@@ -102,7 +96,7 @@ $logoMark = getFirstImage(719);
 
 				?>
 
-				<li class="<?= $parentClass ?>">
+				<li>
 
 
 					<a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="<?php if ($catID == $cat['id'] or $parentID == $cat['id']) { ?>pageOn<?php } ?>"
@@ -111,35 +105,6 @@ $logoMark = getFirstImage(719);
 						<?= $cat['name'] ?>
 					</a>
 
-					<?php if ($hasSubs) { ?>
-
-						<ul class="subs">
-
-							<?php for ($subcount = 1; $cat = mysqli_fetch_array($catSubs); ++$subcount) { ?>
-
-								<?php
-
-								if ($cat['pageType'] === "link") {
-									$theLink = $cat['link'];
-									$theTarget = $cat['target'];
-								} else {
-									$theLink = "/" . $cat['slug'];
-									$theTarget = "_parent";
-								}
-
-								?>
-
-								<li>
-									<a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="<?= $parentClass ?> <?php if ($catID == $cat['id'] or $parentID == $cat['id']) { ?>pageOn<?php } ?>">
-										<?= $cat['subName'] ?>
-									</a>
-								</li>
-
-							<?php } ?>
-
-						</ul>
-
-					<?php } ?>
 
 				</li>
 

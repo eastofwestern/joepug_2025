@@ -1,1 +1,1 @@
-<script src="/dist/site.js?v=<?= rand() ?>"></script>
+<script src="/dist/site.js?v=091825"></script>

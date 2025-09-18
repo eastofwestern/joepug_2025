@@ -10,39 +10,14 @@ $footerLogoDetails = catDetails(740);
 	<div class="inner">
 		<div class="animated_name" style="color: <?= $footerLogoDetails['bgColor'] ?>;">
 
-			<svg id="joe" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1953.16" height="151.386" viewBox="0 0 1353.16 151.386">
-
-				<g id="Group_67" data-name="Group 67">
-					<path id="Path_15" data-name="Path 15" d="M54.1,1.07H69.706V114.609c0,23.093-15.182,36.777-35.281,36.777-16.036,0-30.149-11.119-34.425-29.294H16.464a18.671,18.671,0,0,0,18.175,13.685c10.9,0,19.458-8.98,19.458-23.734Z" />
-					<path id="Path_16" data-name="Path 16" d="M91.943,75.693C91.943,33.143,126.8,0,167.636,0s75.692,33.142,75.692,75.692a75.693,75.693,0,1,1-151.385,0m15.609,0c0,34,28.011,60.084,60.084,60.084s60.083-26.086,60.083-60.084c0-32.286-26.3-60.083-60.083-60.083s-60.084,27.8-60.084,60.083" />
-					<path id="Path_17" data-name="Path 17" d="M265.978,150.744V1.069H3248.929V16.678H293.774c-10.477,0-12.4,5.773-12.4,10.049V53.669c0,5.773,1.924,11.974,10.477,11.974H3243.156V81.252H291.85c-8.553,0-10.477,6.415-10.477,12.188v31.646c0,4.276,1.924,10.049,12.4,10.049H3248.929v15.609Z" />
+			<svg id="joe" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 3249.7 152.5">
+				<g id="Group_67">
+					<path id="Path_15" d="M54.8,1.4h15.6v113.5c0,23.1-15.2,36.8-35.3,36.8S5,140.6.7,122.5h16.5c2.3,8.2,9.7,13.8,18.2,13.7,10.9,0,19.5-9,19.5-23.7V1.4Z" />
+					<path id="Path_16" d="M92.7,76.1C92.7,33.5,127.5.4,168.4.4s75.7,33.1,75.7,75.7c.2,41.8-33.6,75.8-75.4,76-41.8.2-75.8-33.6-76-75.4,0-.2,0-.4,0-.6M108.3,76.1c0,34,28,60.1,60.1,60.1s60.1-26.1,60.1-60.1-26.3-60.1-60.1-60.1-60.1,27.8-60.1,60.1" />
+					<path id="Path_17" d="M266.7,151.1V1.4h2983v15.6H294.5c-10.5,0-12.4,5.8-12.4,10v26.9c0,5.8,1.9,12,10.5,12h2951.3v15.6H292.6c-8.6,0-10.5,6.4-10.5,12.2v31.6c0,4.3,1.9,10,12.4,10h2955.2v15.6H266.7Z" />
 				</g>
 			</svg>
 
-
-			<?php /*
-
-			<div class="first_name" style="background-color: <?= $catDetails['bgColor'] ? $catDetails['bgColor'] : '#fff' ?>;">
-
-
-				<svg id="joe" xmlns="http://www.w3.org/2000/svg" width="306.934" height="150.284" viewBox="0 0 306.934 150.284">
-					<g id="Group_102" data-name="Group 102" transform="translate(-7762 -3493.999)">
-						<path id="Path_23" data-name="Path 23" d="M53.7,1.06H69.2V113.773c0,22.925-15.07,36.51-35.023,36.51-15.92,0-29.93-11.038-34.175-29.08H16.345a18.533,18.533,0,0,0,18.042,13.585c10.826,0,19.316-8.915,19.316-23.562Z" transform="translate(7762 3494)" />
-						<path id="Path_24" data-name="Path 24" d="M91.274,75.141C91.274,32.9,125.873,0,166.415,0s75.143,32.9,75.143,75.142a75.142,75.142,0,1,1-150.284,0m15.495,0c0,33.75,27.807,59.646,59.646,59.646s59.647-25.9,59.647-59.646c0-32.052-26.108-59.646-59.647-59.646s-59.646,27.594-59.646,59.646" transform="translate(7762 3494)" />
-						<path id="Path_25" data-name="Path 25" d="M265.542,149.646V1.06h41.392v15.5h-13.8c-10.4,0-12.312,5.731-12.312,9.977V53.278c0,5.731,1.911,11.887,10.4,11.887H301.2v15.5h-9.976c-8.491,0-10.4,6.368-10.4,12.1v31.415c0,4.245,1.911,9.977,12.312,9.977h13.8v15.495Z" transform="translate(7762 3494)" />
-					</g>
-				</svg>
-
-				<div class="lines">
-					<div class="line"></div>
-					<div class="line"></div>
-					<div class="line"></div>
-				</div>
-
-				
-			</div>
-
-			*/ ?>
 
 			<div class="mask" style="background-color: <?= $catDetails['bgColor'] ? $catDetails['bgColor'] : '#fff' ?>;">
 
@@ -83,8 +58,8 @@ $footerLogoDetails = catDetails(740);
 			</div>
 			<div class="col">
 				<p class="title">CONTACT</p>
-				<p>B&A Reps<br />
-					ehrin@ba-reps.com<br />
+				<p><a href="http://www.ba-reps.com/" target="_blank">B&A Reps</a><br />
+					<a href="mailto:ehrin@ba-reps.com">ehrin@ba-reps.com</a><br />
 					tel: +1 917 587 8286
 				</p>
 			</div>
@@ -92,9 +67,9 @@ $footerLogoDetails = catDetails(740);
 				<p class="title">FOLLOW</p>
 				<p>IG <a href="https://www.instagram.com/joepug" target="__blank">@joepug</a>
 				</p>
-				<p class="mobile"><a href="http://www.eastofwestern.com" target="_blank">&copy; <?= Date("Y") ?> </a></p>
+				<p class="mobile"><a href="https://www.eastofwestern.com" target="_blank">&copy; <?= Date("Y") ?> </a></p>
 			</div>
-			<p class="credit"><a href="http://www.eastofwestern.com" target="_blank">&copy; <?= Date("Y") ?> </a></p>
+			<p class="credit"><a href="https://www.eastofwestern.com" target="_blank">&copy; <?= Date("Y") ?> </a></p>
 		</div>
 
 

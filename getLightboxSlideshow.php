@@ -79,7 +79,7 @@ $images = getImages($catID, $theSort);
             ?>
 
             <figure class="cell <?= $cellClass ?>" data-id="<?= $image['id'] ?>">
-                <img src="<?= $loaderImg ?>" data-img="<?= $image['img'] ?>" class="photo loadmeview <?= $ext ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $image['title'] ?> ?>" <?php } ?> />
+                <img src="<?= $loaderImg ?>" data-img="<?= $image['img'] ?>" class="photo <?= $ext ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $image['title'] ?> ?>" <?php } ?> />
             </figure>
 
         <?php } ?>

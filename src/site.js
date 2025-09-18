@@ -154,6 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           setTimeout(function () {
             updateContainerHeight();
+            ScrollTrigger.refresh();
           }, 500);
         })
         .catch((error) => console.error("Error:", error));
@@ -341,7 +342,21 @@ document.addEventListener("DOMContentLoaded", function () {
         initialIndex: cellIndex,
       });
 
+      // load the initial image
+      let activeSlide = flkty.selectedElement;
+      let activeImg = activeSlide.querySelector("img");
+
+      if (activeImg) {
+        loadImage(activeImg);
+      }
+
+
       flkty.on("change", function (index) {
+        let nextSlide = flkty.cells[index].element;
+        let nextImg = nextSlide.querySelector("img");
+        if (nextImg) {
+          loadImage(nextImg);
+        }
         let slideID = flkty.selectedElement.getAttribute("data-id");
         if (archive) {
           let cells = document.querySelectorAll(".grid_cell");
@@ -833,7 +848,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function footerSetup() {
     // we need to position the last_name element based on screen width
     lastName.style.left = innerWidth * .92 - 289 + 'px';
-    //mask.style.left = joeWidth + 'px';
   }
 
   footerSetup();
@@ -847,7 +861,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (window.innerWidth > 768) {
     footerTL.to(mask, {
-      clipPath: `inset(0 0 0 95%)`,
+      clipPath: `inset(0 0 0 100%)`,
       duration: 1,
     })
       .to(mask, {
@@ -857,18 +871,23 @@ document.addEventListener("DOMContentLoaded", function () {
       .to(lastName, {
         left: 304,
         duration: 1,
-      }, '<');
+      }, '.8');
   }
 
   // Use ScrollTrigger to scrub the timeline over a longer distance
   ScrollTrigger.create({
     trigger: footer,
-    start: "top+=300 bottom",           // when footer enters viewport
-    end: "bottom bottom",     // 400px after footer bottom hits bottom of viewport
+    start: "top+=300 bottom",
+    end: "bottom bottom",
     scrub: false,
     animation: footerTL,
-    toggleActions: "play none reverse none",
-    markers: false, // Uncomment for debugging
+    toggleActions: "play none none none",
+    markers: false,
+    onLeaveBack: () => {
+      setTimeout(() => {
+        footerTL.progress(0).pause(); // Reset timeline after delay
+      }, 300); // 800ms delay, adjust as needed
+    }
   });
 
   // Contact toggle
