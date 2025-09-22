@@ -890,6 +890,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  setTimeout(function () {
+    ScrollTrigger.refresh();
+  }, 500);
+
   // Contact toggle
 
   let contactModule = document.querySelector(".contact_module");
@@ -907,6 +911,18 @@ document.addEventListener("DOMContentLoaded", function () {
     contactModule.classList.add("hidden");
   });
 
+
+  // close the contact overlay when clicking outside the contact box
+  let contactCoverEl = document.querySelector(".contact_cover");
+  if (typeof contactCoverEl != "undefined" && contactCoverEl != null) {
+
+    contactCoverEl.addEventListener("click", (e) => {
+      e.preventDefault();
+      body.classList.remove("contactOpen");
+      contactModule.classList.add("hidden");
+    });
+
+  }
 
   function lightBoxInit() {
 

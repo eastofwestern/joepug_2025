@@ -33,10 +33,12 @@ header {
         width: 100%;
         height: auto;
         overflow: visible;
+
         * {
           fill: #000;
         }
       }
+
       svg:first-child {
         display: none;
       }
@@ -104,6 +106,7 @@ header {
       display: flex;
       flex-direction: column;
       margin-right: 30px;
+
       li {
         // margin-right: 15px;
         // position: relative;
@@ -117,6 +120,7 @@ header {
           transition: color 0.3s;
           text-decoration: none;
           color: $color-darkgray;
+
           &:hover,
           &.pageOn {
             color: $color-foreground;
@@ -124,6 +128,7 @@ header {
             text-underline-offset: 2px;
           }
         }
+
         &:last-child {
           position: absolute;
           top: 0;
@@ -132,6 +137,7 @@ header {
           //   text-orientation: upright;
         }
       }
+
       &.subs {
         pointer-events: none;
         display: none;
@@ -140,11 +146,13 @@ header {
         left: 0;
         padding-top: 30px;
         text-align: left;
+
         li {
           display: block;
         }
       }
     }
+
     &.takeover {
       position: fixed;
       top: 0;
@@ -156,13 +164,16 @@ header {
       opacity: 0;
       transition: opacity 0.5s;
       pointer-events: none;
+
       ul {
         width: 90%;
         text-align: center;
         @include absolute-vertical;
         flex-direction: column;
+
         li {
           margin: 0px auto;
+
           a {
             font-size: 5rem;
           }
@@ -181,14 +192,17 @@ header {
         top: 25px;
       }
     }
+
     nav {
       top: 25px;
       right: 20px;
+
       ul {
         li {
           a:hover {
             text-decoration: none;
           }
+
           &:last-child {
             opacity: 1;
             transition: opacity 0.2s;
@@ -198,6 +212,7 @@ header {
     }
   }
 }
+
 /* MENU ON */
 
 .lightboxOpen {
@@ -207,10 +222,12 @@ header {
         pointer-events: none;
       }
     }
+
     nav {
       ul {
         opacity: 0;
         pointer-events: none;
+
         #contact {
           opacity: 0;
           pointer-events: none;
@@ -246,6 +263,7 @@ header {
         }
       }
     }
+
     nav.takeover {
       opacity: 1;
       pointer-events: all;
@@ -272,13 +290,16 @@ header {
     nav {
       opacity: 0;
       pointer-events: none;
+
       ul {
         pointer-events: none;
       }
     }
   }
+
   .contact_cover {
     opacity: 1;
+    pointer-events: all;
     transition: opacity 0.3s;
   }
 }
@@ -299,16 +320,20 @@ header {
 
   &.hidden {
     transform: translateY(-100%);
+
     .inner {
       background-color: transparent;
       transition: background-color 0s;
     }
   }
+
   .inner {
-    height: 100vh;
+    height: 80vh;
   }
+
   .closeBtn {
     z-index: 101;
+
     p {
       font-family: $font-sud;
       text-decoration: underline;
@@ -322,6 +347,7 @@ header {
       cursor: pointer;
     }
   }
+
   table {
     height: 80vh !important;
     background-color: transparent;
@@ -331,6 +357,7 @@ header {
         &:first-child {
           vertical-align: bottom;
           height: 200px !important;
+
           h3 {
             font-weight: 400;
             width: 90%;
@@ -338,46 +365,57 @@ header {
             padding-bottom: 5px;
           }
         }
+
         &:nth-child(2) {
           vertical-align: top;
           height: 150px !important;
+
           h3 {
             font-size: 0.7rem;
             font-weight: 600;
             margin-bottom: 15px;
           }
+
           p {
             font-size: 1.2rem;
           }
+
           td {
             padding-bottom: 3vh;
           }
         }
+
         &:last-child {
           vertical-align: top;
           padding-bottom: 20px;
+
           p:first-child {
             width: 90%;
             margin-bottom: 0;
             padding-top: 20px;
             border-top: 1px solid black;
           }
+
           td {
             padding-bottom: 5vh;
+
             a {
               font-size: 0.9rem;
             }
           }
         }
+
         td {
           padding: 26px 6% 0 4%;
 
           &:first-child {
             background-color: rgba(197, 197, 197, 0.98);
           }
+
           &:nth-child(2) {
             background-color: rgba(247, 218, 112, 0.98);
           }
+
           &:last-child {
             background-color: rgba(246, 237, 218, 0.98);
           }
@@ -393,38 +431,49 @@ header {
     height: 100vh;
     overflow-y: scroll;
     background-color: $color-gray;
+
     .closeBtn {
       display: none;
       transform: translate(30px, -20px);
     }
+
     table {
       display: grid;
       grid-template-columns: 1fr;
+
       colgroup {
         col {
           width: 100% !important;
         }
       }
+
       tbody {
         display: contents;
+
         tr {
           display: contents;
+
           h3,
           p {
             width: 100% !important;
           }
+
           td {
             padding: 26px 6% 0 6%;
+
             &:first-child {
               background-color: $color-gray;
             }
+
             &:nth-child(2) {
               background-color: $color-accent1;
             }
+
             &:last-child {
               background-color: $color-accent2;
             }
           }
+
           &:first-child {
             td {
               &:first-child {
@@ -444,33 +493,39 @@ header {
               }
             }
           }
+
           &:nth-child(2) {
             td {
               &:nth-child(1) {
                 grid-row: 2;
                 grid-column: 1;
               }
+
               &:nth-child(2) {
                 grid-row: 5;
                 grid-column: 1;
               }
+
               &:nth-child(3) {
                 grid-row: 8;
                 grid-column: 1;
               }
             }
           }
+
           &:nth-child(3) {
             td {
               &:nth-child(1) {
                 grid-row: 3;
                 grid-column: 1;
               }
+
               &:nth-child(2) {
                 grid-row: 6;
                 grid-column: 1;
                 padding-bottom: 0;
               }
+
               &:nth-child(3) {
                 grid-row: 9;
                 grid-column: 1;
