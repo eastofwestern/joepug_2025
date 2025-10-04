@@ -52,11 +52,26 @@ $homeCatID = getFirstCat();
 		</a>
 
 		<div class="menuBtn">
+
+			<svg class="arrow_down" id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 287.05 287.05">
+				<g id="Layer_1-2">
+					<path class="cls-1" d="M0,287.04V122.67s33.74-33.74,33.74-33.74v118.44c0,8.15,9.85,12.22,15.61,6.46L258.24,4.94c6.59-6.59,17.27-6.59,23.86,0h0c6.59,6.59,6.59,17.27,0,23.86L73.21,237.7c-5.76,5.76-1.68,15.61,6.46,15.61h118.44s-33.74,33.74-33.74,33.74H0s0,0,0,0Z" />
+				</g>
+			</svg>
+
+			<svg class="arrow_up" id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 221.56 221.56">
+				<g id="Layer_1-2">
+					<path class="cls-1" d="M221.56,0v164.37l-33.74,33.74v-118.44c0-8.15-9.85-12.22-15.61-6.46L28.8,216.62c-6.59,6.59-17.27,6.59-23.86,0h0c-6.59-6.59-6.59-17.27,0-23.86L148.35,49.35c5.76-5.76,1.68-15.61-6.46-15.61H23.44L57.18,0h164.38Z" />
+				</g>
+			</svg>
+
+			<?php /*
 			<div class="ib v-middle">
 				<span class="line"></span>
 				<span class="line"></span>
 				<span class="line"></span>
 			</div>
+			*/ ?>
 		</div>
 
 	</div>
@@ -111,6 +126,14 @@ $homeCatID = getFirstCat();
 			<?php } ?>
 
 		</ul>
+
+		<div class="bottom_left">
+			<a href="https://www.instagram.com/joepug/" target="_blank">Instagram</a>
+		</div>
+
+		<div class="bottom_right">
+			Represented by <a href="https://www.ba-reps.com/" target="_blank">B&A Reps</a>
+		</div>
 
 	</nav>
 

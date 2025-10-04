@@ -140,7 +140,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
                                         <figure class="cell openLightbox fadeUp <?= $cellClass ?>" data-catid="<?= $project['id'] ?>" data-index="<?= $count ?>" <?php if ($hasAutoVideo) { ?>data-autovideo='<video muted playsinline loop><source src="/videos/<?= $itemVideo['hoverFile'] ?>" /></video>' <?php } ?>>
 
-                                            <div class="media_wrap">
+                                            <div class="media_wrap" style="aspect-ratio: <?= $item['width'] ?> / <?= $item['height'] ?>;">
                                                 <img class="photo <?php if (!$hasAutoVideo) { ?>loadmeview<?php } ?> <?= $ext ?>" src="<?= $loaderImg ?>" data-img="<?= $item['img'] ?>" alt="<?= $item['title'] ?>" data-width="<?= $item['width'] ?>" data-height="<?= $item['height'] ?>">
 
                                                 <?php if ($hasAutoVideo) { ?>

@@ -21,8 +21,8 @@ header {
       left: 4%;
       // width: 300px;
       // height: 300px;
-      height: 50px;
-      width: 150px;
+      height: 77px;
+      width: 190px;
       pointer-events: all;
       z-index: 104;
 
@@ -46,12 +46,53 @@ header {
 
     .menuBtn {
       position: absolute;
-      top: 37px;
-      right: 50px;
+      top: 0px;
+      right: 0px;
+      width: 115px;
+      height: 115px;
       cursor: pointer;
       z-index: 3;
-      display: none;
       pointer-events: all;
+      transition: opacity .3s;
+
+      svg.arrow_down {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(30px, -30px);
+        transition: transform .3s ease-out;
+
+        * {
+          fill: $color-accent3;
+        }
+      }
+
+      svg.arrow_up {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80%;
+        height: auto;
+        transition: transform .3s ease-out;
+        transform-origin: top right;
+
+        * {
+          fill: #000;
+        }
+      }
+
+      &:hover {
+        svg.arrow_down {
+          transform: translate(10px, -10px);
+        }
+
+        svg.arrow_up {
+          transform: scale(.9);
+        }
+      }
+
+      /*
 
       div {
         width: 22px;
@@ -86,102 +127,101 @@ header {
           }
         }
       }
+
+      */
     }
   }
 
   nav {
-    position: absolute;
-    z-index: 16;
-    top: 40px;
-    right: 35px;
-    text-align: right;
-    color: $color-accent1;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color-accent3, 0.9);
     pointer-events: none;
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.3s;
 
     ul {
-      pointer-events: all;
       list-style-type: none;
       display: flex;
       flex-direction: column;
-      margin-right: 30px;
+      align-items: center;
+      justify-content: center;
 
       li {
-        // margin-right: 15px;
-        // position: relative;
-        font-size: 0.8rem;
-        font-family: $font-sud;
-        font-weight: 600;
-        letter-spacing: 3;
-        padding-bottom: 5px;
 
         a {
+          display: flex;
           transition: color 0.3s;
           text-decoration: none;
-          color: $color-darkgray;
+          color: #000;
+          font-size: 4vw;
+          font-family: $font-sud;
+          font-weight: 400;
+          letter-spacing: 12px;
+          padding: 5px 0px;
 
-          &:hover,
-          &.pageOn {
-            color: $color-foreground;
-            text-decoration: underline;
-            text-underline-offset: 2px;
+          &.inactive {
+            color: $color-accent4;
           }
         }
 
-        &:last-child {
-          position: absolute;
-          top: 0;
-          right: 0;
-          writing-mode: vertical-lr;
-          //   text-orientation: upright;
-        }
       }
 
-      &.subs {
-        pointer-events: none;
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding-top: 30px;
-        text-align: left;
+    }
 
-        li {
-          display: block;
+    .bottom_left {
+      position: absolute;
+      bottom: 20px;
+      left: 40px;
+      font-family: $font-primary;
+      font-size: 1.1rem;
+      font-weight: 400;
+
+      a {
+        text-decoration: none;
+        color: #000;
+        font-family: $font-primary-bold;
+        font-weight: 400;
+        transition: color .2s;
+
+        &:hover {
+          color: $color-accent4;
         }
       }
     }
 
-    &.takeover {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      transform: unset;
-      background-color: rgba(255, 255, 255, 0.9);
-      opacity: 0;
-      transition: opacity 0.5s;
-      pointer-events: none;
+    .bottom_right {
+      position: absolute;
+      bottom: 20px;
+      right: 60px;
+      font-family: $font-primary;
+      font-size: 1.1rem;
+      font-weight: 400;
 
-      ul {
-        width: 90%;
-        text-align: center;
-        @include absolute-vertical;
-        flex-direction: column;
+      a {
+        text-decoration: none;
+        color: #000;
+        font-family: $font-primary-bold;
+        font-weight: 400;
+        transition: color .2s;
 
-        li {
-          margin: 0px auto;
-
-          a {
-            font-size: 5rem;
-          }
+        &:hover {
+          color: $color-accent4;
         }
       }
     }
   }
+
 }
+
 
 @include phone-portrait {
   header {
@@ -218,10 +258,17 @@ header {
 .lightboxOpen {
   header {
     .inner {
+      .menuBtn {
+        opacity: 0;
+        pointer-events: none;
+      }
+
       .logo {
         pointer-events: none;
       }
     }
+
+    /*
 
     nav {
       ul {
@@ -234,12 +281,26 @@ header {
         }
       }
     }
+
+    */
   }
 }
 
 .menuOn {
   header {
     .inner {
+
+      .menuBtn {
+        svg.arrow_down {
+          display: none;
+        }
+
+        svg.arrow_up {
+          display: block;
+        }
+      }
+
+      /*
       .menuBtn .line {
         background-color: rgba(0, 0, 0, 1) !important;
 
@@ -262,9 +323,11 @@ header {
           transform: rotate(135deg);
         }
       }
+
+      */
     }
 
-    nav.takeover {
+    nav {
       opacity: 1;
       pointer-events: all;
     }
@@ -314,9 +377,9 @@ header {
   z-index: 101;
   position: fixed;
   width: 100vw;
-  height: auto;
+  height: 100vh;
   transform: translateY(0);
-  transition: transform 0.5s;
+  transition: transform 1s;
 
   &.hidden {
     transform: translateY(-100%);
@@ -328,7 +391,7 @@ header {
   }
 
   .inner {
-    height: 80vh;
+    height: 100%;
   }
 
   .closeBtn {
@@ -349,7 +412,7 @@ header {
   }
 
   table {
-    height: 80vh !important;
+    height: 100% !important;
     background-color: transparent;
 
     tbody {

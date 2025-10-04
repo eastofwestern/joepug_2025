@@ -34,6 +34,9 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+    display: none;
+    pointer-events: none;
+
     .closeIcon {
       position: absolute;
       top: 45px;
@@ -45,6 +48,7 @@
       transition: transform 0.2s;
 
       pointer-events: all;
+
       p {
         pointer-events: none;
         font-family: $font-sud;
@@ -64,6 +68,7 @@
     z-index: 10;
     width: 80%;
     height: 80%;
+
     .wrap {
       position: relative;
       width: 100%;
@@ -87,16 +92,13 @@
           transition: transform 0.2s;
         }
 
-        .arrow.left {
-          transform: rotate(180deg);
-        }
-
         .cell {
           height: 80vh;
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
+
           video,
           img {
             display: block;
@@ -110,6 +112,7 @@
       }
     }
   }
+
   .buttons {
     display: none;
   }
@@ -159,9 +162,11 @@
       cursor: pointer;
       transform: scale(1);
       transition: transform 0.2s;
+
       &:hover {
         transform: scale(1.1);
       }
+
       .line {
         display: block;
         width: 100%;
@@ -171,6 +176,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) rotate(45deg);
+
         &:last-child {
           transform: translate(-50%, -50%) rotate(-45deg);
         }
@@ -183,6 +189,7 @@
     z-index: 10;
     width: 100%;
     height: 100%;
+
     .wrap {
       // position: relative;
       width: 100%;
@@ -192,6 +199,7 @@
       align-items: center;
       justify-content: center;
       padding-bottom: 0px;
+
       // video,
       // img {
       //   display: block;
@@ -205,22 +213,27 @@
         height: 70vh;
         width: auto;
       }
+
       .slideshow {
         transition: none;
         position: relative;
         // cursor: pointer;
         width: 100%;
+
         .flickity-viewport {
           min-height: 550px !important;
           height: 78vh !important;
           position: relative;
+
           .flickity-slider {
             height: 100%;
           }
+
           .cell {
             position: absolute;
             width: 100%;
             height: 100%;
+
             img {
               position: relative;
               width: 100%;
@@ -230,9 +243,11 @@
             }
           }
         }
+
         .flickity-page-dots {
           display: none;
         }
+
         button {
           z-index: 0;
           cursor: pointer;
@@ -241,12 +256,15 @@
           top: 0;
           height: 100%;
           width: 50%;
+
           svg {
             display: none;
           }
+
           &.previous {
             left: 0;
           }
+
           &.next {
             right: 0;
           }
@@ -267,9 +285,11 @@
 .archive {
   #overlay {
     margin: -10px 0 30px 0;
+
     .title {
       padding-top: 0;
     }
+
     .number {
       display: none;
     }
@@ -284,9 +304,11 @@
         right: 5%;
       }
     }
+
     .inner {
       width: 90%;
     }
+
     .buttons {
       display: flex;
       position: absolute;
@@ -294,40 +316,48 @@
       margin: 0 auto;
       justify-content: space-between;
       bottom: 10px;
+
       svg {
         padding: 10px;
         width: 45px;
         height: auto;
         pointer-events: all;
         z-index: 2;
+
         &.prev {
           transform: rotate(180deg);
         }
+
         * {
           pointer-events: none;
         }
       }
     }
   }
+
   #overlay {
     .inner {
       .wrap {
         padding-bottom: 10px;
+
         img {
           max-height: 50vh;
           width: 100%;
           object-fit: contain;
         }
+
         .slideshow {
           .flickity-viewport {
             min-height: 300px !important;
             height: 45vh !important;
           }
+
           button {
             bottom: -40px;
             top: unset;
             height: 20px;
             width: 20px;
+
             svg {
               display: block;
               height: 15px;

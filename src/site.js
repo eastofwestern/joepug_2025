@@ -248,38 +248,47 @@ document.addEventListener("DOMContentLoaded", function () {
   const handleMouseMove = (e) => {
     let slideshowEl = lightboxOverlay.querySelector(".slideshow");
 
-    let arrowIcon = slideshowEl.querySelector(".arrow");
+    let arrowLeftIcon = slideshowEl.querySelector(".arrow.left");
+    let arrowRightIcon = slideshowEl.querySelector(".arrow.right");
     let closeIcon = slideshowEl.querySelector(".close");
     let closerX = lightboxOverlay.querySelector(".closer .closeIcon");
 
     body.style.cursor = "none";
-    arrowIcon.style.display = "block";
 
-    arrowIcon.style.left = e.clientX - 23 + "px";
-    arrowIcon.style.top = e.clientY - 23 + "px";
-    closeIcon.style.left = e.clientX - 23 + "px";
-    closeIcon.style.top = e.clientY - 23 + "px";
+    // Get slideshow bounds
+    const rect = slideshowEl.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const width = rect.width;
 
-    // handle close icon over selected image
-    let selectedCell = slideshowEl.querySelector(".cell.is-selected img");
-    if (selectedCell && selectedCell.contains(e.target)) {
-      closeIcon.style.display = "none";
-      arrowIcon.style.display = "block";
-    } else {
+    // Hide all icons by default
+    arrowLeftIcon.style.display = "none";
+    arrowRightIcon.style.display = "none";
+    closeIcon.style.display = "none";
+
+    // Divide into thirds
+    if (x < width / 3) {
+      // Left third: show previous arrow
+      arrowLeftIcon.style.display = "block";
+      arrowLeftIcon.style.left = e.clientX - 23 + "px";
+      arrowLeftIcon.style.top = e.clientY - 23 + "px";
+    } else if (x < (2 * width) / 3) {
+      // Middle third: show close icon
       closeIcon.style.display = "block";
-      arrowIcon.style.display = "none";
-    }
-
-    // rotate arrow cursor based on position
-    if (e.pageX < window.innerWidth * 0.5) {
-      arrowIcon.classList.add("left");
+      closeIcon.style.left = e.clientX - 23 + "px";
+      closeIcon.style.top = e.clientY - 23 + "px";
     } else {
-      arrowIcon.classList.remove("left");
+      // Right third: show next arrow
+      arrowRightIcon.style.display = "block";
+      arrowRightIcon.style.left = e.clientX - 23 + "px";
+      arrowRightIcon.style.top = e.clientY - 23 + "px";
     }
 
-    // if the cursor is over the closeIcon, hide the arrow cursor and use the browser default cursor
-    if (closerX.contains(e.target)) {
-      arrowIcon.style.display = "none";
+    // If the cursor is over the closeIcon, hide arrows and use default cursor
+    if (closerX && closerX.contains(e.target)) {
+      arrowLeftIcon.style.display = "none";
+      arrowRightIcon.style.display = "none";
+      closeIcon.style.display = "none";
+      body.style.cursor = "default";
     }
   };
 
@@ -288,31 +297,25 @@ document.addEventListener("DOMContentLoaded", function () {
     let closeIcon = slideshowEl.querySelector(".close");
     let flkty = Flickity.data(slideshowEl);
 
-    // Find the image element in the selected cell
-    let selectedCell = slideshowEl.querySelector(".cell.is-selected img");
-
-    // If click is outside the image, close the lightbox
-    if (!selectedCell || !selectedCell.contains(e.target)) {
-      closeIcon.style.display = "none";
-      closeLightbox();
-      return;
-    }
-
-    // If click is on the image, determine left/right
-    const rect = selectedCell.getBoundingClientRect();
+    // Get slideshow bounds
+    const rect = slideshowEl.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
+    const width = rect.width;
 
-    if (clickX < rect.width / 2) {
-      // check if this is the first item, if so close the lightbox
+    if (clickX < width / 3) {
+      // Left third: previous
       if (flkty.selectedIndex === 0) {
         closeIcon.style.display = "none";
         closeLightbox();
       } else {
         flkty.previous();
       }
-
+    } else if (clickX < (2 * width) / 3) {
+      // Middle third: close
+      closeIcon.style.display = "none";
+      closeLightbox();
     } else {
-      // check if this is the last image in slideshow, if it is last, close lightbox
+      // Right third: next
       if (flkty.selectedIndex === flkty.cells.length - 1) {
         closeIcon.style.display = "none";
         closeLightbox();
@@ -894,6 +897,24 @@ document.addEventListener("DOMContentLoaded", function () {
     ScrollTrigger.refresh();
   }, 500);
 
+  // nav hover state - active item stays black, others go gold
+  let navLinks = document.querySelectorAll("nav ul a");
+  navLinks.forEach(navLink => {
+    navLink.addEventListener("mouseover", (e) => {
+      navLink.classList.add("active");
+      navLinks.forEach(link => {
+        if (link !== navLink) {
+          link.classList.add("inactive");
+        }
+      });
+    });
+    navLink.addEventListener("mouseleave", (e) => {
+      navLinks.forEach(link => {
+        link.classList.remove("inactive", "active");
+      });
+    });
+  });
+
   // Contact toggle
 
   let contactModule = document.querySelector(".contact_module");
@@ -905,11 +926,16 @@ document.addEventListener("DOMContentLoaded", function () {
     body.classList.add("contactOpen");
     contactModule.classList.remove("hidden");
   });
-  contactCloseBtn.addEventListener("click", (e) => {
-    e.preventDefault;
-    body.classList.remove("contactOpen");
-    contactModule.classList.add("hidden");
-  });
+
+  if (typeof contactCloseBtn != "undefined" && contactCloseBtn != null) {
+
+    contactCloseBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      body.classList.remove("contactOpen");
+      contactModule.classList.add("hidden");
+    });
+
+  }
 
 
   // close the contact overlay when clicking outside the contact box
@@ -1101,13 +1127,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //hamburger menu toggle
   if (typeof menuBtn != "undefined" && menuBtn != null) {
-    menuBtn.addEventListener(
-      "click",
-      function (event) {
-        event.preventDefault(), document.body.classList.toggle("menuOn");
-      },
-      true
-    );
+    menuBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      if (document.body.classList.contains("menuOn")) {
+        document.body.classList.remove("menuOn");
+        if (document.body.classList.contains("contactOpen")) {
+          document.body.classList.remove("contactOpen");
+          contactModule.classList.add("hidden");
+        }
+      } else {
+        document.body.classList.add("menuOn");
+      }
+
+    }, true);
   }
 
   // close overlay
