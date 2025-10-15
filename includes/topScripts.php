@@ -6,4 +6,4 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@3/dist/flickity.min.css">
 <link rel="stylesheet" href="https://unpkg.com/flickity-fade@2/flickity-fade.css">
 
-<link rel="stylesheet" type="text/css" href="/dist/styles.css?v=101425" />
+<link rel="stylesheet" type="text/css" href="/dist/styles.css?v=101525" />

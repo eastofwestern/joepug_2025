@@ -14,7 +14,7 @@ if ($firstSubID > 0) {
 }
 ?>
 
-<div class="two_column <?php if ($hasBioImg) { ?>has_bio_img<?php } ?> bio_module hidden">
+<div class="two_column <?php if ($hasBioImg) { ?>has_bio_img<?php } ?> bio_module hidden" style="background-color: <?= $bioDetails['bgColor'] ?>;">
     <div class="col_wrap">
         <div class="col">
             <div class="text-block">

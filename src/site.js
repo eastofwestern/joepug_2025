@@ -959,7 +959,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let contactBtn = document.querySelector("#contact");
 
   contactBtn.addEventListener("click", (e) => {
-    e.preventDefault;
+    e.preventDefault();
     body.classList.add("contactOpen");
     contactModule.classList.remove("hidden");
   });
@@ -989,19 +989,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 
-  /*
   // Bio toggle
 
   let bioModule = document.querySelector(".bio_module");
   let bioBtn = document.querySelector("#bio");
 
   bioBtn.addEventListener("click", (e) => {
-    e.preventDefault;
+    e.preventDefault();
     body.classList.add("contactOpen");
     bioModule.classList.remove("hidden");
   });
-  */
-
 
   // we need to make sure the first textblock on the bio page is at least as tall as the bio image
   let bioImageEl = document.querySelector(".bio_img_wrap");
@@ -1329,6 +1326,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (document.body.classList.contains("contactOpen")) {
           document.body.classList.remove("contactOpen");
           contactModule.classList.add("hidden");
+          bioModule.classList.add("hidden");
         }
       } else {
         document.body.classList.add("menuOn");

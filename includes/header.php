@@ -97,9 +97,11 @@ $homeCatID = getFirstCat();
 					$theLink = "/";
 				}
 
-				if ($cat['id'] == 728) {
+				/*
+				if ($cat['id'] == 728 or $cat['id'] == 727) {
 					$theLink = "#";
 				}
+					*/
 
 				if ($cat['pageType'] === "archive") {
 					// get the first subpage
