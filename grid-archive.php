@@ -58,7 +58,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 <body class="preload archive" data-catid="<?= $catID ?>" style="background-color: <?= $catDetails['bgColor'] ?>;">
 
     <?php include('includes/header.php'); ?>
-    <?php include('contact.php'); ?>
+
     <div id="smooth-wrapper">
         <div id="smooth-content">
             <main>
@@ -87,7 +87,7 @@ $metaTitle = getOption("company") . " | " . ucwords(str_replace("-", " ", $slug)
 
 
 
-                        <div class="grid flex archive">
+                        <div class="grid flex archive <?php if ($catDetails['pageType'] === "grid - archive large") { ?>large<?php } ?>">
 
                             <div class="row">
 

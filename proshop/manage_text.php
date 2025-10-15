@@ -83,7 +83,7 @@ $myText = getPageTextAll($catID);
 						<input type="hidden" name="parentParentID" value="<?= $parentParentID ?>" />
 						<input type="hidden" name="source" value="manage_text.php" />
 						<span class="head">BACKGROUND COLOR:</span><br />
-						<input type="text" id="colorpicker" name="bgColor" value="<?= $theCat['bgColor'] ?>"><br /><br />
+						<input type="color" name="bgColor" value="<?= $theCat['bgColor'] ?>"><br /><br />
 						<input type="submit" id="btn" value="UPDATE COLOR" /><br /><br />
 					</form>
 				</div>
@@ -120,7 +120,7 @@ $myText = getPageTextAll($catID);
 
 
 <script type="text/javascript">
-		tinymce.init({
+	tinymce.init({
 		license_key: 'gpl',
 		promotion: false,
 		mode: "specific_textareas",
@@ -215,13 +215,6 @@ $myText = getPageTextAll($catID);
 
 			return false;
 
-		});
-
-		$("#colorpicker").spectrum({
-			color: '<?= $theCat['bgColor'] ?>',
-			showInput: true,
-			showAlpha: false,
-			preferredFormat: "name"
 		});
 
 	});

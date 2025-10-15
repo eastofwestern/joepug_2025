@@ -21,8 +21,8 @@ header {
       left: 4%;
       // width: 300px;
       // height: 300px;
-      height: 77px;
-      width: 190px;
+      height: 83px;
+      width: 210px;
       pointer-events: all;
       z-index: 104;
 
@@ -373,13 +373,120 @@ header {
   }
 }
 
+.bio_module {
+  display: none;
+  z-index: 101;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  transform: translateY(0);
+  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &.hidden {
+    transform: translateY(-100%);
+
+    .inner {
+      background-color: transparent;
+      transition: background-color 0s;
+    }
+  }
+}
+
 .contact_module {
   z-index: 101;
   position: fixed;
   width: 100vw;
   height: 100vh;
   transform: translateY(0);
-  transition: transform 1s;
+  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  .bottom_left {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    font-family: $font-primary;
+    font-size: 1.1rem;
+    font-weight: 400;
+    z-index: 4;
+
+    a {
+      text-decoration: none;
+      color: #000;
+      font-family: $font-primary-bold;
+      font-weight: 400;
+      transition: opacity .2s;
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+  }
+
+  .bottom_right {
+    position: absolute;
+    bottom: 20px;
+    right: 60px;
+    font-family: $font-primary;
+    font-size: 1.1rem;
+    font-weight: 400;
+    z-index: 4;
+
+    a {
+      text-decoration: none;
+      color: #000;
+      font-family: $font-primary-bold;
+      font-weight: 400;
+      transition: color .2s;
+
+      &:hover {
+        color: $color-accent4;
+      }
+    }
+  }
+
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    .block {
+      position: absolute;
+      width: 33.33%;
+      top: 0;
+      height: 100%;
+
+      &:first-child {
+        background-color: rgba(197, 197, 197, 0.98);
+        left: 0;
+      }
+
+      &:nth-child(2) {
+        background-color: rgba(247, 218, 112, 0.98);
+        left: 33.33%;
+      }
+
+      &:last-child {
+        background-color: rgba(246, 237, 218, 0.98);
+        left: 66.66%;
+      }
+    }
+
+
+  }
+
+  a {
+    text-decoration: none;
+    opacity: 1;
+    transition: opacity .2s;
+
+    &:hover {
+      opacity: .5;
+    }
+  }
 
   &.hidden {
     transform: translateY(-100%);
@@ -392,6 +499,8 @@ header {
 
   .inner {
     height: 100%;
+    position: relative;
+    z-index: 2;
   }
 
   .closeBtn {
@@ -412,75 +521,41 @@ header {
   }
 
   table {
-    height: 100% !important;
     background-color: transparent;
 
     tbody {
       tr {
+
         &:first-child {
-          vertical-align: bottom;
-          height: 200px !important;
-
-          h3 {
-            font-weight: 400;
-            width: 90%;
-            border-bottom: 1px solid black;
-            padding-bottom: 5px;
-          }
-        }
-
-        &:nth-child(2) {
-          vertical-align: top;
-          height: 150px !important;
-
-          h3 {
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-          }
-
-          p {
-            font-size: 1.2rem;
-          }
-
           td {
-            padding-bottom: 3vh;
-          }
-        }
-
-        &:last-child {
-          vertical-align: top;
-          padding-bottom: 20px;
-
-          p:first-child {
-            width: 90%;
-            margin-bottom: 0;
-            padding-top: 20px;
-            border-top: 1px solid black;
-          }
-
-          td {
-            padding-bottom: 5vh;
-
-            a {
-              font-size: 0.9rem;
-            }
+            padding-top: 200px;
           }
         }
 
         td {
           padding: 26px 6% 0 4%;
 
-          &:first-child {
-            background-color: rgba(197, 197, 197, 0.98);
+          h2 {
+            font-weight: 400;
+            width: 90%;
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+            font-family: $font-sud;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
           }
 
-          &:nth-child(2) {
-            background-color: rgba(247, 218, 112, 0.98);
+          h3 {
+            font-weight: 600;
+            display: inline-block;
+            border-bottom: 1px solid black;
+            padding-bottom: 0px;
+            font-size: .7rem;
+            margin-bottom: 6px;
           }
 
-          &:last-child {
-            background-color: rgba(246, 237, 218, 0.98);
+          p {
+            line-height: 1.7;
           }
         }
       }

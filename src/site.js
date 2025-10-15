@@ -345,9 +345,25 @@ document.addEventListener("DOMContentLoaded", function () {
         initialIndex: cellIndex,
       });
 
-      // load the initial image
+      // load the initial image as well as next and previous
       let activeSlide = flkty.selectedElement;
       let activeImg = activeSlide.querySelector("img");
+      let nextSlide = activeSlide.nextElementSibling;
+      let prevSlide = activeSlide.previousElementSibling;
+
+      if (nextSlide) {
+        let nextImg = nextSlide.querySelector("img");
+        if (nextImg) {
+          loadImage(nextImg);
+        }
+      }
+
+      if (prevSlide) {
+        let prevImg = prevSlide.querySelector("img");
+        if (prevImg) {
+          loadImage(prevImg);
+        }
+      }
 
       if (activeImg) {
         loadImage(activeImg);
@@ -360,6 +376,27 @@ document.addEventListener("DOMContentLoaded", function () {
         if (nextImg) {
           loadImage(nextImg);
         }
+
+        // let's also preload the next and previous images
+        let nextIndex = index + 1;
+        let prevIndex = index - 1;
+        if (nextIndex >= flkty.cells.length) {
+          nextIndex = 0;
+        }
+        if (prevIndex < 0) {
+          prevIndex = flkty.cells.length - 1;
+        }
+        let nextSlide2 = flkty.cells[nextIndex].element;
+        let prevSlide2 = flkty.cells[prevIndex].element;
+        let nextImg2 = nextSlide2.querySelector("img");
+        let prevImg2 = prevSlide2.querySelector("img");
+        if (nextImg2) {
+          loadImage(nextImg2);
+        }
+        if (prevImg2) {
+          loadImage(prevImg2);
+        }
+
         let slideID = flkty.selectedElement.getAttribute("data-id");
         if (archive) {
           let cells = document.querySelectorAll(".grid_cell");
@@ -381,6 +418,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.addEventListener("mousemove", handleMouseMove);
       }
       document.addEventListener("click", handleSlideshowClick);
+
     }
   }
 
@@ -609,6 +647,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cells.forEach((cell) => {
       cell.classList.remove("selected");
     });
+    removeArchiveKeyHandler();
   }
 
   function ratioSize(el) {
@@ -880,16 +919,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // Use ScrollTrigger to scrub the timeline over a longer distance
   ScrollTrigger.create({
     trigger: footer,
-    start: "top+=300 bottom",
+    start: "top+=30 bottom",
     end: "bottom bottom",
     scrub: false,
     animation: footerTL,
     toggleActions: "play none none none",
     markers: false,
     onLeaveBack: () => {
-      setTimeout(() => {
-        footerTL.progress(0).pause(); // Reset timeline after delay
-      }, 300); // 800ms delay, adjust as needed
+      // Only reset when footer is fully out of view above
+      footerTL.progress(0).pause();
     }
   });
 
@@ -919,13 +957,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let contactModule = document.querySelector(".contact_module");
   let contactBtn = document.querySelector("#contact");
-  let contactCloseBtn = contactModule.querySelector(".closeBtn");
 
   contactBtn.addEventListener("click", (e) => {
     e.preventDefault;
     body.classList.add("contactOpen");
     contactModule.classList.remove("hidden");
   });
+
+  let contactCloseBtn = contactModule.querySelector(".closeBtn");
 
   if (typeof contactCloseBtn != "undefined" && contactCloseBtn != null) {
 
@@ -947,6 +986,40 @@ document.addEventListener("DOMContentLoaded", function () {
       body.classList.remove("contactOpen");
       contactModule.classList.add("hidden");
     });
+
+  }
+
+  /*
+  // Bio toggle
+
+  let bioModule = document.querySelector(".bio_module");
+  let bioBtn = document.querySelector("#bio");
+
+  bioBtn.addEventListener("click", (e) => {
+    e.preventDefault;
+    body.classList.add("contactOpen");
+    bioModule.classList.remove("hidden");
+  });
+  */
+
+
+  // we need to make sure the first textblock on the bio page is at least as tall as the bio image
+  let bioImageEl = document.querySelector(".bio_img_wrap");
+  if (typeof bioImageEl != "undefined" && bioImageEl != null) {
+
+    let bioWrapEl = document.querySelector(".bio_wrap");
+    if (typeof bioWrapEl != "undefined" && bioWrapEl != null) {
+      // we have a bio image and a bio text block
+      setFirstTextBlockHeight();
+      window.addEventListener("resize", setFirstTextBlockHeight);
+    }
+
+    // get the height of the bio image
+    function setFirstTextBlockHeight() {
+      let bioImageHeight = bioImageEl.offsetHeight + 50;
+      console.log("bio image height: " + bioImageHeight);
+      bioWrapEl.style.minHeight = bioImageHeight + "px";
+    }
 
   }
 
@@ -987,9 +1060,12 @@ document.addEventListener("DOMContentLoaded", function () {
             overlayLightboxInner.innerHTML = data;
             initLoading();
             initializeFlickity(index);
+            setTimeout(function () {
+              openLightbox();
+            }, 200);
+
           }
         );
-        openLightbox();
       });
     });
 
@@ -1065,59 +1141,177 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
+    function handleOverlayClick(e) {
+      let slideshowEl = overlayInner.querySelector(".wrap");
+      if (!slideshowEl) return;
+
+      const rect = slideshowEl.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+
+      const gridCells = Array.from(document.querySelectorAll(".grid_cell"));
+      const activeCell = document.querySelector(".grid_cell.selected");
+      const activeIndex = gridCells.indexOf(activeCell);
+
+      if (clickX < width / 3) {
+        const prevIndex = activeIndex - 1;
+        if (prevIndex >= 0) {
+          const prevCell = gridCells[prevIndex];
+          const prevLink = prevCell.querySelector("a");
+          if (prevLink) prevLink.click();
+        } else {
+          closeOverlay();
+        }
+      } else if (clickX < (2 * width) / 3) {
+        closeOverlay();
+      } else {
+        const nextIndex = activeIndex + 1;
+        if (nextIndex < gridCells.length) {
+          const nextCell = gridCells[nextIndex];
+          const nextLink = nextCell.querySelector("a");
+          if (nextLink) nextLink.click();
+        } else {
+          closeOverlay();
+        }
+      }
+    }
+
+    function handleOverlayMouseMove(e) {
+      let slideshowEl = overlayInner.querySelector(".wrap");
+      if (!slideshowEl) return;
+
+      let arrowLeftIcon = slideshowEl.querySelector(".arrow.left");
+      let arrowRightIcon = slideshowEl.querySelector(".arrow.right");
+      let closeIcon = slideshowEl.querySelector(".close");
+
+      body.style.cursor = "none";
+
+      const rect = slideshowEl.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const width = rect.width;
+
+      arrowLeftIcon.style.display = "none";
+      arrowRightIcon.style.display = "none";
+      closeIcon.style.display = "none";
+
+      if (x < width / 3) {
+        arrowLeftIcon.style.display = "block";
+        arrowLeftIcon.style.left = e.clientX - 23 + "px";
+        arrowLeftIcon.style.top = e.clientY - 23 + "px";
+      } else if (x < (2 * width) / 3) {
+        closeIcon.style.display = "block";
+        closeIcon.style.left = e.clientX - 23 + "px";
+        closeIcon.style.top = e.clientY - 23 + "px";
+      } else {
+        arrowRightIcon.style.display = "block";
+        arrowRightIcon.style.left = e.clientX - 23 + "px";
+        arrowRightIcon.style.top = e.clientY - 23 + "px";
+      }
+    }
+
+    // Utility to remove listeners
+    function removeOverlayListeners() {
+      overlayInner.removeEventListener("click", handleOverlayClick);
+      overlayInner.removeEventListener("mousemove", handleOverlayMouseMove);
+    }
+
+    let archiveKeyHandler = null;
+
+    function addArchiveKeyHandler() {
+      if (archiveKeyHandler) return;
+      archiveKeyHandler = function (e) {
+        const gridCells = Array.from(document.querySelectorAll(".cell"));
+        const activeCell = document.querySelector(".cell.selected");
+        const activeIndex = gridCells.indexOf(activeCell);
+
+        if (e.key === "Escape") {
+          closeOverlay();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          const prevIndex = activeIndex - 1;
+          if (prevIndex >= 0) {
+            const prevCell = gridCells[prevIndex];
+            const prevLink = prevCell.querySelector("a.openItem");
+            if (prevLink) prevLink.click();
+          } else {
+            closeOverlay();
+          }
+        } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          const nextIndex = activeIndex + 1;
+          if (nextIndex < gridCells.length) {
+            const nextCell = gridCells[nextIndex];
+            const nextLink = nextCell.querySelector("a.openItem");
+            if (nextLink) nextLink.click();
+          } else {
+            closeOverlay();
+          }
+        }
+      };
+      document.addEventListener("keydown", archiveKeyHandler);
+    }
+
+    function removeArchiveKeyHandler() {
+      if (archiveKeyHandler) {
+        document.removeEventListener("keydown", archiveKeyHandler);
+        archiveKeyHandler = null;
+      }
+    }
+
     // Get Item (for archive)
     let overlayItemLinks = document.querySelectorAll(".openItem");
     overlayItemLinks.forEach((overlayLink) => {
       overlayLink.addEventListener("click", function (e) {
-        e.preventDefault();
+        e.preventDefault()
 
-        let parentCell = overlayLink.closest(".cell");
+        let cells = document.querySelectorAll(".cell");
+        let clickedCell = e.currentTarget.closest(".cell");
+        let id = overlayLink.getAttribute("data-id");
+        getAjax("/getItem.php?id=" + id, function (data) {
+          overlayInner.innerHTML = data;
+          initLoading();
+          setTimeout(function () {
+            zenscroll.center(overlayInner);
+          }, 100);
 
-        if (parentCell.classList.contains("selected")) {
-          closeOverlay();
-          zenscroll.center(parentCell);
-        } else {
-          let cells = document.querySelectorAll(".cell");
-          let clickedCell = e.currentTarget.closest(".cell");
-          let id = overlayLink.getAttribute("data-id");
-          getAjax("/getItem.php?id=" + id, function (data) {
-            overlayInner.innerHTML = data;
-            initLoading();
-            setTimeout(function () {
-              zenscroll.center(overlayInner);
-            }, 100);
+          // Remove previous listeners before adding new ones
+          removeOverlayListeners();
+          overlayInner.addEventListener("click", handleOverlayClick);
+          overlayInner.addEventListener("mousemove", handleOverlayMouseMove);
 
-            overlayInner.addEventListener("click", function (e) {
-              closeOverlay();
-              zenscroll.center(parentCell);
-            });
+          addArchiveKeyHandler();
+
+          // Optionally, reset cursor when overlay closes
+          overlayCloser.addEventListener("click", function () {
+            body.style.cursor = "default";
+            removeOverlayListeners();
           });
 
-          /* ----------- ARCHIVE SLIDESHOW LOGIC -----------*/
-          //  For non-workpage, append overlay next to the last cell in current row
-          // closeOverlay();
-          let parentRow = e.currentTarget.closest(".row");
-          let clickedCellRect = clickedCell.getBoundingClientRect();
-          let firstCellInNextRow = null;
+        });
 
-          for (let i = 0; i < cells.length; i++) {
-            let cell = cells[i];
-            cell.classList.remove("selected");
-            let cellRect = cell.getBoundingClientRect();
-            if (cellRect.top > clickedCellRect.top) {
-              firstCellInNextRow = cell;
-              break;
-            }
-          }
-          clickedCell.classList.add("selected");
-          if (firstCellInNextRow) {
-            firstCellInNextRow.insertAdjacentElement("beforebegin", overlay);
-          } else {
-            parentRow.appendChild(overlay);
-          }
+        // ----------- ARCHIVE SLIDESHOW LOGIC -----------
+        //  For non-workpage, append overlay next to the last cell in current row
+        // closeOverlay();
+        let parentRow = e.currentTarget.closest(".row");
+        let clickedCellRect = clickedCell.getBoundingClientRect();
+        let firstCellInNextRow = null;
 
-          openOverlay();
+        for (let i = 0; i < cells.length; i++) {
+          let cell = cells[i];
+          cell.classList.remove("selected");
+          let cellRect = cell.getBoundingClientRect();
+          if (cellRect.top > clickedCellRect.top) {
+            firstCellInNextRow = cell;
+            break;
+          }
         }
+        clickedCell.classList.add("selected");
+        if (firstCellInNextRow) {
+          firstCellInNextRow.insertAdjacentElement("beforebegin", overlay);
+        } else {
+          parentRow.appendChild(overlay);
+        }
+
+        openOverlay();
+
       });
     });
 

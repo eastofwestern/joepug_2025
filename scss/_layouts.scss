@@ -3,13 +3,38 @@
 .two_column {
   .col_wrap {
     display: flex;
-    padding: 4.5% 10%;
+    padding: 4.5% 7%;
+    align-items: flex-start;
+    justify-content: space-between;
 
     .col {
-      width: 50%;
+      width: 45%;
       display: flex;
       flex-direction: column;
-      margin-right: 75px;
+
+      .inner {
+        position: relative;
+
+        .bio_cell {
+          display: block;
+          width: 29%;
+          height: auto;
+          position: absolute;
+          top: 6%;
+          left: -19%;
+
+          .bio_img_wrap {
+            width: 100%;
+            height: 0;
+            position: relative;
+
+            img.photo {
+              @include absolute-cover;
+            }
+          }
+
+        }
+      }
 
       h3 {
         width: 100%;
@@ -18,12 +43,13 @@
         font-weight: 500;
       }
 
-      &:last-child {
-        margin-right: 0;
+      p {
+        width: 80%;
       }
 
       table {
         box-sizing: content-box;
+        width: 80% !important;
 
         tbody {
           tr {
@@ -61,6 +87,23 @@
                   }
                 }
               }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.has_bio_img {
+    .col_wrap {
+      .col {
+        &:first-child {
+          p {
+            margin: 0 0 20px 15%;
+            width: 70%;
+
+            &:first-child {
+              margin-top: 30px;
             }
           }
         }
@@ -274,6 +317,16 @@
       }
     }
   }
+
+  &.large {
+    .row {
+      .cell {
+        .media_wrap {
+          height: 350px;
+        }
+      }
+    }
+  }
 }
 
 @include phone-portrait {
@@ -356,7 +409,7 @@
 .grid_loose {
   position: relative;
   width: 100%;
-  padding-bottom: 4.5%;
+  padding-bottom: 0;
 
   ul.canvas {
     list-style-type: none;

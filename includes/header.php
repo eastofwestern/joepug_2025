@@ -115,7 +115,7 @@ $homeCatID = getFirstCat();
 
 
 					<a href="<?= $theLink ?>" target="<?= $theTarget ?>" class="<?php if ($catID == $cat['id'] or $parentID == $cat['id']) { ?>pageOn<?php } ?>"
-						id="<?php if ($cat['id'] == 728) { ?>contact<?php } ?>">
+						id="<?php if ($cat['id'] == 728) { ?>contact<?php } ?><?php if ($cat['id'] == 727) { ?>bio<?php } ?>">
 
 						<?= $cat['name'] ?>
 					</a>
@@ -138,3 +138,6 @@ $homeCatID = getFirstCat();
 	</nav>
 
 </header>
+
+<?php include('contact.php'); ?>
+<?php include('bio.php'); ?>

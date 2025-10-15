@@ -78,7 +78,7 @@ if ($slug === "") {
 	} elseif ($row['pageType'] === "grid - series") {
 
 		include('grid-series.php');
-	} elseif ($row['pageType'] === "grid - archive") {
+	} elseif ($row['pageType'] === "grid - archive" or $row['pageType'] === "grid - archive large") {
 
 		include('grid-archive.php');
 	} elseif ($row['pageType'] === "modules") {
