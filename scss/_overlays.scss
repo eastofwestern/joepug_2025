@@ -92,6 +92,10 @@
           transition: transform 0.2s;
         }
 
+        .close {
+          width: 30px;
+        }
+
         .cell {
           height: 80vh;
           width: 100%;
@@ -209,6 +213,10 @@
         height: auto;
         display: none;
         transition: transform 0.2s;
+      }
+
+      .close {
+        width: 30px;
       }
 
       img {
