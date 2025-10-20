@@ -222,7 +222,7 @@
     display: flex;
     list-style-type: none;
     width: 92%;
-    margin: 20px auto 0 auto;
+    margin: 0 auto 20px auto;
 
     li {
       margin-right: 15px;
@@ -256,7 +256,7 @@
 .grid.flex {
   height: fit-content;
   width: 92%;
-  margin: 20px auto;
+  margin: 0 auto 20px auto;
   border-top: 1px solid black;
 
   p {

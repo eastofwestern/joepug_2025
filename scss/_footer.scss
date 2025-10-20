@@ -1,6 +1,7 @@
 /* ************** FOOTER ******************* */
 
-footer {
+footer,
+.footer {
   position: relative;
   z-index: 5;
   // background: #151515;
@@ -183,6 +184,16 @@ footer {
           stroke: none;
           fill: #fff;
         }
+      }
+    }
+  }
+}
+
+.footer {
+  .inner {
+    .animated_name {
+      .last_name {
+        left: 306px;
       }
     }
   }

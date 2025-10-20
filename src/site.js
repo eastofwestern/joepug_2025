@@ -998,6 +998,9 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     body.classList.add("contactOpen");
     bioModule.classList.remove("hidden");
+    setTimeout(function () {
+      bioModule.classList.add("scroll");
+    }, 750);
   });
 
   // we need to make sure the first textblock on the bio page is at least as tall as the bio image
@@ -1316,6 +1319,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   lightBoxInit();
 
+  // clicking anywhere in negative space of the nav closes the menu
+  if (typeof nav != "undefined" && nav != null) {
+    nav.addEventListener("click", function (event) {
+      document.body.classList.remove("menuOn");
+    });
+  }
+
   //hamburger menu toggle
   if (typeof menuBtn != "undefined" && menuBtn != null) {
     menuBtn.addEventListener("click", function (event) {
@@ -1327,9 +1337,17 @@ document.addEventListener("DOMContentLoaded", function () {
           document.body.classList.remove("contactOpen");
           contactModule.classList.add("hidden");
           bioModule.classList.add("hidden");
+          bioModule.classList.remove("scroll");
         }
       } else {
-        document.body.classList.add("menuOn");
+        if (document.body.classList.contains("contactOpen")) {
+          document.body.classList.remove("contactOpen");
+          contactModule.classList.add("hidden");
+          bioModule.classList.add("hidden");
+          bioModule.classList.remove("scroll");
+        } else {
+          document.body.classList.add("menuOn");
+        }
       }
 
     }, true);

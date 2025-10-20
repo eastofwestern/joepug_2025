@@ -195,6 +195,7 @@ label {
     position: relative;
     width: 100%;
     height: 0;
+
     img.photo,
     video {
       @include absolute-cover;
@@ -202,7 +203,8 @@ label {
   }
 }
 
-.openLightbox, .openLightboxSingle {
+.openLightbox,
+.openLightboxSingle {
   cursor: pointer;
 }
 
@@ -261,6 +263,7 @@ label {
     li {
       opacity: 0;
       transition: opacity 0.3s;
+
       &.loaded {
         opacity: 1;
       }
@@ -271,6 +274,7 @@ label {
 /* ANYTHING WRAPPED IN TEXT-BLOCK IS COMING FROM USER TEXT EDITOR */
 
 .text-block {
+
   img,
   video {
     display: block;
@@ -283,6 +287,7 @@ label {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
+
     .col {
       display: block;
     }
@@ -307,7 +312,8 @@ p {
   font-size: 1rem;
 }
 
-strong, b {
+strong,
+b {
   font-family: $font-primary-bold;
   font-weight: 400;
 }
@@ -339,7 +345,7 @@ main {
     &:before {
       content: "";
       display: block;
-      height: 110px;
+      height: 140px;
     }
   }
 }

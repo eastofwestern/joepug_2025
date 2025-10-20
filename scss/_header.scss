@@ -154,6 +154,8 @@ header {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+      z-index: 15;
 
       li {
 
@@ -377,10 +379,11 @@ header {
   z-index: 101;
   position: fixed;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  height: auto;
+  overflow-y: scroll;
   transform: translateY(0);
-  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  //transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform .75s cubic-bezier(0.9, 0.49, 0.35, 1.1);
 
   &.hidden {
     transform: translateY(-100%);
@@ -391,10 +394,14 @@ header {
     }
   }
 
+  &.scroll {
+    height: 100vh;
+  }
+
   .col_wrap {
     padding-top: 140px !important;
-    height: 100%;
-    overflow-y: scroll;
+    padding-bottom: 0px !important;
+    height: auto;
   }
 }
 
@@ -404,7 +411,8 @@ header {
   width: 100vw;
   height: 100vh;
   transform: translateY(0);
-  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  //transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform .75s cubic-bezier(0.9, 0.49, 0.35, 1.1);
 
   .bottom_left {
     position: absolute;

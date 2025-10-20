@@ -58,7 +58,7 @@ $footerLogoDetails = catDetails(740);
 			</div>
 			<div class="col">
 				<p class="title">CONTACT</p>
-				<p><a href="http://www.ba-reps.com/" target="_blank">B&A Reps</a><br />
+				<p><a href="https://www.ba-reps.com/photographers/joe-pugliese" target="_blank">B&A Reps</a><br />
 					<a href="mailto:ehrin@ba-reps.com">ehrin@ba-reps.com</a><br />
 					tel: +1 917 587 8286
 				</p>
