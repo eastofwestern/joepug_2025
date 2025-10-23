@@ -114,7 +114,6 @@
 
 @include phone-portrait {
   .two_column {
-    margin-top: 25px;
 
     .col_wrap {
       flex-direction: column;
@@ -124,6 +123,16 @@
       .col {
         margin: 0;
         width: 100%;
+
+        .inner {
+          .bio_wrap {
+            margin-bottom: 50px;
+          }
+
+          .bio_cell {
+            left: -6%;
+          }
+        }
 
         table {
           tbody {
@@ -147,7 +156,19 @@
         }
 
         &:last-child {
-          padding-top: 50px;
+          padding-top: 20px;
+        }
+      }
+    }
+
+    &.has_bio_img {
+      .col_wrap {
+        .col {
+          &:first-child {
+            p {
+              margin: 0 0 20px 30%;
+            }
+          }
         }
       }
     }
@@ -351,6 +372,8 @@
       width: 100%;
 
       .row {
+        overflow: hidden;
+
         .cell {
           margin: 7.5px 0 7.5px 4%;
 

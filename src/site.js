@@ -398,6 +398,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         let slideID = flkty.selectedElement.getAttribute("data-id");
+        // add the slideID to the body as a data-attribute, needed when overlay closes we can scroll to last image
+        document.body.setAttribute("data-slide-id", slideID);
         if (archive) {
           let cells = document.querySelectorAll(".grid_cell");
           cells.forEach((cell) => {
@@ -412,6 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
       });
+
 
       // change cursor to arrow icon when hovering over slideshow
       if (window.innerWidth > 768) {
@@ -625,6 +628,14 @@ document.addEventListener("DOMContentLoaded", function () {
       randomLogoAnimation();
     }, 4000);
 
+    // get the slide id from body data-attribute
+    let slideID = document.body.getAttribute("data-slide-id");
+    // scroll to that image in the grid
+    let targetEl = document.querySelector(`.cell[data-id='${slideID}']`);
+    if (targetEl) {
+      zenscroll.to(targetEl, 750);
+    }
+
     // Remove keyboard listener
     if (lightboxKeyHandler) {
       document.removeEventListener("keydown", lightboxKeyHandler);
@@ -647,6 +658,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cells.forEach((cell) => {
       cell.classList.remove("selected");
     });
+
     removeArchiveKeyHandler();
   }
 
@@ -889,7 +901,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function footerSetup() {
     // we need to position the last_name element based on screen width
-    lastName.style.left = innerWidth * .92 - 289 + 'px';
+    if (innerWidth <= 768) {
+      lastName.style.left = innerWidth - 125 + 'px';
+    } else {
+      lastName.style.left = innerWidth * .92 - 289 + 'px';
+    }
   }
 
   footerSetup();
@@ -912,6 +928,19 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .to(lastName, {
         left: 304,
+        duration: 1,
+      }, '.8');
+  } else {
+    footerTL.to(mask, {
+      clipPath: `inset(0 0 0 100%)`,
+      duration: 1,
+    })
+      .to(mask, {
+        clipPath: `inset(0 0 0 0)`,
+        duration: 1,
+      })
+      .to(lastName, {
+        left: 105,
         duration: 1,
       }, '.8');
   }

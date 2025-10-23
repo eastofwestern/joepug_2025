@@ -41,6 +41,18 @@ if ($firstSubID > 0) {
         </div>
     </div>
 
+    <div class="bottom">
+        <div class="bottom_left">
+            <a href="https://www.instagram.com/joepug/" target="_blank">Instagram</a>
+        </div>
+
+        <div class="bottom_right">
+            Represented by: <a href="https://www.ba-reps.com/photographers/joe-pugliese" target="_blank">B&amp;A Reps</a>
+        </div>
+    </div>
+
+    <?php /*
+
     <div class="footer">
 
         <div class="inner">
@@ -114,5 +126,7 @@ if ($firstSubID > 0) {
         </div>
 
     </div>
+
+    */ ?>
 
 </div>

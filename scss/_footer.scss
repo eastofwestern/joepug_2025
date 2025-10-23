@@ -203,38 +203,66 @@ footer,
   footer {
     .inner {
       .animated_name {
-        padding-top: 0;
-        overflow: visible;
+        height: 40px;
 
         .mask {
-          display: none;
+          width: 345px;
+          height: 60px;
+          background-color: white;
+          position: absolute;
+          left: 86px;
+          bottom: -9px;
+          z-index: 5;
+          clip-path: inset(0 0 0 0);
         }
 
         img {
-          height: 35px;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          clip-path: inset(0 77% 0 0);
+          height: 60px;
         }
 
-        svg {
-          height: 35px;
-          overflow: visible;
+        svg#joe {
+          height: 40px;
+          width: auto;
+          position: absolute;
+          top: 0;
+          left: 0;
 
-          &#joe {
-            width: 400px !important;
-            left: -44px;
+          path,
+          rect {
+            fill: currentColor;
           }
 
-          &#pug {
-            right: -130px;
-            bottom: 0;
+        }
+
+        .last_name {
+          position: absolute;
+          left: 60%;
+          bottom: 0;
+          display: flex;
+          z-index: 10;
+          width: 100vw;
+
+          .spacer {
+            width: 20px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: -20px;
           }
 
-          &#liese {
-            bottom: 0;
-            padding-left: 0px;
-            right: -200px;
-            background-color: transparent;
+          svg {
+            height: 40px;
+
+            &#liese {
+              margin-left: 5px;
+            }
           }
         }
+
       }
 
       .bottom {

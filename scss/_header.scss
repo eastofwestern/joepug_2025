@@ -233,24 +233,43 @@ header {
         width: 175px;
         top: 25px;
       }
+
+      .menuBtn {
+        width: 80px;
+        height: 80px;
+
+        svg.arrow_down {
+          transform: translate(15px, -15px);
+        }
+
+        &:hover {
+          svg.arrow_down {
+            transform: translate(15px, -15px);
+          }
+        }
+
+      }
     }
 
     nav {
-      top: 25px;
-      right: 20px;
+      background-color: rgba($color-accent3, 0.95);
 
       ul {
         li {
-          a:hover {
-            text-decoration: none;
-          }
-
-          &:last-child {
-            opacity: 1;
-            transition: opacity 0.2s;
+          a {
+            font-size: 6vw;
           }
         }
       }
+
+      .bottom_left {
+        left: 5%;
+      }
+
+      .bottom_right {
+        right: 5%;
+      }
+
     }
   }
 }
@@ -383,7 +402,7 @@ header {
   overflow-y: scroll;
   transform: translateY(0);
   //transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transition: transform .75s cubic-bezier(0.9, 0.49, 0.35, 1.1);
+  transition: transform .75s cubic-bezier(0.9, 0.49, 0.35, 1.2);
 
   &.hidden {
     transform: translateY(-100%);
@@ -403,6 +422,54 @@ header {
     padding-bottom: 0px !important;
     height: auto;
   }
+
+  .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 120px);
+    margin: 0 auto 40px auto;
+
+    .bottom_left {
+      font-family: $font-primary;
+      font-size: 1.1rem;
+      font-weight: 400;
+      z-index: 4;
+
+      a {
+        text-decoration: none;
+        color: #000;
+        font-family: $font-primary-bold;
+        font-weight: 400;
+        transition: opacity .2s;
+
+        &:hover {
+          opacity: .5;
+        }
+      }
+    }
+
+    .bottom_right {
+      font-family: $font-primary;
+      font-size: 1.1rem;
+      font-weight: 400;
+      z-index: 4;
+
+      a {
+        text-decoration: none;
+        color: #000;
+        font-family: $font-primary-bold;
+        font-weight: 400;
+        transition: color .2s;
+
+        &:hover {
+          color: $color-accent4;
+        }
+      }
+    }
+
+  }
+
 }
 
 .contact_module {
@@ -412,7 +479,11 @@ header {
   height: 100vh;
   transform: translateY(0);
   //transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transition: transform .75s cubic-bezier(0.9, 0.49, 0.35, 1.1);
+  transition: transform .75s cubic-bezier(0.9, 0.49, 0.35, 1.2);
+
+  .bottom {
+    display: none;
+  }
 
   .bottom_left {
     position: absolute;
@@ -578,11 +649,56 @@ header {
 }
 
 @include phone-portrait {
+
+  .bio_module {
+    transition: transform 1.5s cubic-bezier(0.9, 0.49, 0.35, 1.2);
+
+    .bottom {
+      width: 90%;
+    }
+  }
+
   .contact_module {
     z-index: 14;
     height: 100vh;
     overflow-y: scroll;
     background-color: $color-gray;
+
+    .bottom_left.desktop,
+    .bottom_right.desktop {
+      display: none;
+    }
+
+    .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0 auto;
+      background-color: #f6edda;
+      padding: 0 0 20px 0;
+
+      .bottom_left {
+        position: relative;
+        left: unset;
+        bottom: unset;
+        display: block;
+        margin-left: 5%;
+      }
+
+      .bottom_right {
+        position: relative;
+        right: unset;
+        bottom: unset;
+        display: block;
+        margin-right: 5%;
+      }
+
+    }
+
+    .background {
+      display: none;
+    }
 
     .closeBtn {
       display: none;
@@ -592,6 +708,8 @@ header {
     table {
       display: grid;
       grid-template-columns: 1fr;
+      height: auto !important;
+
 
       colgroup {
         col {
@@ -605,6 +723,12 @@ header {
         tr {
           display: contents;
 
+          &:first-child {
+            td {
+              padding-top: 50px;
+            }
+          }
+
           h3,
           p {
             width: 100% !important;
@@ -612,6 +736,10 @@ header {
 
           td {
             padding: 26px 6% 0 6%;
+
+            h2 {
+              margin-bottom: 0;
+            }
 
             &:first-child {
               background-color: $color-gray;
@@ -651,16 +779,19 @@ header {
               &:nth-child(1) {
                 grid-row: 2;
                 grid-column: 1;
+                padding-bottom: 50px;
               }
 
               &:nth-child(2) {
                 grid-row: 5;
                 grid-column: 1;
+                padding-bottom: 50px;
               }
 
               &:nth-child(3) {
                 grid-row: 8;
                 grid-column: 1;
+                padding-bottom: 50px;
               }
             }
           }
