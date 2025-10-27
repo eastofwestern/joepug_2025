@@ -1025,11 +1025,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   bioBtn.addEventListener("click", (e) => {
     e.preventDefault();
+
+    let scrollTimeout = 750;
+    if (innerWidth <= 768) {
+      scrollTimeout = 1500;
+    }
+
     body.classList.add("contactOpen");
     bioModule.classList.remove("hidden");
     setTimeout(function () {
       bioModule.classList.add("scroll");
-    }, 750);
+    }, scrollTimeout);
   });
 
   // we need to make sure the first textblock on the bio page is at least as tall as the bio image
