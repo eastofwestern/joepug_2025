@@ -1357,7 +1357,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // clicking anywhere in negative space of the nav closes the menu
   if (typeof nav != "undefined" && nav != null) {
     nav.addEventListener("click", function (event) {
-      document.body.classList.remove("menuOn");
+      // Only close if NOT clicking an <a> tag or its descendants
+      if (!event.target.closest("a")) {
+        document.body.classList.remove("menuOn");
+      }
     });
   }
 

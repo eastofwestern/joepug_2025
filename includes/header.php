@@ -134,7 +134,7 @@ $homeCatID = getFirstCat();
 		</div>
 
 		<div class="bottom_right">
-			Represented by <a href="https://www.ba-reps.com/" target="_blank">B&A Reps</a>
+			Represented by <a href="https://www.ba-reps.com/photographers/joe-pugliese" target="_blank">B&A Reps</a>
 		</div>
 
 	</nav>
