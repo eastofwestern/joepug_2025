@@ -23,6 +23,7 @@ if (isset($_GET['modedit'])) {
 }
 $allmods = getModLayouts('no');
 $modules = getCatModules($catID);
+$metaType = "category";
 
 ?>
 

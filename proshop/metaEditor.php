@@ -82,6 +82,7 @@ if (isset($metaType) and $metaType === "product") {
 
 	<form action="" method="post" enctype="multipart/form-data">
 
+		<input type="hidden" id="catID" name="catID" value="<?= $catID ?>">
 		<input type="hidden" name="current_image" id="current_image" value="<?= $theCat['metaImage'] ?>" />
 		<input type="hidden" name="current_width" id="current_width" value="<?= $theCat['metaImageWidth'] ?>" />
 		<input type="hidden" name="current_height" id="current_height" value="<?= $theCat['metaImageHeight'] ?>" />

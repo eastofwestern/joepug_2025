@@ -7,3 +7,13 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity-fade@2/flickity-fade.css">
 
 <link rel="stylesheet" type="text/css" href="/dist/styles.css?v=102925" />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVJ3EYZTWD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VVJ3EYZTWD');
+</script>
