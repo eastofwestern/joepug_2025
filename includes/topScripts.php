@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@3/dist/flickity.min.css">
 <link rel="stylesheet" href="https://unpkg.com/flickity-fade@2/flickity-fade.css">
 
-<link rel="stylesheet" type="text/css" href="/dist/styles.css?v=111425" />
+<link rel="stylesheet" type="text/css" href="/dist/styles.css?v=111425a" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVJ3EYZTWD"></script>
