@@ -80,6 +80,17 @@ $images = getImages($catID, $theSort);
 
             <figure class="cell <?= $cellClass ?>" data-id="<?= $image['id'] ?>">
                 <img src="<?= $loaderImg ?>" data-img="<?= $image['img'] ?>" class="photo <?= $ext ?>" width="<?= $image['width'] ?>" height="<?= $image['height'] ?>" <?php if ($hasTitle) { ?>alt="<?= $image['title'] ?> ?>" <?php } ?> />
+
+				<?php if ($hasTitle or $hasCaption) { ?>
+					<div class="info">
+						<?php if ($hasTitle) { ?>
+							<h2><?= $image['title'] ?></h2>
+						<?php } ?>
+						<?php if ($hasCaption) { ?>
+							<p><?= $image['caption'] ?></p>
+						<?php } ?>
+					</div>
+				<?php } ?>
             </figure>
 
         <?php } ?>

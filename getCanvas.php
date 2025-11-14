@@ -106,6 +106,8 @@ $images = getImages($catID, $theSort);
 
                 </div>
 
+				<?php /*
+
                 <?php if ($hasTitle) { ?>
                     <div class="info">
                         <div class="wrap">
@@ -113,6 +115,8 @@ $images = getImages($catID, $theSort);
                         </div>
                     </div>
                 <?php } ?>
+
+				*/ ?>
 
             <?php } ?>
 

@@ -35,7 +35,7 @@
     "zenscroll": "^4.0.2"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.4.0",
-    "parcel": "^2.4.0"
+    "@parcel/transformer-sass": "^2.16.1",
+    "parcel": "^2.16.1"
   }
 }
